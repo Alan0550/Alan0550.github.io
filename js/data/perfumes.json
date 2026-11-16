@@ -14695,7 +14695,7 @@
     ],
     "etiqueta": null,
     "en_stock_completos": true,
-    "en_stock_decants": true,
+    "en_stock_decants": false,
     "image_miniatura": "imagenes/fotos-catalogo/arabes/YARA CANDY.jpg",
     "image_miniatura_decant": "imagenes/fotos-decants/mujer/YARA CANDY.png",
     "images_gallery": [],
