@@ -13,7 +13,7 @@
     --m-losa: #F4EEE3;               /* losa pulida, más clara */
     --m-crema: #FBF7F0;              /* marfil (capilares, brillos) */
     --m-sombra-piedra: #D9CCB6;      /* frente en sombra de un zócalo */
-    --m-marble-image: url('../../imagenes/marmol.webp');
+    --m-marble-image: url('/imagenes/marmol.webp');
     --m-marble-size: 900px 900px;
     --m-velo: rgba(244, 238, 227, 0.5);   /* calma el fondo de página */
 

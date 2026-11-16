@@ -22,28 +22,31 @@
         });
     }
 
-    // Delegado en el documento: así también navegan dentro del shell los enlaces
-    // que se crean después de cargar (las diapositivas que arma el carrusel de
-    // novedades desde js/data/novedades.js).
     function initHomeActions() {
-        document.addEventListener('click', event => {
-            const action = event.target && event.target.closest && event.target.closest('[data-shell-target]');
-            const target = action && action.dataset.shellTarget;
-            if (!target) {
-                return;
-            }
+        const actions = document.querySelectorAll('[data-shell-target]');
+        if (!actions.length) {
+            return;
+        }
 
-            // El detalle de producto vuelve a la ruta recordada: al entrar
-            // desde el inicio, esa ruta debe ser el inicio y no el panel
-            // que el usuario hubiera visitado antes.
-            if (/^perfume\.html/i.test(target)) {
-                App.core.rememberReturnRoute('catalogo.html');
-            }
+        actions.forEach(action => {
+            action.addEventListener('click', event => {
+                const target = action.dataset.shellTarget;
+                if (!target) {
+                    return;
+                }
 
-            const parentNav = window.parent && window.parent !== window && window.parent.catalogShellNavigate;
-            if (typeof parentNav === 'function' && parentNav(target)) {
-                event.preventDefault();
-            }
+                // El detalle de producto vuelve a la ruta recordada: al entrar
+                // desde el inicio, esa ruta debe ser el inicio y no el panel
+                // que el usuario hubiera visitado antes.
+                if (/^perfume\.html/i.test(target)) {
+                    App.core.rememberReturnRoute('catalogo.html');
+                }
+
+                const parentNav = window.parent && window.parent !== window && window.parent.catalogShellNavigate;
+                if (typeof parentNav === 'function' && parentNav(target)) {
+                    event.preventDefault();
+                }
+            });
         });
     }
 
