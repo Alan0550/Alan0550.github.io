@@ -2,14 +2,6 @@
 window.CATALOGO_NOVEDADES = [
     {
         "tipo": "perfume",
-        "valor": "perfume-prueba-e2e-casa-prueba",
-        "src": "imagenes/novedades/prueba-github-54.webp",
-        "ancho": 1080,
-        "alto": 1350,
-        "alt": "Novedad — Casa Prueba Perfume Prueba E2E"
-    },
-    {
-        "tipo": "perfume",
         "valor": "hacivat-nishane-nishane",
         "src": "imagenes/novedades/novedad-30.jpg",
         "ancho": 1080,
