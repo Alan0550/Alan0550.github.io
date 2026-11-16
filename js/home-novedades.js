@@ -1,9 +1,68 @@
 /* Carrusel de Novedades de la pantalla de inicio.
    Reemplaza al buscador principal: muestra los artes promocionales con
    desplazamiento por scroll-snap, puntos indicadores y autoplay suave.
-   Es autónomo y no hace nada si la sección no está presente. */
+   Es autónomo y no hace nada si la sección no está presente.
+   Las diapositivas salen de js/data/novedades.js (lo publica el ERP); si ese
+   archivo falta, quedan las escritas en catalogo.html como respaldo. */
 (function () {
     'use strict';
+
+    var WHATSAPP = '59178064327';
+
+    function hrefDe(novedad) {
+        if (novedad.tipo === 'perfume') {
+            return 'perfume.html#id=' + novedad.valor;
+        }
+        if (novedad.tipo === 'busqueda') {
+            return 'search.html#q=' + encodeURIComponent(novedad.valor);
+        }
+        return 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(novedad.valor);
+    }
+
+    function construirSlide(novedad, indice) {
+        var a = document.createElement('a');
+        var href = hrefDe(novedad);
+        a.className = 'home-novedades__slide';
+        a.setAttribute('href', href);
+        a.setAttribute('aria-label', novedad.alt);
+        if (novedad.tipo === 'whatsapp') {
+            a.setAttribute('target', '_blank');
+            a.setAttribute('rel', 'noopener noreferrer');
+        } else {
+            a.setAttribute('data-shell-target', href);
+        }
+        var img = document.createElement('img');
+        // `loading` va ANTES que `src`: el navegador empieza a bajar la imagen en
+        // cuanto ve el src, y si lazy todavía no está puesto las baja todas.
+        img.setAttribute('loading', indice === 0 ? 'eager' : 'lazy');
+        img.setAttribute('decoding', 'async');
+        img.setAttribute('alt', novedad.alt);
+        img.setAttribute('width', novedad.ancho);
+        img.setAttribute('height', novedad.alto);
+        img.setAttribute('src', novedad.src);
+        a.appendChild(img);
+        return a;
+    }
+
+    // Las diapositivas del ERP; si no hay (archivo ausente o vacío), las de
+    // respaldo, que viven en un <template> para que el navegador no las
+    // descargue cuando no hacen falta.
+    function renderizar(track) {
+        var novedades = window.CATALOGO_NOVEDADES;
+        if (Array.isArray(novedades) && novedades.length > 0) {
+            track.innerHTML = '';
+            novedades.forEach(function (novedad, indice) {
+                track.appendChild(construirSlide(novedad, indice));
+            });
+            return;
+        }
+        var respaldo = document.getElementById('novedades-respaldo');
+        if (respaldo) {
+            track.innerHTML = respaldo.innerHTML;
+        }
+    }
+
+    window.HomeNovedades = { construirSlide: construirSlide, renderizar: renderizar };
 
     function init() {
         var track = document.getElementById('novedades-track');
@@ -11,6 +70,7 @@
         if (!track) {
             return;
         }
+        renderizar(track);
 
         var slides = Array.prototype.slice.call(track.children);
         if (slides.length === 0) {
