@@ -2,19 +2,19 @@
 window.CATALOGO_NOVEDADES = [
     {
         "tipo": "perfume",
-        "valor": "van-py-rhum-lorenzo-pazzaglia",
-        "src": "imagenes/novedades/novedad-34.webp",
-        "ancho": 1080,
-        "alto": 1350,
-        "alt": "Novedad — Lorenzo Pazzaglia Van Py Rhum"
-    },
-    {
-        "tipo": "perfume",
         "valor": "hacivat-nishane-nishane",
         "src": "imagenes/novedades/novedad-30.jpg",
         "ancho": 1080,
         "alto": 1350,
         "alt": "Novedad — Nishane Nishane Hacivat"
+    },
+    {
+        "tipo": "perfume",
+        "valor": "van-py-rhum-lorenzo-pazzaglia",
+        "src": "imagenes/novedades/novedad-34.webp",
+        "ancho": 1080,
+        "alto": 1350,
+        "alt": "Novedad — Lorenzo Pazzaglia Van Py Rhum"
     },
     {
         "tipo": "perfume",
