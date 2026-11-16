@@ -1,0 +1,113 @@
+:root {
+    --app-height: 100vh;
+    --shell-embed-top-offset: calc(var(--header-height) + env(safe-area-inset-top) + 24px);
+}
+
+html {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+html.swipe-shell-lock,
+html.swipe-shell-lock body {
+    width: 100%;
+    height: var(--app-height);
+    overflow: hidden;
+    overscroll-behavior: none;
+}
+
+.hidden {
+    display: none;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: var(--app-height);
+    font-family: var(--font-body);
+    margin: 0;
+    padding: 0;
+    padding-top: calc(var(--header-height) + env(safe-area-inset-top) + 32px);
+    box-sizing: border-box;
+    background: var(--m-fondo-pagina);
+    color: var(--ink);
+    overflow-x: hidden;
+    max-width: 100vw;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* Encabezados editoriales: serif con espaciado generoso */
+.section-heading h1,
+.section-heading h2,
+.home-hero__title,
+.home-novedades__title {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: 0.005em;
+    line-height: 1.02;
+}
+
+body.swipe-hub {
+    padding-top: 0;
+    padding-bottom: 0;
+    min-height: var(--app-height);
+    background: #fff;
+    overflow: hidden;
+    overscroll-behavior: none;
+}
+
+body.is-shell-embed {
+    padding-top: var(--shell-embed-top-offset);
+    padding-bottom: 0;
+    min-height: var(--app-height);
+}
+
+body.is-shell-embed.catalog-nav-visible {
+    padding-bottom: 0;
+}
+
+/* Teléfono dentro del shell: el header es una píldora chica y el contenido
+   arranca justo debajo de ella (`--shell-embed-top-offset` = borde inferior
+   de la píldora + 10 px). El aire de arriba de `.page-shell` era para el
+   header ancho de antes: sobraba. */
+@media (max-width: 960px) {
+    html body.is-shell-embed main.page-shell {
+        padding-top: 0;
+    }
+}
+
+body.catalog-nav-visible {
+    padding-bottom: calc(120px + env(safe-area-inset-bottom, 0px));
+}
+
+.page-shell {
+    width: min(1180px, 92vw);
+    margin: 0 auto;
+    padding-inline: clamp(16px, 6vw, 36px);
+    box-sizing: border-box;
+}
+
+main {
+    flex: 1;
+    padding: 20px clamp(16px, 6vw, 28px);
+    display: flex;
+    margin-top: 0;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+@media (min-width: 1440px) {
+    .page-shell {
+        width: min(1280px, 82vw);
+        padding-inline: 48px;
+    }
+}
+
+@media (max-width: 540px) {
+    :root {
+        --header-height: 72px;
+    }
+}

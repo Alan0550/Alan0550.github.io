@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Arma tu combo | Perfumería Suárez</title>
+    <!-- Arma tu combo ahora es una sala de Perfumería. Esta página queda solo para los
+         links viejos: un refresh común la lleva a la sala, en cualquier hosting. -->
+    <!-- Un link compartido (`?combo=SRZ-…`) lleva su código a la sala; el refresh
+         de abajo queda para cuando no hay JavaScript. -->
+    <script>
+        (function () {
+            var destino = new URLSearchParams({ seccion: 'perfumeria', sala: 'combo' });
+            var codigo = new URLSearchParams(location.search).get('combo');
+            if (codigo) destino.set('combo', codigo);
+            location.replace('/?' + destino.toString());
+        })();
+    </script>
+    <meta http-equiv="refresh" content="0; url=/?seccion=perfumeria&amp;sala=combo">
+    <link rel="canonical" href="https://perfumeriasuarez.com/">
+</head>
+<body>
+    <p><a href="/?seccion=perfumeria&amp;sala=combo">Ir a Arma tu combo en Perfumería</a></p>
+</body>
+</html>

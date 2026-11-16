@@ -1,0 +1,80 @@
+<header class="site-header">
+    <div class="header-shell">
+        <a href="index.html" class="brand">
+            <img src="imagenes/Suarez.png" alt="Perfumería Suárez" class="brand-mark" width="742" height="320">
+        </a>
+        <nav class="primary-nav" aria-label="Navegación principal">
+            <div class="nav-panel" id="menu">
+                <ul class="nav-links">
+                    <li class="nav-item"><a class="nav-link" href="perfumeria.html">Perfumería</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="header-actions">
+            <button class="header-search-toggle" id="mobile-search-trigger" type="button" aria-label="Buscar" aria-expanded="false" aria-controls="header-search-panel">
+                <span class="search-icon" aria-hidden="true"></span>
+                <span class="header-search-toggle__label">Buscar</span>
+            </button>
+            <button class="header-cart-toggle" id="cart-toggle" type="button" aria-label="Abrir carrito" aria-expanded="false" aria-controls="cart-panel">
+                <span class="header-cart-toggle__icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" focusable="false">
+                        <path d="M7 7V6a5 5 0 0 1 10 0v1h2a1 1 0 0 1 1 1l-1 11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2L4 8a1 1 0 0 1 1-1zm2 0h6V6a3 3 0 0 0-6 0zm1 4a1 1 0 0 0-2 0v2a1 1 0 1 0 2 0zm6 0a1 1 0 1 0-2 0v2a1 1 0 1 0 2 0z"></path>
+                    </svg>
+                </span>
+                <span class="header-cart-toggle__label">Carrito</span>
+                <span class="header-cart-toggle__count" id="cart-count">0</span>
+            </button>
+            <!-- Mismo número que App.core.WHATSAPP (js/core/app.js). -->
+            <a href="https://wa.me/59178064327" class="header-cta" target="_blank" rel="noopener noreferrer">Asesoría</a>
+        </div>
+    </div>
+</header>
+<section class="header-search-layer">
+    <div class="header-search-float">
+        <section class="header-search-panel" id="header-search-panel" aria-hidden="true">
+            <form id="search-form" class="header-search-form" action="/" method="get" role="search">
+                <input type="hidden" name="seccion" value="search">
+                <label for="search-input" class="hidden">Buscar productos</label>
+                <input type="text" id="search-input" name="q" placeholder="Buscar perfumes, marcas o notas" aria-label="Buscar productos" autocomplete="off">
+                <div class="header-search-actions">
+                    <button type="submit" class="header-search-submit">Buscar</button>
+                    <button type="button" class="header-search-close" id="header-search-close">Cerrar</button>
+                </div>
+            </form>
+        </section>
+    </div>
+</section>
+<button class="cart-backdrop" id="cart-backdrop" type="button" aria-label="Cerrar carrito" tabindex="-1"></button>
+<aside class="cart-panel" id="cart-panel" aria-labelledby="cart-title" aria-hidden="true">
+    <span class="cart-panel__asa" aria-hidden="true"></span>
+    <div class="cart-panel__header">
+        <div>
+            <h2 id="cart-title">Tu pedido</h2>
+            <p class="cart-panel__cuenta" id="cart-cuenta"></p>
+        </div>
+        <button class="cart-panel__close" id="cart-close" type="button" aria-label="Cerrar carrito">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"></path></svg>
+        </button>
+    </div>
+    <div class="cart-panel__vacio" id="cart-empty">
+        <span class="cart-panel__nicho" aria-hidden="true"></span>
+        <p class="cart-panel__vacio-titulo">Todavía no elegiste nada</p>
+        <p>Lo que sumes desde Perfumería aparece acá, listo para pedir.</p>
+        <a class="cart-panel__ir" href="perfumeria.html" data-cart-ir>Ir a Perfumería</a>
+    </div>
+    <div class="cart-panel__items" id="cart-items"></div>
+    <div class="cart-panel__footer">
+        <div class="cart-panel__total">
+            <span>Total</span>
+            <strong id="cart-total">Bs 0</strong>
+        </div>
+        <div class="cart-panel__actions">
+            <button class="cart-panel__secondary" id="cart-clear" type="button">Vaciar</button>
+            <button class="cart-panel__primary" id="cart-send" type="button" disabled>
+                <span class="pedido-wa" aria-hidden="true"></span>
+                <span>Pedir por WhatsApp</span>
+            </button>
+        </div>
+    </div>
+</aside>
+<script src="js/search.js"></script>

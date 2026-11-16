@@ -1,0 +1,100 @@
+.catalog-dock {
+    position: fixed;
+    left: 50%;
+    bottom: calc(12px + env(safe-area-inset-bottom, 0px));
+    transform: translate(-50%, 0);
+    /* Píldora flotante a la medida de sus secciones (Inicio, Perfumería), no
+       una barra de lado a lado: el ancho de antes era para seis.
+       Si cambia el alto (≈ 62 px), actualizar `--dock-espacio` en
+       perfumeria.css. */
+    width: max-content;
+    max-width: calc(100% - 40px);
+    padding: 5px;
+    border-radius: 999px;
+    border: 0;
+    background: var(--m-losa-fondo);
+    --m-losa-pos: -330px -60px;
+    box-shadow: var(--m-moldura), var(--m-relieve), var(--m-sombra-3);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 92px));
+    gap: 2px;
+    z-index: 120;
+    transition: transform 0.35s ease, opacity 0.35s ease;
+}
+
+.catalog-dock__link {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    min-width: 0;
+    padding: 6px 10px;
+    border-radius: 999px;
+    text-decoration: none;
+    text-transform: none;
+    letter-spacing: 0.02em;
+    font-family: var(--font-body);
+    font-size: 0.72rem;
+    font-weight: 500;
+    line-height: 1.15;
+    color: var(--m-ink-2);
+    background: transparent;
+    transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    text-align: center;
+}
+
+.catalog-dock__icon {
+    width: 20px;
+    height: 20px;
+    display: inline-flex;
+}
+
+.catalog-dock__icon svg {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.catalog-dock__link:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(183, 146, 76, 0.35);
+}
+
+.catalog-dock__link.is-active {
+    background: var(--m-nero-fondo);
+    color: var(--m-gold-claro);
+    box-shadow: var(--m-activo);
+}
+
+.catalog-dock__link:not(.is-active):hover {
+    color: var(--m-ink);
+}
+
+@media (min-width: 768px) {
+    .catalog-dock {
+        display: none;
+    }
+
+    body.catalog-nav-visible {
+        padding-bottom: 0;
+    }
+}
+
+body.is-home-panel header {
+    transform: translateY(-110%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+body.is-home-panel .catalog-dock {
+    transform: translate(-50%, 160%);
+    opacity: 0;
+    pointer-events: none;
+}
+
+.catalog-dock--detail-hidden {
+    transform: translate(-50%, 160%);
+    opacity: 0;
+    pointer-events: none;
+}

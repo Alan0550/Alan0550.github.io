@@ -1,0 +1,18 @@
+/* Buscador (search.html): usa las piezas y controles de perfumeria.css. */
+
+.search-page .perf-titulo--busqueda span {
+    font-style: italic;
+}
+
+.search-page .perf-barra .perf-boton {
+    flex: none;
+    min-height: 46px;
+}
+
+.search-page .perf-conteo {
+    margin-top: 14px;
+}
+
+.search-page .perf-vacio .perf-boton {
+    display: inline-flex;
+}

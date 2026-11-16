@@ -1,0 +1,28 @@
+// Perfumería Suárez en Cloudflare: un Worker solo de assets estáticos.
+// `node deploy/armar-dist.mjs` arma dist/ y `npx wrangler deploy` lo publica.
+{
+    "name": "perfumeria-suarez",
+    "compatibility_date": "2026-10-01",
+    "assets": {
+        "directory": "./dist",
+        // `x.html` se sirve como `/x`: el shell ya lleva los parámetros de los
+        // paneles en el hash, que sobrevive a esa redirección.
+        "html_handling": "auto-trailing-slash",
+        "not_found_handling": "404-page"
+    },
+    // Logs en el panel de Cloudflare (Workers → Observability). Sin esto en
+    // el archivo, un deploy los apagaba aunque estuvieran activos en el panel.
+    "observability": {
+        "logs": {
+            "enabled": true,
+            "head_sampling_rate": 1,
+            "invocation_logs": true,
+            "persist": true
+        },
+        "traces": {
+            "enabled": false,
+            "head_sampling_rate": 1,
+            "persist": true
+        }
+    }
+}

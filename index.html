@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfumería Suárez | Perfumes Originales en Bolivia</title>
+    <meta name="description" content="Perfumería Suárez: tu perfumería de confianza en Bolivia. Catálogo completo de perfumes originales para mujer y hombre. Envíos a todo el país.">
+    <meta name="keywords" content="perfumería Bolivia, perfumes originales, comprar perfume online Bolivia, perfumería Santa Cruz, catálogo perfumes, decants Bolivia">
+    <link rel="canonical" href="https://perfumeriasuarez.com/">
+    <meta name="robots" content="index,follow">
+    <meta name="geo.region" content="BO">
+    <meta name="geo.placename" content="Bolivia">
+    <link rel="alternate" hreflang="es-BO" href="https://perfumeriasuarez.com/">
+    <link rel="alternate" hreflang="x-default" href="https://perfumeriasuarez.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Perfumería Suárez">
+    <meta property="og:title" content="Perfumería Suárez | Perfumes Originales en Bolivia">
+    <meta property="og:description" content="Perfumería Suárez: tu perfumería de confianza en Bolivia. Catálogo completo de perfumes originales para mujer y hombre. Envíos a todo el país.">
+    <meta property="og:url" content="https://perfumeriasuarez.com/">
+    <meta property="og:image" content="https://perfumeriasuarez.com/imagenes/applogo.png">
+    <meta property="og:locale" content="es_BO">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Perfumería Suárez | Perfumes Originales en Bolivia">
+    <meta name="twitter:description" content="Perfumería Suárez: tu perfumería de confianza en Bolivia. Catálogo completo de perfumes originales para mujer y hombre. Envíos a todo el país.">
+    <meta name="twitter:image" content="https://perfumeriasuarez.com/imagenes/applogo.png">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/pages/swipe-hub.css">
+    <link rel="stylesheet" href="css/components/cart.css">
+    <link rel="icon" sizes="16x16 32x32 48x48" href="imagenes/Cowboy.ico" type="image/x-icon">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="imagenes/applogo.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <meta name="apple-mobile-web-app-title" content="Perfumería Suárez">
+    <script src="js/runtime-config.js"></script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebSite",
+            "name": "Perfumería Suárez",
+            "url": "https://perfumeriasuarez.com/",
+            "inLanguage": "es-BO",
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": "https://perfumeriasuarez.com/?seccion=search&q={search_term_string}",
+                "query-input": "required name=search_term_string"
+            }
+        }
+    </script>
+    <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Store",
+            "name": "Perfumería Suárez",
+            "url": "https://perfumeriasuarez.com",
+            "description": "Perfumería con catálogo completo de perfumes originales en Bolivia. Perfumes para mujer y hombre de las mejores marcas internacionales.",
+            "image": "https://perfumeriasuarez.com/imagenes/Suarez.png",
+            "priceRange": "$$",
+            "address": {
+                "@type": "PostalAddress",
+                "addressCountry": "BO"
+            },
+            "telephone": "+59178064327",
+            "sameAs": [
+                "https://wa.me/59178064327"
+            ]
+        }
+    </script>
+</head>
+
+<body class="swipe-hub">
+    <div data-include="header.html"></div>
+    <main class="swipe-container">
+        <div class="swipe-stage" role="region" aria-label="Catálogo deslizable">
+        <div class="swipe-track" id="swipe-track">
+            <section class="swipe-panel" data-src="catalogo.html" aria-label="Inicio">
+                <iframe title="Inicio"></iframe>
+                <div class="panel-loading">Cargando Inicio…</div>
+            </section>
+            <section class="swipe-panel" data-src="perfumeria.html" aria-label="Perfumería">
+                <iframe title="Perfumería"></iframe>
+                <div class="panel-loading">Cargando Perfumería…</div>
+            </section>
+            <section class="swipe-panel swipe-panel--aux" data-src="search.html" aria-label="Vista secundaria">
+                <iframe title="Vista secundaria"></iframe>
+                <div class="panel-loading">Cargando vista…</div>
+            </section>
+        </div>
+        <div class="swipe-progress" aria-hidden="true">
+            <span class="is-active"></span>
+            <span></span>
+        </div>
+    </div>
+    </main>
+    <div data-include="catalog-nav.html"></div>
+    <script src="js/core/app.js"></script>
+    <script src="js/models/catalog.model.js"></script>
+    <script src="js/models/search.model.js"></script>
+    <script src="js/models/combo.model.js"></script>
+    <script src="js/views/common.view.js"></script>
+    <script src="js/views/include.view.js"></script>
+    <script src="js/views/catalog.view.js"></script>
+    <script src="js/views/search.view.js"></script>
+    <script src="js/views/shell.view.js"></script>
+    <script src="js/viewmodels/common.viewmodel.js"></script>
+    <script src="js/viewmodels/include.viewmodel.js"></script>
+    <script src="js/viewmodels/search.viewmodel.js"></script>
+    <script src="js/viewmodels/catalog.viewmodel.js"></script>
+    <script src="js/viewmodels/home.viewmodel.js"></script>
+    <script src="js/viewmodels/shell.viewmodel.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/core/pedido.js"></script>
+    <script src="js/include.js"></script>
+</body>
+
+</html>

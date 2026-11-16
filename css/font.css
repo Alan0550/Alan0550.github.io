@@ -1,0 +1,5 @@
+/* Tipografía de Perfumería (Oct 2026)
+   - Display: Bodoni Moda (títulos, nombres de producto). Tiene eje óptico:
+     a tamaños grandes afina los trazos finos como un Bodoni de imprenta.
+   - Interfaz / cuerpo: Jost (párrafos, etiquetas, controles, precios). */
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..700;1,6..96,400..500&family=Jost:wght@400;500;600&display=swap');

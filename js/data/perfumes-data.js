@@ -1,0 +1,327 @@
+(function (App) {
+    "use strict";
+
+    App.data = App.data || {};
+    App.data.perfumes = App.data.perfumes || [];
+
+    var DECANT_PRICE_RULES = {
+        "10": 2 * 0.95,
+        "15": 3 * 0.90,
+        "30": 6 * 0.85
+    };
+
+    // Interruptor de la funcionalidad API (ver acciones/catalogo_api.php del
+    // ERP): en false, se ignora CATALOG_BASE_URL por completo y el catálogo
+    // usa siempre su JSON estático, sin llamar al ERP (ni por datos ni por
+    // imágenes vía catalogo_imagen.php).
+    var API_ENABLED = typeof window.CATALOG_API_ENABLED === "boolean" ? window.CATALOG_API_ENABLED : true;
+
+    // URL base del ERP (fuente de verdad del catálogo). Vacío => fallback estático.
+    var BASE_URL = API_ENABLED
+        ? (typeof window.CATALOG_BASE_URL === "string" ? window.CATALOG_BASE_URL : "").trim().replace(/\/+$/, "")
+        : "";
+    var API_PATH = "/acciones/catalogo_api.php";
+    var STATIC_JSON = "js/data/perfumes.json";
+    var PAGE_SIZE = 100;
+
+    // Caché de catálogo compartida entre los iframes del carrusel (todos
+    // same-origin, así que sessionStorage se comparte dentro de la pestaña).
+    // Evita que cada panel repita el fetch paginado completo del catálogo.
+    var CACHE_KEY = "ps_catalog_cache_v1";
+    var CACHE_TTL_MS = 60000;
+
+    function roundDecantPriceUp(value) {
+        return Math.ceil(value / 10) * 10;
+    }
+
+    function normalizeDecantPrices(preciosDecants) {
+        if (!preciosDecants) {
+            return preciosDecants;
+        }
+
+        var normalizedPrices = Object.assign({}, preciosDecants);
+        var basePrice = Number(normalizedPrices["5"]);
+
+        if (!Number.isFinite(basePrice)) {
+            return normalizedPrices;
+        }
+
+        Object.keys(DECANT_PRICE_RULES).forEach(function (size) {
+            var current = Number(normalizedPrices[size]);
+            // Auto-calculate when the size is missing OR holds a non-positive
+            // / invalid value (e.g. a placeholder 0), so a stray 0 in the data
+            // never reaches the UI.
+            if (Number.isFinite(current) && current > 0) {
+                return;
+            }
+            normalizedPrices[size] = roundDecantPriceUp(basePrice * DECANT_PRICE_RULES[size]);
+        });
+
+        return normalizedPrices;
+    }
+
+    function ensureDecantPrices(perfumes) {
+        perfumes.forEach(function (perfume) {
+            if (!perfume || !perfume.precios_decants) {
+                return;
+            }
+            perfume.precios_decants = normalizeDecantPrices(perfume.precios_decants);
+        });
+    }
+
+    var MANIFEST_JSON = "js/data/images-manifest.json";
+    // Set con las rutas de imagen que el catálogo YA tiene en su CDN.
+    // null = manifiesto no disponible (se asume CDN para todo).
+    var imageManifest = null;
+
+    function apiUrl(page) {
+        return BASE_URL + API_PATH + "?page=" + page + "&limit=" + PAGE_SIZE;
+    }
+
+    function apiUrlById(id) {
+        return BASE_URL + API_PATH + "?id=" + encodeURIComponent(id) + "&limit=1";
+    }
+
+    // perfume.html sólo necesita UN producto: si la URL trae el id (en el hash
+    // o en el query), evitamos bajar el catálogo completo para mostrar uno solo.
+    // Sin `.html` también: hay hosts que sirven perfume.html como /perfume.
+    function getRequestedPerfumeId() {
+        if (!/\/perfume(\.html)?$/.test(window.location.pathname)) {
+            return null;
+        }
+        try {
+            var id = new URLSearchParams(window.location.hash.replace(/^#/, "")).get("id")
+                || new URLSearchParams(window.location.search).get("id");
+            return id || null;
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function readCatalogCache() {
+        try {
+            var raw = window.sessionStorage.getItem(CACHE_KEY);
+            if (!raw) return null;
+            var parsed = JSON.parse(raw);
+            if (!parsed || !Array.isArray(parsed.perfumes) || typeof parsed.ts !== "number") {
+                return null;
+            }
+            if (Date.now() - parsed.ts >= CACHE_TTL_MS) {
+                return null;
+            }
+            return parsed.perfumes;
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function writeCatalogCache(perfumes) {
+        try {
+            window.sessionStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), perfumes: perfumes }));
+        } catch (error) {
+            // Cuota llena / modo privado: seguimos sin cachear.
+        }
+    }
+
+    function fetchJson(url) {
+        return fetch(url, { headers: { Accept: "application/json" } }).then(function (response) {
+            if (!response.ok) {
+                throw new Error("HTTP " + response.status + " en " + url);
+            }
+            return response.json();
+        });
+    }
+
+    // Carga el manifiesto de imágenes del CDN del catálogo. Si falla, devuelve
+    // null (se asume que toda imagen está en el CDN -> ruta relativa).
+    function loadManifest() {
+        return fetchJson(MANIFEST_JSON)
+            .then(function (arr) { return Array.isArray(arr) ? new Set(arr) : null; })
+            .catch(function () { return null; });
+    }
+
+    var HYPE_RANKS_JSON = "js/data/hype-ranks.json";
+
+    // Mapa curado id -> rank, usado por catalog-renderer.js como fallback de
+    // orden en modo estático (sin ERP, donde perfumes.json no trae `orden`).
+    // Se sirve siempre desde el catálogo estático (no depende de BASE_URL).
+    function loadHypeRanks() {
+        return fetchJson(HYPE_RANKS_JSON)
+            .then(function (obj) { return (obj && typeof obj === "object") ? obj : {}; })
+            .catch(function () { return {}; });
+    }
+
+    var ENCUADRES_JSON = "js/data/encuadre-frascos.json";
+
+    // Recuadro del frasco en cada foto (scripts/medir-frascos.py): la tarjeta
+    // lo usa para apoyar el frasco en el piso de la hornacina. Si falta, la
+    // tarjeta usa un encuadre típico.
+    function loadEncuadres() {
+        return fetchJson(ENCUADRES_JSON)
+            .then(function (obj) { return (obj && typeof obj === "object") ? obj : {}; })
+            .catch(function () { return {}; });
+    }
+
+    function erpImageUrl(rel) {
+        return BASE_URL + "/acciones/catalogo_imagen.php?path=" +
+            encodeURIComponent(rel.replace(/^imagenes\//, ""));
+    }
+
+    // Enfoque mixto: si la imagen está en el manifiesto del CDN, se usa su ruta
+    // relativa (la sirve GitHub Pages); si NO está, se pide al ERP.
+    function resolveImagePath(path) {
+        if (!path || typeof path !== "string") return path;       // preserva null
+        if (/^https?:\/\//i.test(path)) return path;              // ya es absoluta
+        // NFC para que coincidan nombres acentuados con el manifiesto.
+        var rel = path.replace(/^\/+/, "").normalize("NFC");
+        if (!BASE_URL || !imageManifest || imageManifest.has(rel)) {
+            return rel;                                            // está en el CDN
+        }
+        return erpImageUrl(rel);                                  // sólo lo nuevo va al ERP
+    }
+
+    function resolveImages(perfumes) {
+        perfumes.forEach(function (p) {
+            if (!p) return;
+            if ("image_miniatura" in p) p.image_miniatura = resolveImagePath(p.image_miniatura);
+            if ("image_miniatura_decant" in p) p.image_miniatura_decant = resolveImagePath(p.image_miniatura_decant);
+            if ("image_cuadro" in p) p.image_cuadro = resolveImagePath(p.image_cuadro);
+            if (Array.isArray(p.images_gallery)) {
+                p.images_gallery = p.images_gallery.map(resolveImagePath);
+            }
+        });
+        return perfumes;
+    }
+
+    // Trae SOLO un producto por id (perfume.html), sin paginar el catálogo.
+    function fetchSingleById(id) {
+        return fetchJson(apiUrlById(id)).then(function (payload) {
+            if (!payload || !Array.isArray(payload.data)) {
+                throw new Error("Respuesta inválida del endpoint");
+            }
+            return payload.data;
+        });
+    }
+
+    // Carga progresiva (lazy) desde el endpoint del ERP: trae la primera página y
+    // luego el resto en paralelo. Acumula todo en App.data.perfumes.
+    function fetchAllPages() {
+        return fetchJson(apiUrl(1)).then(function (first) {
+            if (!first || !Array.isArray(first.data)) {
+                throw new Error("Respuesta inválida del endpoint");
+            }
+
+            var totalPages = Number(first.totalPages) || 1;
+            var all = first.data.slice();
+
+            if (totalPages <= 1) {
+                return all;
+            }
+
+            var requests = [];
+            for (var page = 2; page <= totalPages; page++) {
+                requests.push(fetchJson(apiUrl(page)));
+            }
+
+            return Promise.all(requests).then(function (pages) {
+                pages.forEach(function (payload) {
+                    if (payload && Array.isArray(payload.data)) {
+                        all = all.concat(payload.data);
+                    }
+                });
+                return all;
+            });
+        });
+    }
+
+    function loadFromEndpoint() {
+        var singleId = getRequestedPerfumeId();
+        if (singleId) {
+            return fetchSingleById(singleId).then(function (all) {
+                App.data.source = "erp";
+                return all;
+            });
+        }
+
+        var cached = readCatalogCache();
+        if (cached) {
+            App.data.source = "erp";
+            return Promise.resolve(cached);
+        }
+
+        return fetchAllPages().then(function (all) {
+            writeCatalogCache(all);
+            App.data.source = "erp";
+            return all;
+        });
+    }
+
+    function loadStatic() {
+        return fetchJson(STATIC_JSON).then(function (perfumes) {
+            if (!Array.isArray(perfumes)) {
+                throw new Error("perfumes.json debe contener un arreglo");
+            }
+            App.data.source = "static";
+            return perfumes;
+        });
+    }
+
+    function loadPerfumes() {
+        var source = BASE_URL
+            ? loadFromEndpoint().catch(function (error) {
+                console.warn("Catálogo: falló el endpoint del ERP, usando JSON estático.", error);
+                return loadStatic();
+            })
+            : loadStatic();
+
+        // El manifiesto se carga en paralelo (sólo se necesita si hay ERP).
+        // Los hype ranks se cargan siempre: son estáticos y sirven de fallback
+        // de orden con o sin ERP.
+        return Promise.all([source, BASE_URL ? loadManifest() : Promise.resolve(null), loadHypeRanks(), loadEncuadres()])
+            .then(function (results) {
+                var perfumes = results[0];
+                imageManifest = results[1];
+                App.data.hypeRanks = results[2];
+                App.data.encuadres = results[3];
+                ensureDecantPrices(perfumes);
+                resolveImages(perfumes);
+                App.data.perfumes = perfumes;
+                return perfumes;
+            })
+            .catch(function (error) {
+                console.error(error);
+                App.data.perfumes = [];
+                App.data.source = "none";
+                return App.data.perfumes;
+            });
+    }
+
+    /**
+     * Búsqueda server-side opcional contra el endpoint del ERP.
+     * Devuelve una promesa con el arreglo de resultados (no muta App.data).
+     * Si no hay BASE_URL, filtra localmente sobre App.data.perfumes.
+     */
+    App.data.searchRemote = function searchRemote(query, opts) {
+        opts = opts || {};
+        var limit = opts.limit || 60;
+        if (!BASE_URL) {
+            var q = String(query || "").toLowerCase();
+            return Promise.resolve(App.data.perfumes.filter(function (p) {
+                return JSON.stringify(p).toLowerCase().indexOf(q) >= 0;
+            }).slice(0, limit));
+        }
+        var url = BASE_URL + API_PATH + "?page=1&limit=" + limit + "&q=" + encodeURIComponent(query || "");
+        return fetchJson(url).then(function (payload) {
+            var data = (payload && Array.isArray(payload.data)) ? payload.data : [];
+            ensureDecantPrices(data);
+            resolveImages(data);
+            return data;
+        });
+    };
+
+    // Promesa única consumida por toda la app (App.core.onReady, loadAll, etc.).
+    App.data.perfumesReady = loadPerfumes();
+    App.data.loadAll = function loadAll() {
+        return App.data.perfumesReady;
+    };
+})(window.PerfSuarez);

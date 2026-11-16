@@ -1,0 +1,1924 @@
+/* ==========================================================================
+   Perfumería (Oct 2026): Perfumes, Decants, Cuadros y Arma tu combo en una
+   sola página. Estética de mármol crema: cada frasco se para en una hornacina
+   tallada.
+   Tokens en css/base/tokens.css (`--m-*`).
+   ========================================================================== */
+
+body.perfumeria-page {
+    --g: clamp(12px, 4vw, 28px);
+    --ancho: 1240px;
+    /* Lo que tapa el dock del shell (fijo, encima del iframe). */
+    --dock-espacio: 0px;
+    padding-top: 0;
+    padding-bottom: 0;
+    color: var(--m-ink);
+    font-family: var(--font-body);
+    font-size: 16px;
+    /* `hidden` (document.css) hace del body un contenedor de scroll y el
+       resumen del combo (sticky) nunca se pegaba abajo. `clip` recorta igual. */
+    overflow-x: clip;
+}
+
+body.perfumeria-page.is-shell-embed {
+    padding-top: var(--shell-embed-top-offset);
+}
+
+/* El mármol es una capa fija: no se desplaza con el contenido. Una capa
+   `position: fixed` la mueve el compositor; `background-attachment: fixed`
+   no sirve (iOS lo ignora y en Android repinta el fondo en cada scroll). */
+body.perfumeria-page {
+    background: transparent;
+}
+
+body.perfumeria-page::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background: var(--m-fondo-pagina);
+    pointer-events: none;
+}
+
+@media (max-width: 767px) {
+    body.perfumeria-page.is-shell-embed {
+        --dock-espacio: calc(82px + env(safe-area-inset-bottom, 0px));
+    }
+}
+
+/* `hidden` manda: varias piezas (grillas de sala, "Ver más", hojas) tienen
+   su propio `display` y lo pisaban, y la grilla de una sala oculta seguía
+   a la vista debajo de la otra. */
+body.perfumeria-page [hidden] {
+    display: none !important;
+}
+
+/* initGlobalUi no corre acá, pero `main` trae reglas de base (flex centrado). */
+body.perfumeria-page main.perf {
+    display: block;
+    width: 100%;
+    max-width: calc(var(--ancho) + 2 * var(--g));
+    margin: 0 auto;
+    padding: 0 var(--g) calc(var(--dock-espacio) + 40px);
+    box-sizing: border-box;
+}
+
+.perf svg,
+.ficha svg,
+.combo-hoja svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    flex: none;
+}
+
+/* ---------- Encabezado: título grabado y salas ---------- */
+
+.perf-cabeza {
+    padding-top: 14px;
+}
+
+.perf-cabeza__fila {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 46px;
+}
+
+.perf-titulo {
+    margin: 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(30px, 8.4vw, 36px);
+    line-height: 1;
+    letter-spacing: 0.005em;
+    color: #3a3026;
+    text-shadow: var(--m-grabado);
+    font-variation-settings: 'opsz' 96;
+}
+
+/* Teléfono en el shell: el título va a la derecha de la píldora del header,
+   a su altura. El body no lleva padding:
+   el encabezado arranca en el borde y aprovecha esa franja. */
+@media (max-width: 960px) {
+    body.perfumeria-page.is-shell-embed {
+        padding-top: 0;
+    }
+
+    body.perfumeria-page.is-shell-embed .perf-cabeza {
+        padding-top: var(--shell-pill-top, var(--shell-embed-top-offset));
+    }
+
+    body.perfumeria-page.is-shell-embed .perf-cabeza__fila {
+        min-height: var(--shell-pill-h, 46px);
+        padding-left: calc(var(--shell-pill-w, 0px) - var(--g) + 12px);
+    }
+}
+
+.perf-salas {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2px;
+    margin-top: 12px;
+    padding: 4px;
+    border-radius: var(--m-r-md);
+    background: var(--m-losa-fondo);
+    --m-losa-pos: -210px -140px;
+    box-shadow: var(--m-moldura), var(--m-relieve), var(--m-sombra-2);
+}
+
+.perf-sala {
+    position: relative;
+    z-index: 1;
+    height: 40px;
+    padding: 0 4px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    font: 500 14px/1 var(--font-body);
+    letter-spacing: 0.01em;
+    color: var(--m-ink-2);
+    cursor: pointer;
+    transition: color var(--m-dur-2) var(--m-ease);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.perf-sala[aria-selected="true"] {
+    color: var(--m-gold-claro);
+}
+
+.perf-sala:focus-visible {
+    outline: 2px solid var(--m-filete);
+    outline-offset: 2px;
+}
+
+/* La placa negra que se desliza bajo la sala activa. */
+.perf-salas__marca {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 0;
+    height: 40px;
+    border-radius: 10px;
+    background: var(--m-nero-fondo);
+    box-shadow: var(--m-activo);
+    transition: none;
+}
+
+.perf-salas.is-lista .perf-salas__marca {
+    transition: transform var(--m-dur-3) var(--m-ease), width var(--m-dur-3) var(--m-ease);
+}
+
+@media (min-width: 961px) {
+    .perf-cabeza {
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 32px;
+        padding-top: 18px;
+        padding-bottom: 6px;
+    }
+
+    .perf-cabeza__fila {
+        justify-content: flex-start;
+    }
+
+    .perf-titulo {
+        font-size: clamp(48px, 5vw, 64px);
+    }
+
+    .perf-salas {
+        flex: 0 1 520px;
+        margin-top: 0;
+    }
+
+    .perf-sala {
+        height: 44px;
+        font-size: 15px;
+    }
+
+    .perf-salas__marca {
+        height: 44px;
+    }
+}
+
+/* ---------- Salas en la fila de la píldora ----------
+   Perfumería no lleva título: el selector de salas es una píldora gemela de
+   la del header (mismo mármol, filete y radio). En el teléfono va a su
+   derecha, a su misma altura, y queda pegado ahí al desplazarse. */
+.perf-cabeza--salas .perf-cabeza__fila {
+    justify-content: flex-start;
+}
+
+.perf-cabeza--salas .perf-salas {
+    display: flex;
+    flex: 1 1 auto;
+    gap: 0;
+    margin-top: 0;
+    border-radius: var(--m-r-pill);
+    --m-losa-pos: -120px -40px;
+    box-shadow: var(--m-moldura), var(--m-sombra-1);
+}
+
+.perf-cabeza--salas .perf-sala {
+    flex: 1 1 auto;
+    border-radius: var(--m-r-pill);
+    white-space: nowrap;
+}
+
+.perf-cabeza--salas .perf-salas__marca {
+    border-radius: var(--m-r-pill);
+}
+
+@media (max-width: 960px) {
+    body.perfumeria-page.is-shell-embed .perf-cabeza--salas {
+        position: sticky;
+        top: var(--shell-pill-top, 10px);
+        z-index: 6;
+        margin-top: var(--shell-pill-top, 10px);
+        padding-top: 0;
+        pointer-events: none;
+    }
+
+    body.perfumeria-page.is-shell-embed .perf-cabeza--salas .perf-cabeza__fila {
+        height: var(--shell-pill-h, 46px);
+        min-height: 0;
+        /* De la píldora a 6 px del borde, como su margen izquierdo de 12. */
+        margin-right: calc(8px - var(--g));
+        padding-left: calc(var(--shell-pill-w, 0px) - var(--g) + 6px);
+    }
+
+    body.perfumeria-page.is-shell-embed .perf-cabeza--salas .perf-salas {
+        height: 100%;
+        padding: 4px;
+        box-sizing: border-box;
+        pointer-events: auto;
+    }
+
+    body.perfumeria-page.is-shell-embed .perf-cabeza--salas .perf-sala {
+        height: 100%;
+        min-width: 0;
+        padding: 0 clamp(2px, 1vw, 10px);
+        font-size: clamp(10.5px, 2.95vw, 13px);
+        letter-spacing: 0;
+    }
+
+    body.perfumeria-page.is-shell-embed .perf-cabeza--salas .perf-salas__marca {
+        height: calc(100% - 8px);
+    }
+}
+
+/* Teléfonos angostos: al lado de la píldora del shell no entran las cuatro
+   salas sin recortar "Combo". Van en su propia fila, debajo, a todo el ancho. */
+@media (max-width: 379px) {
+    body.perfumeria-page.is-shell-embed .perf-cabeza--salas {
+        --salas-top: calc(var(--shell-pill-top, 10px) + var(--shell-pill-h, 46px) + 8px);
+        top: var(--salas-top);
+        margin-top: var(--salas-top);
+    }
+
+    body.perfumeria-page.is-shell-embed .perf-cabeza--salas .perf-cabeza__fila {
+        margin-right: 0;
+        padding-left: 0;
+    }
+
+    body.perfumeria-page.is-shell-embed .perf-cabeza--salas .perf-sala {
+        padding: 0 6px;
+        font-size: 13px;
+    }
+}
+
+@media (min-width: 961px) {
+    .perf-cabeza--salas .perf-cabeza__fila {
+        flex: 0 1 560px;
+    }
+
+    .perf-cabeza--salas .perf-salas {
+        flex: 1 1 auto;
+    }
+}
+
+/* ---------- Buscador, chips ---------- */
+
+.perf-barra {
+    display: flex;
+    gap: 8px;
+    margin-top: 14px;
+}
+
+.perf-campo {
+    flex: 1;
+    min-width: 0;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 16px;
+    border-radius: var(--m-r-pill);
+    background: rgba(255, 253, 249, 0.74);
+    box-shadow: var(--m-hundido);
+    color: var(--m-ink-3);
+    box-sizing: border-box;
+    transition: box-shadow var(--m-dur-2) var(--m-ease);
+}
+
+.perf-campo:focus-within {
+    box-shadow: inset 0 0 0 1px var(--m-filete), inset 0 2px 5px rgba(80, 60, 35, 0.12), 0 0 0 4px rgba(183, 146, 76, 0.14);
+}
+
+.perf-campo input {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    border: 0;
+    background: transparent;
+    font: 400 16px var(--font-body);
+    color: var(--m-ink);
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.perf-campo input::placeholder {
+    color: var(--m-ink-3);
+}
+
+.perf-filtros-btn {
+    position: relative;
+    flex: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    border: 0;
+    border-radius: var(--m-r-pill);
+    background: rgba(255, 253, 249, 0.74);
+    box-shadow: inset 0 0 0 1px var(--m-filete), var(--m-sombra-1);
+    color: var(--m-ink);
+    font: 500 15px var(--font-body);
+    cursor: pointer;
+}
+
+.perf-filtros-btn__texto {
+    display: none;
+}
+
+.perf-filtros-btn__n {
+    position: absolute;
+    top: -3px;
+    right: -3px;
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    border-radius: 9px;
+    box-sizing: border-box;
+    background: var(--m-nero);
+    color: var(--m-gold-claro);
+    font: 600 11px/18px var(--font-body);
+    text-align: center;
+}
+
+.perf-chips {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px calc(-1 * var(--g)) 0;
+    padding: 2px var(--g) 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    touch-action: pan-x;
+    overscroll-behavior-x: contain;
+    -webkit-mask-image: linear-gradient(90deg, transparent, #000 var(--chips-fade-izq), #000 calc(100% - var(--chips-fade-der)), transparent);
+    mask-image: linear-gradient(90deg, transparent, #000 var(--chips-fade-izq), #000 calc(100% - var(--chips-fade-der)), transparent);
+}
+
+/* Si quedan chips fuera de vista, ese borde se desvanece más ancho y a la
+   derecha aparece una flecha: en un teléfono angosto solo se veían los
+   géneros y nada decía que había Nicho, Diseñador y Árabe. */
+.perf-chips-marco {
+    --chips-fade-izq: var(--g);
+    --chips-fade-der: var(--g);
+    position: relative;
+}
+
+.perf-chips-marco.hay-mas-izq {
+    --chips-fade-izq: 48px;
+}
+
+.perf-chips-marco.hay-mas-der {
+    --chips-fade-der: 72px;
+}
+
+.perf-chips__mas {
+    position: absolute;
+    /* El margin-top de la fila colapsa con el marco: los chips empiezan a 2 px. */
+    top: 2px;
+    right: 0;
+    display: none;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: var(--m-losa-fondo);
+    box-shadow: inset 0 0 0 1px var(--m-filete), var(--m-sombra-1);
+    color: var(--m-ink);
+    cursor: pointer;
+}
+
+.perf-chips-marco.hay-mas-der .perf-chips__mas {
+    display: grid;
+}
+
+.perf-chips__mas svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.8;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.perf-chips::-webkit-scrollbar {
+    display: none;
+}
+
+.perf-chips__grupo {
+    display: flex;
+    gap: 6px;
+    flex: none;
+}
+
+.perf-chips__filete {
+    flex: none;
+    width: 1px;
+    height: 22px;
+    margin: 0 4px;
+    background: linear-gradient(transparent, var(--m-filete), transparent);
+}
+
+.perf-chip {
+    flex: none;
+    height: 36px;
+    padding: 0 15px;
+    border: 0;
+    border-radius: var(--m-r-pill);
+    background: rgba(255, 253, 249, 0.62);
+    box-shadow: inset 0 0 0 1px var(--m-filete-suave);
+    font: 500 14px var(--font-body);
+    color: var(--m-ink-2);
+    cursor: pointer;
+    transition: background var(--m-dur-2) var(--m-ease), color var(--m-dur-2) var(--m-ease), box-shadow var(--m-dur-2) var(--m-ease);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.perf-chip[aria-checked="true"] {
+    background: var(--m-nero-fondo);
+    color: var(--m-gold-claro);
+    box-shadow: var(--m-activo);
+}
+
+@media (hover: hover) {
+    .perf-chip[aria-checked="false"]:hover {
+        background: rgba(255, 253, 249, 0.9);
+        color: var(--m-ink);
+    }
+}
+
+body[data-sala="cuadros"] .perf-chips-marco,
+body[data-sala="cuadros"] [data-solo~="perfumes"] {
+    display: none;
+}
+
+/* ---------- Cuerpo: filtros + resultados ---------- */
+
+.perf-cuerpo {
+    margin-top: 6px;
+}
+
+.perf-conteo {
+    margin: 10px 2px 12px;
+    font: 500 12.5px var(--font-body);
+    letter-spacing: 0.08em;
+    color: var(--m-ink-3);
+}
+
+/* Filtros: hoja inferior en el teléfono, columna fija en escritorio. */
+.perf-filtros {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 60;
+    max-height: min(82vh, calc(var(--app-height, 100vh) - 90px));
+    overflow-y: auto;
+    padding: 18px var(--g) calc(18px + env(safe-area-inset-bottom, 0px));
+    border-radius: var(--m-r-lg) var(--m-r-lg) 0 0;
+    background: var(--m-losa-fondo);
+    --m-losa-pos: -120px -420px;
+    box-shadow: var(--m-moldura), 0 -20px 50px -20px rgba(50, 35, 15, 0.45);
+    box-sizing: border-box;
+    transform: translateY(105%);
+    visibility: hidden;
+    transition: transform var(--m-dur-3) var(--m-ease), visibility 0s linear var(--m-dur-3);
+    overscroll-behavior: contain;
+}
+
+.perf-filtros.is-abierta {
+    transform: none;
+    visibility: visible;
+    transition: transform var(--m-dur-3) var(--m-ease), visibility 0s;
+}
+
+.perf-filtros__cabeza,
+.combo-hoja__cabeza {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.perf-filtros__cabeza h2,
+.combo-hoja__cabeza h2 {
+    margin: 0;
+    font: 500 26px/1.1 var(--font-display);
+    color: var(--m-ink);
+}
+
+.perf-cerrar {
+    display: grid;
+    place-items: center;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 253, 249, 0.7);
+    box-shadow: inset 0 0 0 1px var(--m-filete-suave);
+    color: var(--m-ink-2);
+    cursor: pointer;
+}
+
+.perf-filtros__grupo {
+    padding: 14px 0;
+    border-top: 1px solid var(--m-filete-suave);
+}
+
+.perf-etiqueta {
+    display: block;
+    margin-bottom: 10px;
+    font: 500 12px var(--font-body);
+    letter-spacing: 0.1em;
+    color: var(--m-gold-deep);
+}
+
+.perf-select {
+    position: relative;
+}
+
+.perf-select::after {
+    content: '';
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    margin-top: -6px;
+    border-right: 1.6px solid var(--m-ink-2);
+    border-bottom: 1.6px solid var(--m-ink-2);
+    transform: rotate(45deg);
+    pointer-events: none;
+}
+
+.perf-select select {
+    width: 100%;
+    height: 46px;
+    padding: 0 40px 0 16px;
+    border: 0;
+    border-radius: var(--m-r-md);
+    background: rgba(255, 253, 249, 0.8);
+    box-shadow: inset 0 0 0 1px var(--m-filete-suave);
+    font: 400 16px var(--font-body);
+    color: var(--m-ink);
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+}
+
+.perf-orden {
+    display: grid;
+    gap: 6px;
+}
+
+.perf-orden button {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 42px;
+    padding: 0 14px;
+    border: 0;
+    border-radius: var(--m-r-sm);
+    background: transparent;
+    font: 400 15px var(--font-body);
+    color: var(--m-ink-2);
+    text-align: left;
+    cursor: pointer;
+}
+
+.perf-orden button::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 1.5px var(--m-filete);
+    flex: none;
+}
+
+.perf-orden button[aria-checked="true"] {
+    background: rgba(255, 253, 249, 0.75);
+    color: var(--m-ink);
+    font-weight: 500;
+}
+
+.perf-orden button[aria-checked="true"]::before {
+    background: radial-gradient(circle, var(--m-nero) 0 4px, transparent 4.5px);
+    box-shadow: inset 0 0 0 1.5px var(--m-gold);
+}
+
+.perf-filtros__grupo--interruptores {
+    display: grid;
+    gap: 4px;
+}
+
+.perf-interruptor {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    min-height: 44px;
+    font: 400 15px var(--font-body);
+    color: var(--m-ink);
+    cursor: pointer;
+}
+
+.perf-interruptor input {
+    order: 2;
+    position: relative;
+    flex: none;
+    width: 46px;
+    height: 28px;
+    margin: 0;
+    border-radius: 14px;
+    background: rgba(120, 100, 75, 0.18);
+    box-shadow: inset 0 0 0 1px var(--m-filete-suave), inset 0 2px 4px rgba(60, 40, 20, 0.15);
+    -webkit-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    transition: background var(--m-dur-2) var(--m-ease);
+}
+
+.perf-interruptor input::after {
+    content: '';
+    position: absolute;
+    top: 3px;
+    left: 3px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: linear-gradient(#fffdf8, #efe6d6);
+    box-shadow: 0 2px 4px rgba(50, 35, 15, 0.3), inset 0 0 0 1px rgba(183, 146, 76, 0.35);
+    transition: transform var(--m-dur-2) var(--m-ease);
+}
+
+.perf-interruptor input:checked {
+    background: var(--m-nero);
+    box-shadow: inset 0 0 0 1px var(--m-filete-claro);
+}
+
+.perf-interruptor input:checked::after {
+    transform: translateX(18px);
+}
+
+.perf-filtros__pie {
+    display: grid;
+    grid-template-columns: 1fr 1.6fr;
+    gap: 10px;
+    padding-top: 16px;
+    border-top: 1px solid var(--m-filete-suave);
+}
+
+/* ---------- Botones ---------- */
+
+.perf-boton {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 0 20px;
+    border: 0;
+    border-radius: var(--m-r-pill);
+    font: 500 15px var(--font-body);
+    letter-spacing: 0.01em;
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform var(--m-dur-1) var(--m-ease), box-shadow var(--m-dur-2) var(--m-ease), opacity var(--m-dur-2) var(--m-ease);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.perf-boton:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.perf-boton:disabled {
+    opacity: 0.45;
+    cursor: default;
+}
+
+.perf-boton--negro {
+    background: var(--m-nero-fondo);
+    color: #F3E6C8;
+    box-shadow: inset 0 0 0 1px var(--m-filete-claro), inset 0 1px 0 rgba(255, 255, 255, 0.14), 0 14px 22px -14px rgba(0, 0, 0, 0.7);
+}
+
+.perf-boton--losa {
+    background: var(--m-losa-fondo);
+    color: var(--m-ink);
+    box-shadow: inset 0 0 0 1px var(--m-filete), inset 0 1px 0 rgba(255, 255, 255, 0.9), var(--m-sombra-1);
+}
+
+.perf-boton--sutil {
+    background: rgba(255, 253, 249, 0.5);
+    color: var(--m-ink-2);
+    box-shadow: inset 0 0 0 1px var(--m-filete-suave);
+}
+
+/* ---------- Grilla de piezas ---------- */
+
+.perf-grilla {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px 12px;
+}
+
+@media (min-width: 620px) {
+    .perf-grilla {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 28px 18px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .perf-cuerpo {
+        display: grid;
+        grid-template-columns: 252px minmax(0, 1fr);
+        gap: 36px;
+        align-items: start;
+        margin-top: 18px;
+    }
+
+    .perf-filtros {
+        position: sticky;
+        top: calc(var(--shell-embed-top-offset, 24px) + 8px);
+        left: auto;
+        right: auto;
+        bottom: auto;
+        z-index: 1;
+        max-height: calc(var(--app-height, 100vh) - var(--shell-embed-top-offset, 24px) - 24px);
+        padding: 20px 20px 16px;
+        border-radius: var(--m-r-lg);
+        transform: none;
+        visibility: visible;
+        transition: none;
+        box-shadow: var(--m-moldura), var(--m-relieve), var(--m-sombra-2);
+    }
+
+    .perf-filtros__cabeza .perf-cerrar,
+    #perf-ver,
+    .perf-filtros-btn {
+        display: none;
+    }
+
+    .perf-filtros__pie {
+        grid-template-columns: 1fr;
+    }
+
+    .perf-resultados__cabeza {
+        margin-top: 4px;
+    }
+
+    .perf-grilla {
+        grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
+        gap: 34px 22px;
+    }
+}
+
+.pieza.is-filtrada,
+.pieza.is-diferida {
+    display: none;
+}
+
+.pieza {
+    min-width: 0;
+    animation: pieza-entra var(--m-dur-3) var(--m-ease) both;
+}
+
+@keyframes pieza-entra {
+    from { opacity: 0; transform: translateY(8px); }
+}
+
+.pieza__enlace {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    color: inherit;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
+/* La hornacina: un arco de mármol con filete dorado. La luz es la de un
+   nicho real y discreta: la bóveda apenas más oscura arriba (oclusión), una
+   caída de luz tenue y una sombra corta que la despega de la página. */
+.pieza__nicho {
+    --piso: 11%;
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 5;
+    overflow: hidden;
+    border-radius: 50% 50% 12px 12px / 40% 40% 12px 12px;
+    background:
+        linear-gradient(180deg, rgba(90, 65, 35, 0.06), transparent 40%),
+        linear-gradient(rgba(255, 253, 249, 0.42), rgba(255, 253, 249, 0.42)),
+        var(--m-marble-image) var(--m-losa-pos, 0 0) / var(--m-marble-size),
+        var(--m-losa);
+    box-shadow:
+        inset 0 0 0 1px var(--m-filete),
+        inset 0 18px 26px -16px rgba(70, 50, 25, 0.3),
+        var(--m-sombra-1);
+    isolation: isolate;
+    transition: box-shadow var(--m-dur-3) var(--m-ease);
+}
+
+.pieza:nth-child(5n + 1) .pieza__nicho { --m-losa-pos: -40px -60px; }
+.pieza:nth-child(5n + 2) .pieza__nicho { --m-losa-pos: -300px -120px; }
+.pieza:nth-child(5n + 3) .pieza__nicho { --m-losa-pos: -140px -400px; }
+.pieza:nth-child(5n + 4) .pieza__nicho { --m-losa-pos: -460px -260px; }
+.pieza:nth-child(5n + 5) .pieza__nicho { --m-losa-pos: -620px -520px; }
+
+/* La foto (fondo blanco) se multiplica sobre la piedra: el blanco desaparece
+   y el frasco queda con la luz del nicho. Se apoya en el piso con el encuadre
+   medido (scripts/medir-frascos.py); la escala es pareja. */
+.pieza__frasco {
+    position: absolute;
+    z-index: 3;
+    left: 50%;
+    /* La base entra unos px en el piso: la línea es el encuentro con la pared. */
+    bottom: calc(var(--piso) - 6px - var(--pie, 6%));
+    height: var(--img-alto, 70%);
+    width: auto;
+    max-width: none;
+    transform: translateX(calc(-50% + var(--dx, 0%)));
+    mix-blend-mode: multiply;
+    filter: brightness(var(--brillo, 1)) contrast(1.04) saturate(1.02);
+    /* Quieto siempre, y nada se anima dentro del nicho: en Safari, animar
+       la opacidad o el transform de algo que el frasco tapa (la sombra) sube
+       el frasco a otra capa; el multiply deja de mezclarse con el mármol y
+       aparece el blanco de la foto. El hover solo enciende el filete. */
+    pointer-events: none;
+}
+
+/* Silueta lisa del frasco, del color del nicho, justo debajo de la foto
+   (catalog-renderer `ponerSilueta`): el multiply ya no deja ver las vetas
+   a través de lo claro del frasco. Mismo tamaño y lugar que la foto. */
+.pieza__silueta {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    bottom: calc(var(--piso) - 6px - var(--pie, 6%));
+    height: var(--img-alto, 70%);
+    width: auto;
+    max-width: none;
+    transform: translateX(calc(-50% + var(--dx, 0%)));
+    pointer-events: none;
+}
+
+/* Foto que no estaba medida: no se muestra hasta que el navegador mide el
+   frasco real (catalog-renderer `ajustarFrasco`), así no salta de lugar.
+   Sin transición: nada se anima dentro del nicho. */
+.pieza__nicho[data-midiendo] .pieza__frasco,
+.pieza__nicho[data-midiendo] .pieza__sombra,
+.pieza__nicho[data-midiendo] .pieza__silueta {
+    visibility: hidden;
+}
+
+.pieza__piso {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: var(--piso);
+    border-top: 1px solid var(--m-filete);
+    box-sizing: border-box;
+    /* El piso se lee como superficie: se oscurece apenas hacia el frente. */
+    background: linear-gradient(180deg, transparent, rgba(90, 65, 35, 0.06));
+}
+
+/* Penumbra sobre la línea: donde la pared se encuentra con el piso. */
+.pieza__piso::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    height: 6px;
+    background: linear-gradient(0deg, rgba(90, 65, 35, 0.07), transparent);
+}
+
+.pieza__sombra {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    bottom: calc(var(--piso) - 13px);
+    width: calc(var(--sombra, 40%) * 1.18);
+    height: 14px;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    /* Dos sombras como las de un objeto real: un núcleo de contacto angosto
+       y oscuro pegado a la base, y un halo ancho y difuso. */
+    background:
+        radial-gradient(44% 24% at 50% 50%, rgba(40, 25, 10, 0.5), transparent),
+        radial-gradient(closest-side, rgba(45, 30, 15, 0.18), transparent);
+    pointer-events: none;
+}
+
+@media (hover: hover) {
+    .pieza__enlace:hover .pieza__nicho {
+        box-shadow:
+            inset 0 0 0 1.5px var(--m-gold), 0 0 0 3px rgba(183, 146, 76, 0.16),
+            inset 0 18px 26px -16px rgba(70, 50, 25, 0.3),
+            var(--m-sombra-2);
+    }
+
+}
+
+.pieza__enlace:focus-visible .pieza__nicho,
+.pieza__enlace:focus-visible .pieza__lamina {
+    box-shadow: inset 0 0 0 2px var(--m-gold), 0 0 0 4px rgba(183, 146, 76, 0.25);
+}
+
+/* Agotado: el frasco se apaga en gris, pero sigue opaco. Con opacidad se
+   veía el mármol a través y parecía una foto rota. Sin contrast < 1: grisea
+   el blanco de la foto y deja un recuadro alrededor del frasco. */
+.pieza.is-agotado .pieza__frasco {
+    filter: brightness(var(--brillo, 1)) grayscale(0.85) contrast(1.02);
+}
+
+/* Placas: chapitas negras con letra dorada, al pie del arco. */
+.pieza__placas {
+    position: absolute;
+    z-index: 4;
+    top: 12px;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 4px;
+    pointer-events: none;
+}
+
+.placa {
+    padding: 3px 9px;
+    border-radius: var(--m-r-pill);
+    background: var(--m-nero);
+    box-shadow: inset 0 0 0 1px var(--m-filete-claro);
+    color: var(--m-gold-claro);
+    font: 600 10.5px/1.3 var(--font-body);
+    letter-spacing: 0.08em;
+}
+
+.placa--oferta {
+    background: #6d1f17;
+    box-shadow: inset 0 0 0 1px rgba(240, 200, 170, 0.6);
+    color: #f6dcc6;
+}
+
+.placa--agotado {
+    background: rgba(255, 253, 249, 0.9);
+    box-shadow: inset 0 0 0 1px var(--m-filete-suave);
+    color: var(--m-ink-2);
+}
+
+.pieza__texto {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    padding: 0 2px;
+}
+
+.pieza__marca {
+    font: 500 11.5px/1.3 var(--font-body);
+    letter-spacing: 0.09em;
+    color: var(--m-gold-deep);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.pieza__nombre {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 18.5px;
+    line-height: 1.14;
+    color: var(--m-ink);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.pieza__precio {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0 6px;
+    margin-top: 3px;
+    font: 400 12px var(--font-body);
+    color: var(--m-ink-3);
+}
+
+.pieza__monto {
+    font: 500 15px var(--font-body);
+    color: var(--m-ink);
+    font-variant-numeric: tabular-nums;
+}
+
+.pieza__monto.is-oferta {
+    color: #7a2a1d;
+}
+
+.pieza__precio s {
+    font-size: 12px;
+    color: var(--m-ink-3);
+}
+
+/* Cuadros: la foto ya trae su pared y su repisa; va enmarcada como lámina. */
+.pieza__lamina {
+    position: relative;
+    display: block;
+    aspect-ratio: 3 / 4;
+    overflow: hidden;
+    border-radius: 6px;
+    background: var(--m-losa);
+    box-shadow:
+        inset 0 0 0 1px var(--m-filete),
+        0 0 0 5px rgba(255, 253, 249, 0.85),
+        0 0 0 6px var(--m-filete-suave),
+        var(--m-sombra-2);
+    margin: 6px;
+}
+
+.pieza__lamina img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform var(--m-dur-3) var(--m-ease);
+}
+
+@media (hover: hover) {
+    .pieza__enlace:hover .pieza__lamina img {
+        transform: scale(1.03);
+    }
+}
+
+.pieza--cuadros .pieza__placas {
+    top: 18px;
+}
+
+/* ---------- Vacío y "Ver más" ---------- */
+
+.perf-vacio {
+    margin: 24px 0;
+    padding: 32px 20px;
+    border-radius: var(--m-r-lg);
+    text-align: center;
+    background: rgba(255, 253, 249, 0.55);
+    box-shadow: inset 0 0 0 1px var(--m-filete-suave);
+    color: var(--m-ink-2);
+}
+
+.perf-vacio__titulo {
+    margin: 0 0 6px;
+    font: 500 22px/1.2 var(--font-display);
+    color: var(--m-ink);
+}
+
+.perf-vacio p {
+    margin: 0 0 16px;
+}
+
+/* ---------- Paginador: arriba (con el conteo) y abajo de la grilla ---------- */
+
+.perf-resultados__cabeza {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    margin: 10px 2px 14px;
+}
+
+.perf-resultados__cabeza .perf-conteo {
+    margin: 0;
+}
+
+.perf-paginador {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+}
+
+.perf-paginador--pie {
+    justify-content: center;
+    padding: 34px 0 8px;
+}
+
+.perf-paginador__cantidad {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font: 500 12.5px var(--font-body);
+    letter-spacing: 0.02em;
+    color: var(--m-ink-2);
+}
+
+.perf-paginador__cantidad input {
+    width: 54px;
+    height: 34px;
+    padding: 0 6px;
+    border: 0;
+    border-radius: var(--m-r-pill);
+    background: rgba(255, 253, 249, 0.74);
+    box-shadow: var(--m-hundido);
+    font: 500 14px var(--font-body);
+    color: var(--m-ink);
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+    outline: none;
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+.perf-paginador__cantidad input::-webkit-outer-spin-button,
+.perf-paginador__cantidad input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.perf-paginador__cantidad input:focus {
+    box-shadow: inset 0 0 0 1px var(--m-filete), 0 0 0 4px rgba(183, 146, 76, 0.14);
+}
+
+.perf-paginador__pasos {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+    padding: 3px;
+    border-radius: var(--m-r-pill);
+    background: var(--m-losa-fondo);
+    --m-losa-pos: -420px -200px;
+    box-shadow: var(--m-moldura), var(--m-relieve), var(--m-sombra-1);
+}
+
+.perf-paginador__pasos button {
+    display: inline-grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--m-ink);
+    cursor: pointer;
+    transition: background var(--m-dur-2) var(--m-ease), color var(--m-dur-2) var(--m-ease);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.perf-paginador__pasos button svg {
+    width: 18px;
+    height: 18px;
+}
+
+.perf-paginador__pasos button:disabled {
+    opacity: 0.32;
+    cursor: default;
+}
+
+@media (hover: hover) {
+    .perf-paginador__pasos button:not(:disabled):hover {
+        background: var(--m-nero-fondo);
+        color: var(--m-gold-claro);
+    }
+}
+
+.perf-paginador__pasos button:not(:disabled):active {
+    background: var(--m-nero-fondo);
+    color: var(--m-gold-claro);
+}
+
+.perf-paginador__pasos button:focus-visible {
+    outline: 2px solid var(--m-filete);
+    outline-offset: 1px;
+}
+
+.perf-paginador__estado {
+    min-width: 104px;
+    padding: 0 6px;
+    font: 500 13px var(--font-body);
+    color: var(--m-ink);
+    text-align: center;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+/* Teléfono: arriba solo las flechas junto al conteo; la cantidad va abajo. */
+@media (max-width: 619px) {
+    .perf-resultados__cabeza .perf-paginador__cantidad {
+        display: none;
+    }
+
+    .perf-paginador--pie {
+        flex-direction: column;
+    }
+}
+
+/* ---------- Velo de las hojas ---------- */
+
+.perf-velo {
+    position: fixed;
+    inset: 0;
+    z-index: 55;
+    background: rgba(35, 26, 15, 0.38);
+    opacity: 0;
+    transition: opacity var(--m-dur-3) var(--m-ease);
+}
+
+.perf-velo.is-abierto {
+    opacity: 1;
+}
+
+@media (min-width: 1024px) {
+    body:not(.is-combo-hoja) .perf-velo {
+        display: none;
+    }
+}
+
+/* ==========================================================================
+   Arma tu combo
+   ========================================================================== */
+
+.perf-combo {
+    padding-top: 16px;
+}
+
+.combo-tipos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.combo-tipo {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    min-height: 76px;
+    padding: 14px;
+    border: 0;
+    border-radius: var(--m-r-md);
+    background: var(--m-losa-fondo);
+    box-shadow: inset 0 0 0 1px var(--m-filete-suave), var(--m-relieve), var(--m-sombra-1);
+    text-align: left;
+    cursor: pointer;
+    transition: box-shadow var(--m-dur-2) var(--m-ease), background var(--m-dur-2) var(--m-ease);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.combo-tipo__nombre {
+    font: 500 19px/1.1 var(--font-display);
+    color: var(--m-ink);
+}
+
+.combo-tipo__nota {
+    font: 400 12.5px/1.3 var(--font-body);
+    color: var(--m-ink-2);
+}
+
+.combo-tipo[aria-checked="true"] {
+    background: var(--m-nero-fondo);
+    box-shadow: var(--m-activo);
+}
+
+.combo-tipo[aria-checked="true"] .combo-tipo__nombre {
+    color: var(--m-gold-claro);
+}
+
+.combo-tipo[aria-checked="true"] .combo-tipo__nota {
+    color: rgba(243, 230, 200, 0.7);
+}
+
+.combo-cantidad {
+    margin-top: 18px;
+}
+
+.combo-cantidad__opciones {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 6px;
+}
+
+.combo-cantidad__opciones button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1px;
+    padding: 8px 0 7px;
+    border: 0;
+    border-radius: var(--m-r-sm);
+    background: rgba(255, 253, 249, 0.62);
+    box-shadow: inset 0 0 0 1px var(--m-filete-suave);
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.combo-cantidad__opciones strong {
+    font: 500 20px/1.1 var(--font-display);
+    color: var(--m-ink);
+}
+
+.combo-cantidad__opciones span {
+    font: 500 11px var(--font-body);
+    color: var(--m-gold-deep);
+}
+
+.combo-cantidad__opciones button[aria-checked="true"] {
+    background: var(--m-nero-fondo);
+    box-shadow: var(--m-activo);
+}
+
+.combo-cantidad__opciones button[aria-checked="true"] strong {
+    color: var(--m-gold-claro);
+}
+
+.combo-cantidad__opciones button[aria-checked="true"] span {
+    color: rgba(243, 230, 200, 0.75);
+}
+
+.combo-nichos {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px 10px;
+    margin: 22px 0 0;
+    padding: 0;
+    list-style: none;
+}
+
+.combo-nichos[data-tipo="decants"] {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px 14px;
+}
+
+@media (min-width: 620px) {
+    .combo-nichos[data-tipo="decants"] {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
+
+@media (min-width: 961px) {
+    .combo-nichos {
+        grid-template-columns: repeat(3, minmax(0, 260px));
+        justify-content: center;
+        gap: 30px 26px;
+    }
+
+    .combo-nichos[data-tipo="decants"] {
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .combo-tipos {
+        max-width: 640px;
+        margin: 0 auto;
+    }
+
+    .combo-cantidad,
+    .combo-codigo {
+        max-width: 640px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.combo-nicho {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+    animation: pieza-entra var(--m-dur-3) var(--m-ease) both;
+}
+
+.combo-nicho__escena {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.combo-nicho__escena .pieza__nicho {
+    width: 100%;
+}
+
+/* Nicho vacío: el hueco tallado espera su frasco. */
+.combo-nicho__vacio::before {
+    content: '';
+    position: absolute;
+    inset: 9px 9px calc(var(--piso) + 7px);
+    z-index: 1;
+    border-radius: 50% 50% 6px 6px / 40% 40% 6px 6px;
+    border: 1px dashed rgba(138, 110, 55, 0.55);
+}
+
+.combo-nicho__mas {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    top: 44%;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 253, 249, 0.75);
+    box-shadow: inset 0 0 0 1px var(--m-filete), 0 6px 14px -8px rgba(70, 50, 25, 0.5);
+    transition: transform var(--m-dur-2) var(--m-ease);
+}
+
+.combo-nicho__mas::before,
+.combo-nicho__mas::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 16px;
+    height: 1.6px;
+    background: var(--m-gold-deep);
+    transform: translate(-50%, -50%);
+}
+
+.combo-nicho__mas::after {
+    transform: translate(-50%, -50%) rotate(90deg);
+}
+
+@media (hover: hover) {
+    .combo-nicho__escena:hover .combo-nicho__mas {
+        transform: translate(-50%, -50%) scale(1.08);
+    }
+}
+
+.combo-nicho__quitar {
+    position: absolute;
+    z-index: 5;
+    top: 18%;
+    right: -4px;
+    display: grid;
+    place-items: center;
+    width: 30px;
+    height: 30px;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: rgba(255, 253, 249, 0.92);
+    box-shadow: inset 0 0 0 1px var(--m-filete), var(--m-sombra-1);
+    color: var(--m-ink-2);
+    cursor: pointer;
+}
+
+.combo-nicho__quitar svg {
+    width: 16px;
+    height: 16px;
+}
+
+.combo-nicho__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    text-align: center;
+}
+
+.combo-nicho__nombre {
+    font: 500 14.5px/1.15 var(--font-display);
+    color: var(--m-ink);
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.combo-nicho__nombre--vacio {
+    font: 500 12px var(--font-body);
+    letter-spacing: 0.08em;
+    color: var(--m-ink-3);
+}
+
+.combo-nicho__tamanos {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    font: 400 11px var(--font-body);
+    color: var(--m-ink-3);
+}
+
+.combo-nicho__tamanos button {
+    min-width: 28px;
+    height: 26px;
+    padding: 0 5px;
+    border: 0;
+    border-radius: 13px;
+    background: rgba(255, 253, 249, 0.62);
+    box-shadow: inset 0 0 0 1px var(--m-filete-suave);
+    font: 500 12px var(--font-body);
+    color: var(--m-ink-2);
+    cursor: pointer;
+}
+
+.combo-nicho__tamanos button[aria-checked="true"] {
+    background: var(--m-nero);
+    color: var(--m-gold-claro);
+    box-shadow: inset 0 0 0 1px var(--m-filete-claro);
+}
+
+.combo-nicho__ml,
+.combo-nicho__precio {
+    font: 400 12px var(--font-body);
+    color: var(--m-ink-2);
+}
+
+.combo-nicho__precio s {
+    color: var(--m-ink-3);
+}
+
+/* Códigos de combo: dos botones discretos sobre los nichos y, al abrirlo, el
+   campo para pegar uno. El aviso explica qué pasó (aplicado, copiado, o que
+   un perfume del código ya no está). */
+.combo-codigo {
+    margin-top: 14px;
+}
+
+.combo-codigo__botones {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.combo-codigo__boton {
+    min-height: 40px;
+    padding: 0 14px;
+    gap: 8px;
+    font-size: 14px;
+}
+
+.combo-codigo__boton svg {
+    width: 17px;
+    height: 17px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.combo-codigo__boton:disabled {
+    opacity: 0.45;
+    cursor: default;
+}
+
+.combo-codigo__boton[aria-expanded="true"] {
+    background: var(--m-nero-fondo);
+    box-shadow: var(--m-activo);
+    color: var(--m-gold-claro);
+}
+
+.combo-codigo__form {
+    display: flex;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.combo-codigo__form[hidden] {
+    display: none;
+}
+
+.combo-codigo__form input {
+    flex: 1;
+    min-width: 0;
+    height: 46px;
+    padding: 0 16px;
+    border: 0;
+    border-radius: var(--m-r-pill);
+    background: rgba(255, 253, 249, 0.85);
+    box-shadow: var(--m-hundido);
+    font: 500 15px var(--font-body);
+    letter-spacing: 0.02em;
+    color: var(--m-ink);
+    outline: none;
+}
+
+.combo-codigo__form input:focus {
+    box-shadow: inset 0 0 0 1px var(--m-filete), 0 0 0 4px rgba(183, 146, 76, 0.14);
+}
+
+.combo-codigo__form .perf-boton {
+    min-height: 46px;
+}
+
+.combo-codigo__aviso {
+    margin: 8px 0 0;
+    font: 400 13.5px/1.4 var(--font-body);
+    color: var(--m-ink-2);
+}
+
+.combo-codigo__aviso:empty {
+    display: none;
+}
+
+.combo-codigo__aviso.is-error {
+    color: #8A3B2E;
+}
+
+/* Resumen: siempre a la vista, sobre el dock. */
+.combo-resumen {
+    position: sticky;
+    bottom: calc(var(--dock-espacio) + 10px);
+    z-index: 20;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 26px;
+    padding: 14px;
+    border-radius: var(--m-r-lg);
+    background: var(--m-losa-fondo);
+    --m-losa-pos: -500px -300px;
+    box-shadow: var(--m-moldura), var(--m-relieve), var(--m-sombra-3);
+}
+
+.combo-resumen__cifras {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 2px 12px;
+}
+
+.combo-resumen__estado {
+    font: 500 12px var(--font-body);
+    letter-spacing: 0.08em;
+    color: var(--m-gold-deep);
+}
+
+.combo-resumen__total {
+    grid-row: span 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.combo-resumen__total s {
+    font: 400 13px var(--font-body);
+    color: var(--m-ink-3);
+}
+
+.combo-resumen__total strong {
+    font: 500 28px/1 var(--font-display);
+    color: var(--m-ink);
+    font-variant-numeric: lining-nums;
+}
+
+.combo-resumen__ahorro {
+    font: 500 13px var(--font-body);
+    color: #5E6B3A;
+}
+
+.combo-resumen__acciones {
+    display: grid;
+    grid-template-columns: 50px 1fr;
+    gap: 8px;
+}
+
+.combo-resumen__acciones .perf-boton {
+    min-height: 50px;
+    padding: 0 16px;
+    white-space: nowrap;
+}
+
+/* En el teléfono, "Al carrito" es solo el ícono: el botón de WhatsApp entra
+   en una línea. */
+.combo-resumen__acciones #combo-carrito {
+    padding: 0;
+}
+
+.combo-resumen__acciones #combo-carrito span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+}
+
+@media (min-width: 961px) {
+    .combo-resumen__acciones {
+        grid-template-columns: auto auto;
+    }
+
+    .combo-resumen__acciones #combo-carrito {
+        padding: 0 18px;
+    }
+
+    .combo-resumen__acciones #combo-carrito span {
+        position: static;
+        width: auto;
+        height: auto;
+        clip: auto;
+    }
+}
+
+@media (min-width: 961px) {
+    .combo-resumen {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 860px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 16px 16px 16px 24px;
+        /* Por encima de los puntitos del shell. */
+        bottom: 40px;
+    }
+
+    .combo-resumen__cifras {
+        flex: 1;
+    }
+
+    .combo-resumen__acciones {
+        flex: none;
+    }
+}
+
+/* Hoja para elegir el producto de un nicho. */
+.combo-hoja {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: min(86vh, calc(var(--app-height, 100vh) - 70px));
+    padding: 18px var(--g, 16px) 0;
+    border-radius: var(--m-r-lg) var(--m-r-lg) 0 0;
+    background: var(--m-losa-fondo);
+    --m-losa-pos: -330px -80px;
+    box-shadow: var(--m-moldura), 0 -20px 50px -20px rgba(50, 35, 15, 0.45);
+    box-sizing: border-box;
+    transform: translateY(105%);
+    transition: transform var(--m-dur-3) var(--m-ease);
+}
+
+.combo-hoja.is-abierta {
+    transform: none;
+}
+
+.combo-hoja .perf-campo {
+    flex: none;
+}
+
+.combo-hoja__cabeza {
+    margin-bottom: 0;
+}
+
+.combo-hoja__lista {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    margin: 0 calc(-1 * var(--g, 16px));
+    padding: 4px var(--g, 16px) calc(20px + env(safe-area-inset-bottom, 0px));
+    list-style: none;
+    overscroll-behavior: contain;
+}
+
+.combo-opcion {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 8px 6px;
+    border: 0;
+    border-bottom: 1px solid var(--m-filete-suave);
+    background: none;
+    text-align: left;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.combo-opcion:active {
+    background: rgba(255, 253, 249, 0.6);
+}
+
+.combo-opcion__foto {
+    flex: none;
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--m-losa);
+    box-shadow: inset 0 0 0 1px var(--m-filete-suave);
+}
+
+.combo-opcion__foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+}
+
+.combo-opcion__texto {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+}
+
+.combo-opcion__nombre {
+    font: 500 16px/1.2 var(--font-display);
+    color: var(--m-ink);
+}
+
+.combo-opcion__precio {
+    font: 400 13px var(--font-body);
+    color: var(--m-ink-2);
+}
+
+.combo-opcion__precio s {
+    color: var(--m-ink-3);
+}
+
+.combo-hoja__vacia {
+    padding: 24px 0;
+    text-align: center;
+    color: var(--m-ink-3);
+}
+
+@media (min-width: 961px) {
+    .combo-hoja {
+        left: 50%;
+        right: auto;
+        top: 50%;
+        bottom: auto;
+        width: 560px;
+        height: min(720px, 84vh);
+        border-radius: var(--m-r-lg);
+        transform: translate(-50%, -46%) scale(0.98);
+        opacity: 0;
+        transition: transform var(--m-dur-3) var(--m-ease), opacity var(--m-dur-2) var(--m-ease);
+    }
+
+    .combo-hoja.is-abierta {
+        transform: translate(-50%, -50%);
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .pieza,
+    .combo-nicho {
+        animation: none;
+    }
+}

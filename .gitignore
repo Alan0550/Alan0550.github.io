@@ -1,0 +1,71 @@
+.DS_Store
+imagenes/.DS_Store
+imagenes/fotos-catalogo/.DS_Store
+imagenes/fotos-decants/.DS_Store
+# Todo lo temporal: capturas de QA, referencias, pruebas.
+temp/
+# Herramientas locales (QA, conversión de assets): no van al repo.
+scripts/
+# Lo que se publica en Cloudflare se arma con deploy/armar-dist.mjs.
+dist/
+.wrangler/
+
+watches.md
+arma_tu_combo.md
+inventario.csv
+revision-inventario-catalogo.md
+
+# Assets fuente de Suarez Watches: 573 MB de SVG con PNG en base64.
+# Se convierten a imagenes/relojes/*.webp con scripts/build-watch-assets.py.
+Suarez W/
+
+# Assets fuente de la tanda de Sep 2026 (diales lisos, logo del reloj, agujas GMT).
+# Se convierten con scripts/add-watch-assets.py.
+Suarez W nuevos/
+Diseño sin título.zip
+
+# Biseles GMT, Buceo y Taquímetro de Oct 2026 (270 MB).
+# Se convierten con scripts/add-watch-assets-biseles-4k.py.
+biseles-36-imagenes-4k.zip
+
+# Agujas bastón con lumen de Oct 2026.
+# Se convierten con scripts/add-watch-assets-agujas-baston.py.
+agujas-baston-10-piezas-4k.zip
+
+# Tanda del 13 Oct 2026: biseles GMT nuevos, índices bastón/diamante y marcos de fechador.
+# Se convierten con scripts/add-watch-assets-gmt-4k.py, add-watch-assets-indices-hora.py
+# y crear-marcos-fechador.py.
+Biseles_GMT_12_Colores_Individuales_4K.zip
+Biseles_GMT_12_Colores_Individuales_4K/
+81_Piezas_Individuales_Transparentes_4K.zip
+81_Piezas_Individuales_Transparentes_4K/
+
+# Tanda del 14 Oct 2026: GMT plata corregido (scripts/add-watch-assets-gmt-plata-4k.py).
+# Los de buceo eran los 60 min en otra resolucion, no el Buceo marcado esperado: sin usar.
+Biseles_Buceo_Corregidos_13_Variantes_4K.zip
+Biseles_Buceo_Corregidos_13_Variantes_4K/
+Bisel_GMT_Plateado_Numeracion_Corregida_4K.zip
+Bisel_GMT_Plateado_Numeracion_Corregida_4K/
+
+# Tanda del 15 Oct 2026: Buceo marcado nuevo (scripts/add-watch-assets-buceo-marcado-8k.py).
+Biseles_Buceo_Lisos_5_Piezas_8K.zip
+Biseles_Buceo_Lisos_5_Piezas_8K/
+# Muestra del 02 "Acero y negro" (el del zip vino truncado).
+WhatsApp Image 2026-10-14 at 19.37.10.jpeg
+
+# Cajas cuadradas Santos y Tank (19 Oct 2026): cajas, biseles, brazaletes y esferas.
+# Se convierten con scripts/add-watch-assets-cartier.py (y despues derivar-oro-rosa.py).
+Cajas_Santos_Tank_Plateado_Dorado_Negro_8K.zip
+Biseles_Compatibles_Cajas_Santos_Tank.zip
+Brazaletes_Santos_Tank_Todos_Colores_Tornillos_8K.zip
+TODOS_24_DIALES_INDIVIDUALES_8K.zip
+
+# Esferas de cronografo con subdiales (26 Oct 2026, 25 PNG de 8192 px).
+# Se convierten con scripts/add-watch-assets-crono.py.
+Diales_8K_Parte_*.zip
+Diales_8K_Parte_*/
+
+# Tanda del 26 Oct 2026: cajas de cronografo con pulsadores y correas de caucho.
+# Se convierten con scripts/add-watch-assets-caucho-crono.py.
+Archivo (1).zip
+Archivo (2).zip

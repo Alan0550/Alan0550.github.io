@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex">
+    <title>Resultados de búsqueda</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/pages/perfumeria.css">
+    <link rel="stylesheet" href="css/pages/search.css">
+    <link rel="icon" sizes="16x16 32x32 48x48" href="imagenes/Cowboy.ico" type="image/x-icon">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="imagenes/applogo.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="white">
+    <meta name="apple-mobile-web-app-title" content="Perfumería Suárez">
+    <script src="js/runtime-config.js"></script>
+    <meta property="og:title" content="Resultados de búsqueda">
+    <meta property="og:description" content="Resultados de Búsqueda en Perfumería Suárez.">
+    <meta property="og:image" content="https://alexjarkov.github.io/PerfSuarez/imagenes/miniatura.JPEG">
+    <meta property="og:url" content="http://alexjarkov.github.io/PerfSuarez/search.html">
+    <meta property="og:type" content="website">
+</head>
+
+<body class="search-page perfumeria-page">
+    <main class="perf" id="busqueda">
+        <header class="perf-cabeza">
+            <div class="perf-cabeza__fila">
+                <h1 class="perf-titulo perf-titulo--busqueda">Buscar</h1>
+            </div>
+        </header>
+        <form class="perf-barra" id="busqueda-form" role="search">
+            <label class="perf-campo">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>
+                <span class="hidden">Buscar</span>
+                <input type="search" id="busqueda-q" name="q" placeholder="Perfume, casa o nota" autocomplete="off" enterkeyhint="search">
+            </label>
+            <button class="perf-boton perf-boton--negro" type="submit">Buscar</button>
+        </form>
+        <div class="perf-chips" id="perf-chips" data-shell-swipe-ignore>
+            <div class="perf-chips__grupo" role="radiogroup" aria-label="Género" data-filtro="genero">
+                <button class="perf-chip" type="button" role="radio" data-valor="all" aria-checked="true">Todos</button>
+                <button class="perf-chip" type="button" role="radio" data-valor="hombre" aria-checked="false">Hombre</button>
+                <button class="perf-chip" type="button" role="radio" data-valor="mujer" aria-checked="false">Mujer</button>
+                <button class="perf-chip" type="button" role="radio" data-valor="unisex" aria-checked="false">Unisex</button>
+            </div>
+            <span class="perf-chips__filete" aria-hidden="true"></span>
+            <div class="perf-chips__grupo" role="radiogroup" aria-label="Estilo" data-filtro="estilo">
+                <button class="perf-chip" type="button" role="radio" data-valor="nicho" aria-checked="false">Nicho</button>
+                <button class="perf-chip" type="button" role="radio" data-valor="diseñador" aria-checked="false">Diseñador</button>
+                <button class="perf-chip" type="button" role="radio" data-valor="arabes" aria-checked="false">Árabe</button>
+            </div>
+        </div>
+        <p class="perf-conteo" id="perf-conteo"></p>
+        <div class="perf-grilla" id="busqueda-grilla"></div>
+        <div class="perf-vacio" id="perf-vacio" hidden>
+            <p class="perf-vacio__titulo">No encontramos nada con ese nombre</p>
+            <p>Probá con la casa (Xerjoff, Lattafa…) o una nota (vainilla, oud…).</p>
+            <a class="perf-boton perf-boton--sutil" href="perfumeria.html" data-ir-perfumeria>Ver todo en Perfumería</a>
+        </div>
+    </main>
+    <script src="js/core/app.js"></script>
+    <script src="js/data/perfumes-data.js"></script>
+    <script src="js/models/search.model.js"></script>
+    <script src="js/viewmodels/catalog-renderer.js"></script>
+    <script src="js/viewmodels/busqueda.viewmodel.js"></script>
+</body>
+</html>

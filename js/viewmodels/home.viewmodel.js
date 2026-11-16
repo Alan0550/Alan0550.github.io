@@ -1,0 +1,57 @@
+(function (App) {
+    function initHomeSearch() {
+        const searchForm = document.querySelector('.home-search');
+        const searchInput = document.getElementById('home-search-input');
+        if (!searchForm || !searchInput || searchForm.dataset.ready === 'true') {
+            return;
+        }
+
+        searchForm.dataset.ready = 'true';
+
+        searchForm.addEventListener('submit', event => {
+            const query = searchInput.value.trim();
+            if (!query) {
+                event.preventDefault();
+                searchInput.focus();
+                return;
+            }
+
+            event.preventDefault();
+            searchInput.value = query;
+            App.core.navigateToSearch(query);
+        });
+    }
+
+    // Delegado en el documento: así también navegan dentro del shell los enlaces
+    // que se crean después de cargar (las diapositivas que arma el carrusel de
+    // novedades desde js/data/novedades.js).
+    function initHomeActions() {
+        document.addEventListener('click', event => {
+            const action = event.target && event.target.closest && event.target.closest('[data-shell-target]');
+            const target = action && action.dataset.shellTarget;
+            if (!target) {
+                return;
+            }
+
+            // El detalle de producto vuelve a la ruta recordada: al entrar
+            // desde el inicio, esa ruta debe ser el inicio y no el panel
+            // que el usuario hubiera visitado antes.
+            if (/^perfume\.html/i.test(target)) {
+                App.core.rememberReturnRoute('catalogo.html');
+            }
+
+            const parentNav = window.parent && window.parent !== window && window.parent.catalogShellNavigate;
+            if (typeof parentNav === 'function' && parentNav(target)) {
+                event.preventDefault();
+            }
+        });
+    }
+
+    App.viewmodels.home = {
+        initHomeSearch,
+        initHomeActions
+    };
+
+    App.core.onReady(initHomeSearch);
+    App.core.onReady(initHomeActions);
+})(window.PerfSuarez);

@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="robots" content="noindex">
+    <title>Perfumería | Perfumería Suárez</title>
+    <link rel="preload" href="imagenes/marmol.webp" as="image" type="image/webp">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/pages/perfumeria.css">
+    <link rel="icon" sizes="16x16 32x32 48x48" href="imagenes/Cowboy.ico" type="image/x-icon">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="imagenes/applogo.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Perfumería Suárez">
+    <script src="js/runtime-config.js"></script>
+</head>
+<body class="perfumeria-page">
+    <main class="perf" id="perfumeria">
+        <!-- Las salas van en la fila de la píldora del header (en el teléfono, a su
+             derecha y a su altura); el título queda solo para lectores. -->
+        <header class="perf-cabeza perf-cabeza--salas">
+            <h1 class="hidden">Perfumería</h1>
+            <div class="perf-cabeza__fila">
+            <div class="perf-salas" role="tablist" aria-label="Salas de Perfumería">
+                <span class="perf-salas__marca" aria-hidden="true"></span>
+                <button class="perf-sala" role="tab" type="button" data-sala="perfumes" aria-selected="true" aria-controls="perf-catalogo">Perfumes</button>
+                <button class="perf-sala" role="tab" type="button" data-sala="decants" aria-selected="false" aria-controls="perf-catalogo">Decants</button>
+                <button class="perf-sala" role="tab" type="button" data-sala="cuadros" aria-selected="false" aria-controls="perf-catalogo">Cuadros</button>
+                <button class="perf-sala" role="tab" type="button" data-sala="combo" aria-selected="false" aria-controls="perf-combo">Combo</button>
+            </div>
+            </div>
+        </header>
+
+        <!-- Perfumes, Decants y Cuadros: el mismo catálogo, una grilla por sala. -->
+        <section class="perf-catalogo" id="perf-catalogo" aria-live="polite">
+            <div class="perf-barra">
+                <label class="perf-campo">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>
+                    <span class="hidden">Buscar</span>
+                    <input type="search" id="perf-q" placeholder="Buscar perfume, casa o nota" autocomplete="off" enterkeyhint="search">
+                </label>
+                <button class="perf-filtros-btn" id="perf-filtros-abrir" type="button" aria-label="Abrir filtros" aria-controls="perf-filtros" aria-expanded="false">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h10M18 7h2M4 17h4M12 17h8"/><circle cx="16" cy="7" r="2"/><circle cx="10" cy="17" r="2"/></svg>
+                    <span class="perf-filtros-btn__texto">Filtros</span>
+                    <span class="perf-filtros-btn__n" id="perf-filtros-n" hidden></span>
+                </button>
+            </div>
+            <div class="perf-chips-marco" id="perf-chips-marco">
+            <div class="perf-chips" id="perf-chips" data-shell-swipe-ignore>
+                <div class="perf-chips__grupo" role="radiogroup" aria-label="Género" data-filtro="genero">
+                    <button class="perf-chip" type="button" role="radio" data-valor="all" aria-checked="true">Todos</button>
+                    <button class="perf-chip" type="button" role="radio" data-valor="hombre" aria-checked="false">Hombre</button>
+                    <button class="perf-chip" type="button" role="radio" data-valor="mujer" aria-checked="false">Mujer</button>
+                    <button class="perf-chip" type="button" role="radio" data-valor="unisex" aria-checked="false">Unisex</button>
+                </div>
+                <span class="perf-chips__filete" aria-hidden="true"></span>
+                <div class="perf-chips__grupo" role="radiogroup" aria-label="Estilo" data-filtro="estilo">
+                    <button class="perf-chip" type="button" role="radio" data-valor="nicho" aria-checked="false">Nicho</button>
+                    <button class="perf-chip" type="button" role="radio" data-valor="diseñador" aria-checked="false">Diseñador</button>
+                    <button class="perf-chip" type="button" role="radio" data-valor="arabes" aria-checked="false">Árabe</button>
+                </div>
+            </div>
+                <!-- Pista de que la fila sigue: solo se ve mientras quedan chips a la derecha. -->
+                <button class="perf-chips__mas" id="perf-chips-mas" type="button" tabindex="-1" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="m9 6 6 6-6 6"/></svg>
+                </button>
+            </div>
+
+            <div class="perf-cuerpo">
+                <aside class="perf-filtros" id="perf-filtros" aria-label="Filtros" data-shell-swipe-ignore>
+                    <div class="perf-filtros__cabeza">
+                        <h2>Filtros</h2>
+                        <button class="perf-cerrar" id="perf-filtros-cerrar" type="button" aria-label="Cerrar filtros">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+                        </button>
+                    </div>
+                    <div class="perf-filtros__grupo">
+                        <label class="perf-etiqueta" for="perf-marca">Casa</label>
+                        <div class="perf-select">
+                            <select id="perf-marca"><option value="all">Todas las casas</option></select>
+                        </div>
+                    </div>
+                    <div class="perf-filtros__grupo">
+                        <span class="perf-etiqueta" id="perf-orden-etq">Orden</span>
+                        <div class="perf-orden" role="radiogroup" aria-labelledby="perf-orden-etq" id="perf-orden">
+                            <button type="button" role="radio" data-valor="hype" aria-checked="true">Más buscados</button>
+                            <button type="button" role="radio" data-valor="price-asc" aria-checked="false">Precio: menor a mayor</button>
+                            <button type="button" role="radio" data-valor="price-desc" aria-checked="false">Precio: mayor a menor</button>
+                            <button type="button" role="radio" data-valor="name-asc" aria-checked="false">Nombre: A a Z</button>
+                        </div>
+                    </div>
+                    <div class="perf-filtros__grupo perf-filtros__grupo--interruptores" data-solo="perfumes decants">
+                        <label class="perf-interruptor"><input type="checkbox" id="perf-stock" checked><span>Solo en stock</span></label>
+                        <label class="perf-interruptor"><input type="checkbox" id="perf-nuevos"><span>Solo novedades</span></label>
+                        <label class="perf-interruptor"><input type="checkbox" id="perf-ofertas"><span>Solo ofertas</span></label>
+                    </div>
+                    <div class="perf-filtros__pie">
+                        <button class="perf-boton perf-boton--sutil" id="perf-limpiar" type="button">Limpiar</button>
+                        <button class="perf-boton perf-boton--negro" id="perf-ver" type="button">Ver resultados</button>
+                    </div>
+                </aside>
+
+                <div class="perf-resultados">
+                    <div class="perf-resultados__cabeza">
+                        <p class="perf-conteo" id="perf-conteo"></p>
+                        <nav class="perf-paginador" data-paginador aria-label="Páginas">
+                            <label class="perf-paginador__cantidad">
+                                <span data-por-pagina-etq>Perfumes por página</span>
+                                <input type="number" min="1" max="200" step="1" value="24" inputmode="numeric" data-por-pagina>
+                            </label>
+                            <div class="perf-paginador__pasos">
+                                <button type="button" data-pagina="-1" aria-label="Página anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg></button>
+                                <span class="perf-paginador__estado" aria-live="polite" data-pagina-estado>Página 1 de 1</span>
+                                <button type="button" data-pagina="1" aria-label="Página siguiente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+                            </div>
+                        </nav>
+                    </div>
+                    <div class="perf-grillas" id="perf-grillas"></div>
+                    <div class="perf-vacio" id="perf-vacio" hidden>
+                        <p class="perf-vacio__titulo">No encontramos nada con esos filtros</p>
+                        <p>Probá con otra casa o quitá algún filtro.</p>
+                        <button class="perf-boton perf-boton--sutil" type="button" data-limpiar>Quitar filtros</button>
+                    </div>
+                    <nav class="perf-paginador perf-paginador--pie" id="perf-paginador-pie" data-paginador aria-label="Páginas">
+                        <label class="perf-paginador__cantidad">
+                            <span data-por-pagina-etq>Perfumes por página</span>
+                            <input type="number" min="1" max="200" step="1" value="24" inputmode="numeric" data-por-pagina>
+                        </label>
+                        <div class="perf-paginador__pasos">
+                            <button type="button" data-pagina="-1" aria-label="Página anterior"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg></button>
+                            <span class="perf-paginador__estado" data-pagina-estado>Página 1 de 1</span>
+                            <button type="button" data-pagina="1" aria-label="Página siguiente"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </section>
+
+        <!-- Arma tu combo: misma lógica y misma salida que antes. -->
+        <section class="perf-combo" id="perf-combo" hidden>
+            <div class="combo-tipos" role="radiogroup" aria-label="Tipo de combo">
+                <button class="combo-tipo" type="button" role="radio" data-tipo="perfumes" aria-checked="true">
+                    <span class="combo-tipo__nombre">Perfumes completos</span>
+                    <span class="combo-tipo__nota">3 frascos a precio de combo</span>
+                </button>
+                <button class="combo-tipo" type="button" role="radio" data-tipo="decants" aria-checked="false">
+                    <span class="combo-tipo__nombre">Set de decants</span>
+                    <span class="combo-tipo__nota">De 5 a 10, hasta 20 % menos</span>
+                </button>
+            </div>
+            <div class="combo-cantidad" id="combo-cantidad" hidden>
+                <span class="perf-etiqueta">¿Cuántos decants?</span>
+                <div class="combo-cantidad__opciones" role="radiogroup" aria-label="Cantidad de decants" data-shell-swipe-ignore></div>
+            </div>
+            <!-- Códigos de combo (SRZ-…): pegar uno que te pasaron, o copiar/compartir el tuyo. -->
+            <div class="combo-codigo">
+                <div class="combo-codigo__botones">
+                    <button class="perf-boton perf-boton--sutil combo-codigo__boton" type="button" id="combo-codigo-abrir" aria-expanded="false" aria-controls="combo-codigo-form">
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="4" rx="1"/><path d="M9 5H7a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-2M9 12h6M9 16h4"/></svg>
+                        <span>¿Te pasaron un código?</span>
+                    </button>
+                    <button class="perf-boton perf-boton--sutil combo-codigo__boton" type="button" id="combo-compartir" disabled>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 15V4M8 8l4-4 4 4M6 12v6a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2v-6"/></svg>
+                        <span id="combo-compartir-texto">Copiar código</span>
+                    </button>
+                </div>
+                <form class="combo-codigo__form" id="combo-codigo-form" hidden>
+                    <label class="hidden" for="combo-codigo-input">Código de combo</label>
+                    <input type="text" id="combo-codigo-input" placeholder="SRZ-C3-… o el link que te pasaron" autocomplete="off" autocapitalize="characters" spellcheck="false">
+                    <button class="perf-boton perf-boton--negro" type="submit">Aplicar</button>
+                </form>
+                <p class="combo-codigo__aviso" id="combo-codigo-aviso" role="status" aria-live="polite"></p>
+            </div>
+            <ol class="combo-nichos" id="combo-nichos"></ol>
+            <div class="combo-resumen" id="combo-resumen">
+                <div class="combo-resumen__cifras">
+                    <span class="combo-resumen__estado" id="combo-estado"></span>
+                    <span class="combo-resumen__total"><s id="combo-original"></s><strong id="combo-total">Bs 0</strong></span>
+                    <span class="combo-resumen__ahorro" id="combo-ahorro"></span>
+                </div>
+                <div class="combo-resumen__acciones">
+                    <button class="perf-boton perf-boton--losa" type="button" id="combo-carrito" disabled>
+                        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 8h12l-1 12H7z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
+                        <span>Al carrito</span>
+                    </button>
+                    <button class="perf-boton perf-boton--negro perf-boton--wa" type="button" id="combo-whatsapp" disabled>
+                        <span class="perf-wa" aria-hidden="true"></span>
+                        <span>Pedir por WhatsApp</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Hoja para elegir el producto de un nicho del combo. -->
+    <div class="perf-velo" id="perf-velo" hidden></div>
+    <section class="combo-hoja" id="combo-hoja" role="dialog" aria-modal="true" aria-labelledby="combo-hoja-titulo" hidden data-shell-swipe-ignore>
+        <div class="combo-hoja__cabeza">
+            <h2 id="combo-hoja-titulo">Elegí un perfume</h2>
+            <button class="perf-cerrar" type="button" data-cerrar-hoja aria-label="Cerrar">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 6 12 12M18 6 6 18"/></svg>
+            </button>
+        </div>
+        <label class="perf-campo">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5"/></svg>
+            <span class="hidden">Buscar</span>
+            <input type="search" id="combo-hoja-q" placeholder="Buscar" autocomplete="off">
+        </label>
+        <ul class="combo-hoja__lista" id="combo-hoja-lista"></ul>
+    </section>
+
+    <script src="js/core/app.js"></script>
+    <script src="js/data/perfumes-data.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/viewmodels/catalog-renderer.js"></script>
+    <script src="js/models/combo.model.js"></script>
+    <script src="js/models/combo-code.js"></script>
+    <script src="js/core/pedido.js"></script>
+    <script src="js/viewmodels/perfumeria-combo.js"></script>
+    <script src="js/viewmodels/perfumeria.viewmodel.js"></script>
+</body>
+</html>

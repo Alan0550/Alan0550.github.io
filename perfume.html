@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="robots" content="noindex">
+    <title>Perfume | Perfumería Suárez</title>
+    <link rel="preload" href="imagenes/marmol.webp" as="image" type="image/webp">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/pages/perfumeria.css">
+    <link rel="stylesheet" href="css/pages/perfume-detail.css">
+    <link rel="icon" sizes="16x16 32x32 48x48" href="imagenes/Cowboy.ico" type="image/x-icon">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="imagenes/applogo.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="Perfumería Suárez">
+    <script src="js/runtime-config.js"></script>
+</head>
+
+<body class="detail-page perfumeria-page">
+    <main class="ficha" id="detail-root">
+        <div class="ficha-cabeza">
+            <a class="ficha-volver" id="back-btn" href="perfumeria.html">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 8 12l7 7"/></svg>
+                <span>Perfumería</span>
+            </a>
+        </div>
+        <div class="ficha-vacia" id="not-found" hidden>
+            <span class="ficha-vacia__nicho" aria-hidden="true"></span>
+            <h1>No encontramos este perfume</h1>
+            <p>Puede que ya no esté en el catálogo.</p>
+            <a class="perf-boton perf-boton--negro" href="perfumeria.html" data-volver>Ver Perfumería</a>
+        </div>
+    </main>
+
+    <script src="js/core/app.js"></script>
+    <script src="js/data/perfumes-data.js"></script>
+    <script src="js/scripts.js"></script>
+    <script src="js/viewmodels/catalog-renderer.js"></script>
+    <script src="js/core/pedido.js"></script>
+    <script src="js/viewmodels/perfume-detalle.js"></script>
+</body>
+
+</html>

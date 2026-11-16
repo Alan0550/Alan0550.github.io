@@ -1,0 +1,678 @@
+header.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1004;
+    padding: 14px 18px 0;
+    box-sizing: border-box;
+    pointer-events: none;
+}
+
+.header-shell {
+    width: min(1180px, 92vw);
+    height: var(--header-height);
+    margin: 0 auto;
+    padding: 12px 18px;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    gap: 18px;
+    border-radius: 28px;
+    /* Sin backdrop-filter: desenfocar los paneles que se deslizan por debajo
+       en cada cuadro trababa el gesto en el teléfono. Es una losa de mármol
+       opaca con su moldura dorada. */
+    background: var(--m-losa-fondo);
+    --m-losa-pos: -120px -40px;
+    border: 0;
+    box-shadow: var(--m-moldura), var(--m-relieve), var(--m-sombra-2);
+    box-sizing: border-box;
+    pointer-events: auto;
+}
+
+.brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    min-height: 56px;
+    text-decoration: none;
+    color: var(--ink);
+}
+
+.brand-mark {
+    width: 56px;
+    height: 56px;
+    object-fit: contain;
+    filter: grayscale(1);
+    transition: filter 0.25s ease, transform 0.25s ease;
+}
+
+.brand:hover .brand-mark,
+.brand:focus-visible .brand-mark {
+    filter: grayscale(0);
+    transform: translateY(-1px);
+}
+
+.primary-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 0;
+}
+
+.nav-panel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-width: 0;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+}
+
+.nav-item {
+    margin: 0;
+}
+
+.nav-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0 14px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--m-ink-2);
+    text-decoration: none;
+    font-family: var(--font-body);
+    font-size: 0.94rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    transition: background 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+}
+
+.nav-link:hover,
+.nav-link:focus-visible {
+    color: var(--m-ink);
+    border-color: var(--m-filete-suave);
+}
+
+.nav-link.is-active {
+    background: var(--m-nero-fondo);
+    border-color: transparent;
+    box-shadow: var(--m-activo);
+    color: var(--m-gold-claro);
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+}
+
+.header-cta,
+.header-cart-toggle,
+.header-search-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    border-radius: 999px;
+    text-decoration: none;
+    font: inherit;
+}
+
+.header-cta {
+    gap: 8px;
+    padding: 0 20px;
+    background: var(--m-nero-fondo);
+    box-shadow: inset 0 0 0 1px var(--m-filete-claro);
+    color: #F3E6C8;
+    letter-spacing: 0.02em;
+    text-transform: none;
+    font-size: 0.92rem;
+    font-weight: 500;
+    transition: background 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.header-cta::after {
+    content: "→";
+    font-size: 0.9rem;
+}
+
+.header-cta:hover,
+.header-cta:focus-visible {
+    background: var(--black-soft);
+    box-shadow: 0 16px 30px rgba(17, 16, 14, 0.28);
+    transform: translateY(-1px);
+}
+
+.header-search-toggle {
+    gap: 10px;
+    padding: 0 16px;
+    border: 1px solid var(--m-filete-suave);
+    background: rgba(255, 253, 249, 0.6);
+    color: var(--m-ink);
+    cursor: pointer;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.header-search-toggle:hover,
+.header-search-toggle:focus-visible {
+    border-color: rgba(183, 146, 76, 0.22);
+    box-shadow: 0 14px 28px rgba(17, 17, 17, 0.08);
+    transform: translateY(-1px);
+}
+
+.header-search-toggle__label {
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    text-transform: none;
+}
+
+.header-cart-toggle {
+    gap: 10px;
+    padding: 0 16px;
+    border: 1px solid var(--m-filete-suave);
+    background: rgba(255, 253, 249, 0.6);
+    color: var(--m-ink);
+    cursor: pointer;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.header-cart-toggle:hover,
+.header-cart-toggle:focus-visible {
+    border-color: rgba(183, 146, 76, 0.22);
+    box-shadow: 0 14px 28px rgba(17, 17, 17, 0.08);
+    transform: translateY(-1px);
+}
+
+.header-cart-toggle__icon {
+    line-height: 1;
+}
+
+.header-cart-toggle__icon svg {
+    width: 18px;
+    height: 18px;
+    display: block;
+    fill: currentColor;
+}
+
+.header-cart-toggle__label {
+    font-size: 0.92rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+    text-transform: none;
+}
+
+.header-cart-toggle__count {
+    min-width: 24px;
+    height: 24px;
+    padding: 0 6px;
+    border-radius: 999px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--m-nero);
+    color: var(--m-gold-claro);
+    font-size: 0.76rem;
+    font-weight: 600;
+}
+
+.header-cart-toggle__count.is-empty {
+    background: rgba(17, 17, 17, 0.12);
+    color: var(--muted-ink);
+}
+
+.header-search-layer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1003;
+    pointer-events: none;
+}
+
+.header-search-float {
+    width: min(1180px, 92vw);
+    margin: calc(var(--header-height) + 34px) auto 0;
+    display: flex;
+    justify-content: flex-end;
+    position: relative;
+}
+
+.header-search-panel {
+    width: min(420px, 100%);
+    padding: 18px;
+    border-radius: 26px;
+    background: var(--m-losa-fondo);
+    --m-losa-pos: -380px -220px;
+    border: 0;
+    box-shadow: var(--m-moldura), var(--m-sombra-3);
+    box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    pointer-events: none;
+    transition: opacity 0.24s ease, transform 0.24s ease, visibility 0.24s ease;
+}
+
+.header-search-panel.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    pointer-events: auto;
+}
+
+.header-search-form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    box-sizing: border-box;
+}
+
+.search-icon {
+    position: relative;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+}
+
+.search-icon::before,
+.search-icon::after {
+    content: "";
+    position: absolute;
+}
+
+.search-icon::before {
+    inset: 0;
+    border: 2px solid currentColor;
+    border-radius: 50%;
+}
+
+.search-icon::after {
+    width: 6px;
+    height: 2px;
+    right: -2px;
+    bottom: -3px;
+    background: currentColor;
+    border-radius: 999px;
+    transform: rotate(45deg);
+}
+
+.header-search-form input {
+    min-height: 54px;
+    padding: 0 16px;
+    border-radius: var(--m-r-pill);
+    border: 0;
+    font: 400 16px var(--font-body);
+    color: var(--m-ink);
+    background: rgba(255, 253, 249, 0.75);
+    box-shadow: var(--m-hundido);
+    box-sizing: border-box;
+}
+
+.header-search-form input:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 1px var(--m-filete), 0 0 0 4px rgba(183, 146, 76, 0.14);
+}
+
+.header-search-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.header-search-submit,
+.header-search-close {
+    flex: 1;
+    min-height: 48px;
+    border-radius: 999px;
+    font: 500 15px var(--font-body);
+    cursor: pointer;
+}
+
+.header-search-submit {
+    border: none;
+    background: var(--m-nero-fondo);
+    box-shadow: inset 0 0 0 1px var(--m-filete-claro);
+    color: #F3E6C8;
+}
+
+.header-search-close {
+    border: 0;
+    background: transparent;
+    box-shadow: inset 0 0 0 1px var(--m-filete-suave);
+    color: var(--m-ink-2);
+}
+
+/* El carrito vive en css/components/cart.css. */
+
+body.cart-open,
+body.mobile-search-open {
+    overflow: hidden;
+}
+
+@media (max-width: 1100px) {
+    .header-shell {
+        width: min(1180px, 95vw);
+    }
+
+}
+
+@media (max-width: 960px) {
+    header.site-header {
+        padding-inline: 12px;
+    }
+
+    .header-shell {
+        width: 100%;
+        grid-template-columns: auto 1fr auto;
+        gap: 12px;
+        padding: 10px 12px;
+        border-radius: 24px;
+    }
+
+    .brand-mark {
+        width: 50px;
+        height: 50px;
+    }
+
+    .header-cta {
+        display: none;
+    }
+
+    .nav-links {
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+    }
+
+    .nav-link {
+        justify-content: space-between;
+        width: 100%;
+        min-height: 50px;
+        padding: 0 16px;
+        box-sizing: border-box;
+        font-family: var(--font-display);
+        font-size: 1.3rem;
+        letter-spacing: 0;
+        color: var(--m-ink);
+        background: rgba(255, 253, 249, 0.5);
+        border-color: var(--m-filete-suave);
+        text-transform: none;
+    }
+
+    .header-actions {
+        gap: 8px;
+    }
+
+    .header-cart-toggle,
+    .header-search-toggle {
+        min-height: 44px;
+        padding: 0 14px;
+    }
+
+    .header-cart-toggle__label,
+    .header-search-toggle__label {
+        display: none;
+    }
+
+    .header-search-layer {
+        top: calc(var(--header-height) + 20px + env(safe-area-inset-top));
+        left: 0;
+        right: 0;
+        bottom: 0;
+        padding-inline: 12px;
+        z-index: 1002;
+        pointer-events: none;
+    }
+
+    .header-search-layer.is-open {
+        pointer-events: auto;
+    }
+
+    .header-search-float {
+        width: min(94vw, 560px);
+        margin: 0 auto;
+        display: block;
+    }
+
+    .header-search-panel {
+        width: 100%;
+    }
+}
+
+.header-shell {
+    position: relative;
+    isolation: isolate;
+}
+
+.brand-mark,
+.header-cta,
+.header-cart-toggle,
+.header-search-toggle,
+.nav-link {
+    transition-property: background, background-color, border-color, color, box-shadow, filter, transform;
+    transition-duration: 380ms;
+    transition-timing-function: ease;
+}
+
+/* ---------- Teléfono y tablet: el header es una píldora ----------
+   Arriba a la izquierda, menos del 40 % del ancho: logo, Buscar y Carrito.
+   Sin menú: Inicio y Perfumería están en el dock de abajo, y Buscar (antes
+   escondido dentro del ☰) queda a un toque. No tapa contenido: las páginas
+   arrancan debajo (`--shell-embed-top-offset` se mide de la píldora), y una
+   página puede usar el lugar a su derecha con `--shell-pill-w/-h/-top`. */
+@media (max-width: 960px) {
+    html:root {
+        --header-height: 46px;
+    }
+
+    header.site-header {
+        left: 0;
+        right: auto;
+        padding: calc(10px + env(safe-area-inset-top, 0px)) 12px 0;
+    }
+
+    .header-shell {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        width: auto;
+        max-width: 40vw;
+        height: 46px;
+        padding: 4px 4px 4px 12px;
+        border-radius: 999px;
+        box-shadow: var(--m-moldura), var(--m-sombra-1);
+    }
+
+    .brand {
+        flex: 0 1 auto;
+        min-width: 0;
+        min-height: 38px;
+    }
+
+    .brand-mark {
+        width: auto;
+        max-width: 100%;
+        height: 24px;
+    }
+
+    .primary-nav {
+        display: none;
+    }
+
+    .header-actions {
+        flex: none;
+        gap: 4px;
+    }
+
+    /* Los dos botones: círculos de 38 px que se leen como botones (antes eran
+       íconos sueltos de 18 px). Buscar, de mármol con filete dorado; Carrito,
+       el principal, negro con el ícono dorado, como los estados activos. */
+    .header-search-toggle,
+    .header-cart-toggle {
+        position: relative;
+        flex: 0 0 auto;
+        width: 38px;
+        min-height: 38px;
+        height: 38px;
+        padding: 0;
+        border: 0;
+        border-radius: 50%;
+    }
+
+    /* 44 px de área táctil. */
+    .header-search-toggle::before,
+    .header-cart-toggle::before {
+        content: '';
+        position: absolute;
+        inset: -3px;
+    }
+
+    .header-search-toggle {
+        display: inline-flex;
+        background: rgba(255, 253, 249, 0.9);
+        box-shadow: inset 0 0 0 1px var(--m-filete), 0 2px 6px -3px rgba(70, 50, 25, 0.35);
+        color: var(--m-ink);
+    }
+
+    .header-search-toggle .search-icon {
+        width: 15px;
+        height: 15px;
+        margin: -2px 0 0 -2px;
+    }
+
+    .header-search-toggle[aria-expanded="true"] {
+        background: var(--m-nero-fondo);
+        box-shadow: inset 0 0 0 1px var(--m-filete-claro);
+        color: var(--m-gold-claro);
+    }
+
+    .header-cart-toggle {
+        background: var(--m-nero-fondo);
+        box-shadow: inset 0 0 0 1px var(--m-filete-claro), 0 4px 10px -4px rgba(17, 16, 14, 0.55);
+        color: var(--m-gold-claro);
+    }
+
+    .header-cart-toggle__icon svg {
+        width: 19px;
+        height: 19px;
+    }
+
+    .header-search-toggle__label,
+    .header-cart-toggle__label {
+        display: none;
+    }
+
+    /* El contador: globito dorado sobre el borde del círculo, con un aro del
+       color de la píldora para despegarlo. */
+    .header-cart-toggle__count {
+        position: absolute;
+        top: -4px;
+        right: -5px;
+        min-width: 18px;
+        height: 18px;
+        padding: 0 4px;
+        box-sizing: border-box;
+        background: var(--m-gold-claro);
+        box-shadow: 0 0 0 2px var(--m-losa);
+        color: var(--m-nero);
+        font-size: 0.68rem;
+        font-weight: 700;
+    }
+
+    .header-cart-toggle__count.is-empty {
+        display: none;
+    }
+
+    .header-search-layer {
+        top: calc(10px + 46px + 14px + env(safe-area-inset-top, 0px));
+    }
+}
+
+/* ---------- Escritorio: una barra píldora en las columnas del contenido ----------
+   Mismo diseño que la píldora del teléfono y que las salas de Perfumería
+   (mármol, filete, radio pill) y el mismo ancho que `main.perf`: 1240 px con
+   el margen `clamp(12px, 4vw, 28px)` de las páginas. Delgada (56 px) para que
+   no tape: las páginas arrancan debajo con `--shell-embed-top-offset`. */
+@media (min-width: 961px) {
+    html:root {
+        --header-height: 56px;
+    }
+
+    header.site-header {
+        padding: 12px 0 0;
+    }
+
+    .header-shell,
+    .header-search-float {
+        width: min(1240px, calc(100% - 2 * clamp(12px, 4vw, 28px)));
+    }
+
+    .header-shell {
+        height: 56px;
+        padding: 6px 6px 6px 22px;
+        gap: 16px;
+        border-radius: 999px;
+        box-shadow: var(--m-moldura), var(--m-relieve), var(--m-sombra-1);
+    }
+
+    .brand {
+        min-height: 44px;
+    }
+
+    .brand-mark {
+        width: auto;
+        height: 26px;
+    }
+
+    .nav-links {
+        gap: 4px;
+    }
+
+    .nav-link {
+        min-height: 40px;
+        padding: 0 18px;
+        font-size: 0.92rem;
+    }
+
+    .header-actions {
+        gap: 6px;
+    }
+
+    .header-cta,
+    .header-cart-toggle,
+    .header-search-toggle {
+        min-height: 44px;
+        height: 44px;
+    }
+
+    .header-search-toggle,
+    .header-cart-toggle {
+        padding: 0 14px;
+        gap: 8px;
+    }
+
+    .header-cart-toggle__count {
+        min-width: 22px;
+        height: 22px;
+    }
+
+    .header-search-float {
+        margin-top: calc(12px + 56px + 10px);
+    }
+}

@@ -1,0 +1,22 @@
+# Caché en el CDN de Cloudflare (se copia a dist/_headers).
+# Los nombres de archivo no llevan hash: si una foto cambia con el mismo
+# nombre, el navegador la renueva en un día como mucho.
+
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+
+/imagenes/*
+  Cache-Control: public, max-age=86400, stale-while-revalidate=604800
+
+/css/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+/js/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+
+# El stock cambia seguido: el catálogo estático se revisa a cada rato.
+# Las reglas que coinciden se suman: `!` saca el Cache-Control de /js/*.
+/js/data/*
+  ! Cache-Control
+  Cache-Control: public, max-age=300, stale-while-revalidate=3600

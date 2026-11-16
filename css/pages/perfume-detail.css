@@ -1,0 +1,524 @@
+/* ==========================================================================
+   Detalle de producto (perfume.html). Usa las piezas de perfumeria.css
+   (hornacina, placas, botones): el frasco elegido se para en un nicho grande.
+   ========================================================================== */
+
+body.detail-page main.ficha {
+    display: block;
+    width: 100%;
+    max-width: calc(1180px + 2 * var(--g));
+    margin: 0 auto;
+    padding: 0 var(--g) calc(var(--dock-espacio) + 24px);
+    box-sizing: border-box;
+}
+
+/* ---------- Volver (a la derecha de la píldora, como el título) ---------- */
+
+.ficha-cabeza {
+    display: flex;
+    justify-content: flex-start;
+    padding-top: 14px;
+    min-height: 46px;
+}
+
+@media (max-width: 960px) {
+    body.detail-page.is-shell-embed .ficha-cabeza {
+        justify-content: flex-end;
+        padding-top: var(--shell-pill-top, var(--shell-embed-top-offset));
+        min-height: var(--shell-pill-h, 46px);
+        padding-left: calc(var(--shell-pill-w, 0px) - var(--g) + 12px);
+    }
+}
+
+.ficha-volver {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    height: 44px;
+    padding: 0 18px 0 12px;
+    border-radius: var(--m-r-pill);
+    background: var(--m-losa-fondo);
+    box-shadow: inset 0 0 0 1px var(--m-filete), var(--m-sombra-1);
+    font: 500 15px var(--font-body);
+    color: var(--m-ink);
+    text-decoration: none;
+}
+
+.ficha-volver svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* ---------- Escenario ---------- */
+
+.ficha-cuerpo {
+    display: grid;
+    gap: 22px;
+    margin-top: 16px;
+}
+
+@media (min-width: 900px) {
+    .ficha-cuerpo {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: clamp(32px, 5vw, 72px);
+        align-items: start;
+        margin-top: 24px;
+    }
+
+    .ficha-escena .ficha-nicho {
+        width: min(100%, calc(62vh * 0.8), 460px);
+    }
+
+    .ficha-escenario {
+        position: sticky;
+        top: calc(var(--shell-embed-top-offset, 24px) + 12px);
+    }
+}
+
+.ficha-escena {
+    display: flex;
+    justify-content: center;
+}
+
+.ficha-escena .ficha-nicho {
+    --piso: 10%;
+    width: min(100%, calc(46vh * 0.8), 460px);
+    animation: pieza-entra var(--m-dur-3) var(--m-ease) both;
+}
+
+.ficha-escena .ficha-lamina {
+    width: min(calc(100% - 12px), calc(56vh * 0.75), 420px);
+    animation: pieza-entra var(--m-dur-3) var(--m-ease) both;
+}
+
+.ficha-miniaturas {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 14px;
+}
+
+.ficha-miniaturas button {
+    width: 58px;
+    height: 58px;
+    padding: 4px;
+    border: 0;
+    border-radius: 14px;
+    background: var(--m-losa);
+    box-shadow: inset 0 0 0 1px var(--m-filete-suave);
+    cursor: pointer;
+}
+
+.ficha-miniaturas button[aria-selected="true"] {
+    box-shadow: inset 0 0 0 1.5px var(--m-gold), 0 0 0 3px rgba(183, 146, 76, 0.18);
+}
+
+.ficha-miniaturas img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+}
+
+/* Teléfono: la primera pantalla tiene que decir qué se compra (nombre,
+   precio, presentación) sin bajar. El frasco sigue protagonista pero más
+   bajo, y las miniaturas pasan a una columna al costado del arco, en el
+   aire que le sobra al lado. */
+@media (max-width: 899px) {
+    .ficha-cuerpo {
+        gap: 14px;
+        margin-top: 8px;
+    }
+
+    .ficha-escenario {
+        position: relative;
+    }
+
+    .ficha-escena .ficha-nicho {
+        width: min(calc(100% - 112px), calc(34vh * 0.8), 360px);
+    }
+
+    .ficha-escena .ficha-lamina {
+        width: min(calc(100% - 112px), calc(38vh * 0.75), 340px);
+    }
+
+    .ficha-miniaturas {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 0;
+    }
+
+    .ficha-miniaturas button {
+        width: 46px;
+        height: 46px;
+        padding: 3px;
+        border-radius: 12px;
+    }
+}
+
+/* ---------- Información ---------- */
+
+.ficha-marca {
+    margin: 0;
+    font: 500 12.5px var(--font-body);
+    letter-spacing: 0.1em;
+    color: var(--m-gold-deep);
+}
+
+.ficha-nombre {
+    margin: 6px 0 0;
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(32px, 8.6vw, 52px);
+    line-height: 1.04;
+    color: #3a3026;
+    text-shadow: var(--m-grabado);
+    font-variation-settings: 'opsz' 72;
+}
+
+.ficha-placas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 14px;
+}
+
+.ficha-placas .placa {
+    background: rgba(255, 253, 249, 0.66);
+    box-shadow: inset 0 0 0 1px var(--m-filete-suave);
+    color: var(--m-ink-2);
+    font-size: 11.5px;
+    padding: 4px 11px;
+}
+
+.ficha-placas .placa--agotado {
+    background: var(--m-nero);
+    color: var(--m-gold-claro);
+    box-shadow: inset 0 0 0 1px var(--m-filete-claro);
+}
+
+.ficha-texto {
+    margin: 16px 0 0;
+    font: 400 15.5px/1.55 var(--font-body);
+    color: var(--m-ink-2);
+}
+
+.ficha-precio-cuadro {
+    margin: 18px 0 0;
+    font: 500 34px/1 var(--font-display);
+}
+
+.ficha-compra {
+    margin-top: 22px;
+}
+
+.ficha-tipo {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4px;
+    margin-bottom: 12px;
+    padding: 4px;
+    border-radius: var(--m-r-md);
+    background: var(--m-losa-fondo);
+    box-shadow: var(--m-moldura), var(--m-relieve);
+}
+
+.ficha-tipo button {
+    height: 42px;
+    border: 0;
+    border-radius: 10px;
+    background: transparent;
+    font: 500 15px var(--font-body);
+    color: var(--m-ink-2);
+    cursor: pointer;
+    transition: background var(--m-dur-2) var(--m-ease), color var(--m-dur-2) var(--m-ease);
+}
+
+.ficha-tipo button[aria-checked="true"] {
+    background: var(--m-nero-fondo);
+    color: var(--m-gold-claro);
+    box-shadow: var(--m-activo);
+}
+
+/* Placas de tamaño: grabadas en la losa. */
+.ficha-tams {
+    display: grid;
+    /* Todas las presentaciones en una sola fila (`--n` lo pone el detalle). */
+    grid-template-columns: repeat(var(--n, 3), minmax(0, 1fr));
+    gap: 8px;
+}
+
+.ficha-tam {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+    padding: 14px 4px 12px;
+    border: 0;
+    border-radius: var(--m-r-md);
+    background: rgba(255, 253, 249, 0.62);
+    box-shadow: inset 0 0 0 1px var(--m-filete-suave), var(--m-relieve);
+    cursor: pointer;
+    transition: background var(--m-dur-2) var(--m-ease), box-shadow var(--m-dur-2) var(--m-ease);
+    -webkit-tap-highlight-color: transparent;
+}
+
+.ficha-tam__ml {
+    font: 500 24px/1 var(--font-display);
+    color: var(--m-ink);
+}
+
+.ficha-tam__ml small {
+    font: 400 13px var(--font-body);
+    color: var(--m-ink-3);
+}
+
+.ficha-tam__precio {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font: 500 13.5px var(--font-body);
+    color: var(--m-ink-2);
+    font-variant-numeric: tabular-nums;
+}
+
+.ficha-tam__precio s {
+    font-size: 11.5px;
+    color: var(--m-ink-3);
+}
+
+.ficha-tam[aria-checked="true"] {
+    background: var(--m-nero-fondo);
+    box-shadow: var(--m-activo);
+}
+
+.ficha-tam[aria-checked="true"] .ficha-tam__ml {
+    color: var(--m-gold-claro);
+}
+
+.ficha-tam[aria-checked="true"] .ficha-tam__ml small,
+.ficha-tam[aria-checked="true"] .ficha-tam__precio,
+.ficha-tam[aria-checked="true"] .ficha-tam__precio s {
+    color: rgba(243, 230, 200, 0.78);
+}
+
+/* ---------- Combo ---------- */
+
+.ficha-combo {
+    display: grid;
+    gap: 4px;
+    margin-top: 22px;
+    padding: 16px 18px;
+    border-radius: var(--m-r-lg);
+    background: var(--m-losa-fondo);
+    --m-losa-pos: -420px -180px;
+    box-shadow: var(--m-moldura), var(--m-relieve);
+    font: 400 14.5px/1.45 var(--font-body);
+    color: var(--m-ink-2);
+}
+
+.ficha-combo__titulo {
+    font: 500 12px var(--font-body);
+    letter-spacing: 0.1em;
+    color: var(--m-gold-deep);
+}
+
+.ficha-combo strong {
+    font: 500 20px var(--font-display);
+    color: var(--m-ink);
+}
+
+.ficha-combo__ir {
+    justify-self: start;
+    margin-top: 6px;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: 500 14.5px var(--font-body);
+    color: var(--m-ink);
+    text-decoration: underline;
+    text-decoration-color: var(--m-gold);
+    text-underline-offset: 4px;
+    cursor: pointer;
+}
+
+/* ---------- Notas ---------- */
+
+.ficha-notas {
+    margin-top: 28px;
+}
+
+.ficha-notas h2 {
+    margin: 0 0 10px;
+    font: 500 24px/1.1 var(--font-display);
+    color: var(--m-ink);
+}
+
+.ficha-notas__fila {
+    display: grid;
+    grid-template-columns: 76px minmax(0, 1fr);
+    gap: 12px;
+    padding: 12px 0;
+    border-top: 1px solid var(--m-filete-suave);
+}
+
+.ficha-notas__nombre {
+    font: 500 12px/1.9 var(--font-body);
+    letter-spacing: 0.1em;
+    color: var(--m-gold-deep);
+}
+
+.ficha-notas__lista {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.ficha-notas__lista span {
+    padding: 4px 11px;
+    border-radius: var(--m-r-pill);
+    background: rgba(255, 253, 249, 0.6);
+    box-shadow: inset 0 0 0 1px var(--m-filete-suave);
+    font: 400 13.5px var(--font-body);
+    color: var(--m-ink);
+}
+
+/* ---------- Barra de compra: siempre a mano ---------- */
+
+.ficha-barra {
+    position: sticky;
+    bottom: calc(var(--dock-espacio) + 10px);
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-top: 28px;
+    padding: 10px 10px 10px 18px;
+    border-radius: var(--m-r-lg);
+    background: var(--m-losa-fondo);
+    --m-losa-pos: -500px -300px;
+    box-shadow: var(--m-moldura), var(--m-relieve), var(--m-sombra-3);
+}
+
+.ficha-barra__precio {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.ficha-barra__precio span {
+    font: 400 12.5px var(--font-body);
+    color: var(--m-ink-2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ficha-barra__precio strong {
+    font: 500 24px/1.1 var(--font-display);
+    color: var(--m-ink);
+    white-space: nowrap;
+}
+
+@media (max-width: 360px) {
+    .ficha-barra {
+        padding-left: 14px;
+    }
+
+    .ficha-barra__precio strong {
+        font-size: 20px;
+    }
+
+    .ficha-barra__acciones .perf-boton {
+        padding: 0 12px;
+    }
+
+    /* "Pedir directo" queda en "Pedir": si no, el precio se recorta. */
+    .ficha-wa__extra {
+        display: none;
+    }
+}
+
+.ficha-barra__acciones {
+    display: flex;
+    gap: 8px;
+    flex: none;
+}
+
+.ficha-barra__acciones .perf-boton {
+    min-height: 50px;
+    padding: 0 16px;
+    white-space: nowrap;
+}
+
+@media (max-width: 480px) {
+    /* "Agregar" queda solo con su ícono para que el precio entre. */
+    #cart-add-btn {
+        width: 50px;
+        padding: 0;
+    }
+
+    #cart-add-btn span {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+    }
+}
+
+@media (min-width: 900px) {
+    .ficha-barra {
+        width: calc(50% - clamp(16px, 2.5vw, 36px));
+        margin-left: auto;
+        bottom: 18px;
+    }
+}
+
+/* ---------- No encontrado ---------- */
+
+.ficha-vacia {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 12vh 16px;
+    text-align: center;
+    color: var(--m-ink-2);
+}
+
+.ficha-vacia[hidden] {
+    display: none;
+}
+
+.ficha-vacia h1 {
+    margin: 12px 0 0;
+    font: 500 28px/1.15 var(--font-display);
+    color: var(--m-ink);
+}
+
+.ficha-vacia p {
+    margin: 0 0 12px;
+}
+
+.ficha-vacia__nicho {
+    width: 96px;
+    height: 120px;
+    border-radius: 48px 48px 8px 8px / 40px 40px 8px 8px;
+    background:
+        linear-gradient(transparent 80%, var(--m-filete) 80%, var(--m-filete) calc(80% + 1px), transparent calc(80% + 1px)),
+        linear-gradient(rgba(255, 253, 249, 0.42), rgba(255, 253, 249, 0.42)),
+        var(--m-marble-image) -300px -120px / 450px 450px,
+        var(--m-losa);
+    box-shadow: inset 0 0 0 1px var(--m-filete);
+}

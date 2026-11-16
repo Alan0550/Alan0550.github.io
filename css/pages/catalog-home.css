@@ -1,0 +1,381 @@
+/* ==========================================================================
+   Inicio (catalogo.html). Sin header ni dock (el shell los esconde acá): el
+   logo, las Novedades en su vitrina y la puerta a Perfumería, una hornacina
+   de mármol.
+   ========================================================================== */
+
+html,
+body {
+    height: 100%;
+    width: 100%;
+}
+
+body.home-hub {
+    margin: 0;
+    padding: 0;
+    min-height: var(--app-height);
+    height: var(--app-height);
+    width: 100%;
+    max-width: 100%;
+    background: var(--m-fondo-pagina);
+    color: var(--m-ink);
+    font-family: var(--font-body);
+    overflow-x: clip;
+    overflow-y: auto;
+}
+
+.inicio {
+    box-sizing: border-box;
+    min-height: 100%;
+    width: min(560px, 100%);
+    margin: 0 auto;
+    padding: calc(22px + env(safe-area-inset-top, 0px)) 16px calc(24px + env(safe-area-inset-bottom, 0px));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(14px, 2.4vh, 26px);
+    text-align: center;
+}
+
+/* Centrado que no se corta: si el contenido no entra (pantallas bajas), con
+   `justify-content: center` desbordaba hacia arriba y se perdía el logo. */
+.inicio > :first-child {
+    margin-top: auto;
+}
+
+.inicio > :last-child {
+    margin-bottom: auto;
+}
+
+.inicio *,
+.inicio *::before,
+.inicio *::after {
+    box-sizing: border-box;
+}
+
+.inicio-logo {
+    width: clamp(168px, 46vw, 230px);
+    height: auto;
+}
+
+/* ---------- Novedades en su vitrina ---------- */
+
+.inicio-novedades {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.inicio-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    font: 500 12px var(--font-body);
+    letter-spacing: 0.14em;
+    color: var(--m-gold-deep);
+}
+
+.inicio-eyebrow::before,
+.inicio-eyebrow::after {
+    content: '';
+    width: 26px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--m-filete));
+}
+
+.inicio-eyebrow::after {
+    transform: scaleX(-1);
+}
+
+.inicio-vitrina {
+    position: relative;
+    /* La protagonista del inicio: bastante más grande que las puertas. */
+    width: min(88%, calc(40vh * 0.8));
+    aspect-ratio: 4 / 5;
+    border-radius: 18px;
+    overflow: hidden;
+    background: var(--m-losa);
+    box-shadow: 0 0 0 1px var(--m-filete), var(--m-sombra-2);
+}
+
+.home-novedades__track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-x: contain;
+    /* El gesto horizontal lo consume el carrusel; el shell lo ignora
+       (data-shell-swipe-ignore en la vitrina). */
+    touch-action: pan-x;
+}
+
+.home-novedades__track::-webkit-scrollbar {
+    display: none;
+}
+
+.home-novedades__slide {
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    scroll-snap-align: center;
+    display: block;
+}
+
+.home-novedades__slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.home-novedades__dots {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 12px;
+}
+
+.home-novedades__dot {
+    width: 7px;
+    height: 7px;
+    padding: 0;
+    border: 0;
+    border-radius: 4px;
+    background: rgba(120, 100, 75, 0.28);
+    cursor: pointer;
+    transition: width var(--m-dur-3) var(--m-ease), background var(--m-dur-2) var(--m-ease);
+}
+
+.home-novedades__dot.is-active {
+    width: 20px;
+    background: var(--m-nero);
+}
+
+/* ---------- La puerta ---------- */
+
+.inicio-puertas {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 240px);
+    justify-content: center;
+    gap: 12px;
+}
+
+.puerta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    color: inherit;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.puerta__nicho {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: clamp(96px, 16vh, 150px);
+    margin-bottom: 8px;
+    overflow: hidden;
+    border-radius: 50% 50% 12px 12px / 46% 46% 12px 12px;
+    isolation: isolate;
+}
+
+/* Mármol: el frasco parado en la línea dorada del arco, con la misma luz
+   discreta que las hornacinas de Perfumería. */
+.puerta--perfumeria .puerta__nicho {
+    background:
+        linear-gradient(180deg, rgba(90, 65, 35, 0.06), transparent 40%),
+        linear-gradient(rgba(255, 253, 249, 0.42), rgba(255, 253, 249, 0.42)),
+        var(--m-marble-image) -300px -140px / var(--m-marble-size),
+        var(--m-losa);
+    box-shadow:
+        inset 0 0 0 1px var(--m-filete),
+        inset 0 18px 26px -16px rgba(70, 50, 25, 0.3),
+        var(--m-sombra-1);
+    transition: box-shadow var(--m-dur-3) var(--m-ease);
+}
+
+/* Sombra de contacto del frasco: núcleo oscuro y halo difuso. */
+.puerta--perfumeria .puerta__nicho::after {
+    content: '';
+    position: absolute;
+    z-index: 1;
+    left: 50%;
+    bottom: calc(14% - 13px);
+    width: 46%;
+    height: 14px;
+    border-radius: 50%;
+    transform: translateX(-50%);
+    background:
+        radial-gradient(44% 24% at 50% 50%, rgba(40, 25, 10, 0.5), transparent),
+        radial-gradient(closest-side, rgba(45, 30, 15, 0.18), transparent);
+    pointer-events: none;
+}
+
+.puerta--perfumeria .puerta__objeto {
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    bottom: calc(14% - 6px);
+    height: 74%;
+    transform: translateX(-50%);
+    mix-blend-mode: multiply;
+}
+
+.puerta__piso {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 14%;
+    border-top: 1px solid var(--m-filete);
+    box-sizing: border-box;
+    background: linear-gradient(180deg, transparent, rgba(90, 65, 35, 0.06));
+}
+
+/* El frasco se multiplica sobre el mármol y queda quieto: moverlo lo sube a
+   otra capa en algunos navegadores y deja ver el blanco de la foto. El hover
+   enciende el filete del nicho. */
+@media (hover: hover) {
+    .puerta--perfumeria:hover .puerta__nicho {
+        box-shadow:
+            inset 0 0 0 1.5px var(--m-gold), 0 0 0 3px rgba(183, 146, 76, 0.16),
+            inset 0 18px 26px -16px rgba(70, 50, 25, 0.3),
+            var(--m-sombra-2);
+    }
+}
+
+.puerta:focus-visible {
+    outline: none;
+}
+
+.puerta:focus-visible .puerta__nicho {
+    box-shadow: inset 0 0 0 2px var(--m-gold), 0 0 0 4px rgba(183, 146, 76, 0.25);
+}
+
+.puerta__nombre {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: clamp(19px, 5.2vw, 24px);
+    line-height: 1.05;
+    color: #3a3026;
+    text-shadow: var(--m-grabado);
+}
+
+.puerta__nota {
+    font: 400 12.5px/1.3 var(--font-body);
+    color: var(--m-ink-2);
+}
+
+/* Teléfonos bajos: sin la nota, para que la vitrina no pierda tamaño. */
+@media (max-width: 899px) and (max-height: 700px) {
+    .puerta__nota {
+        display: none;
+    }
+}
+
+/* ---------- Atajos ---------- */
+
+.inicio-extras {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+}
+
+.inicio-extra {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 44px;
+    padding: 0 18px;
+    border-radius: var(--m-r-pill);
+    background: rgba(255, 253, 249, 0.62);
+    box-shadow: inset 0 0 0 1px var(--m-filete-suave);
+    font: 500 14.5px var(--font-body);
+    color: var(--m-ink);
+    text-decoration: none;
+}
+
+.inicio-extra .pedido-wa {
+    width: 18px;
+    height: 18px;
+}
+
+/* ---------- Escritorio: vitrina a la izquierda, puertas a la derecha ---------- */
+
+@media (min-width: 900px) {
+    body.home-hub {
+        display: grid;
+        place-items: center;
+    }
+
+    .inicio {
+        width: min(1080px, 92vw);
+        min-height: 0;
+        display: grid;
+        grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+        /* Las filas vacías de los extremos centran logo, puertas y atajos
+           como un bloque junto a la vitrina, que es más alta. */
+        grid-template-areas:
+            "nov ."
+            "nov logo"
+            "nov puertas"
+            "nov extras"
+            "nov .";
+        grid-template-rows: 1fr auto auto auto 1fr;
+        align-content: center;
+        column-gap: clamp(36px, 5vw, 72px);
+        row-gap: 26px;
+    }
+
+    .inicio > :first-child,
+    .inicio > :last-child {
+        margin: 0;
+    }
+
+    .inicio-logo {
+        grid-area: logo;
+        justify-self: center;
+        width: 240px;
+    }
+
+    .inicio-novedades {
+        grid-area: nov;
+        align-self: center;
+    }
+
+    .inicio-vitrina {
+        width: min(100%, calc(74vh * 0.8));
+    }
+
+    .inicio-puertas {
+        grid-area: puertas;
+        grid-template-columns: minmax(0, 260px);
+    }
+
+    .inicio-extras {
+        grid-area: extras;
+    }
+
+    .puerta__nicho {
+        height: auto;
+        aspect-ratio: 4 / 5;
+    }
+
+    .puerta__nombre {
+        font-size: 26px;
+    }
+
+    .puerta__nota {
+        font-size: 14px;
+    }
+}

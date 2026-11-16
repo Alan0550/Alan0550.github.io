@@ -1,0 +1,142 @@
+:root {
+    color-scheme: light;
+}
+
+body.swipe-hub {
+    margin: 0;
+    color: var(--ink);
+    font-family: var(--font-body);
+    min-height: var(--app-height);
+    overflow: hidden;
+    background: var(--m-fondo-pagina);
+    width: 100%;
+    max-width: 100%;
+}
+
+.swipe-container {
+    position: fixed;
+    inset: 0;
+    width: 100vw;
+    max-width: 100vw;
+    height: var(--app-height);
+    overflow: hidden;
+    display: grid;
+    place-items: stretch;
+    margin: 0;
+    padding: 0;
+    overscroll-behavior: none;
+}
+
+.swipe-stage {
+    width: 100vw;
+    max-width: 100vw;
+    height: var(--app-height);
+    margin: 0;
+    position: relative;
+    overflow: hidden;
+    background: var(--surface);
+    display: grid;
+    place-items: stretch;
+    overscroll-behavior: none;
+}
+
+.swipe-track {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    transition: transform 0.45s cubic-bezier(0.22, 0.61, 0.36, 1);
+    touch-action: pan-y;
+}
+
+.swipe-track.is-dragging {
+    transition: none !important;
+}
+
+/* Capa propia solo mientras se arrastra o llega: fuera de eso no gasta memoria. */
+.swipe-track.is-moving {
+    will-change: transform;
+}
+
+.swipe-panel {
+    flex: 0 0 100%;
+    width: 100%;
+    max-width: 100%;
+    height: var(--app-height);
+    max-height: var(--app-height);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    position: relative;
+    background: var(--m-fondo-pagina);
+}
+
+.swipe-panel iframe {
+    border: none;
+    width: 100%;
+    height: 100%;
+    display: block;
+    background: transparent;
+}
+
+.panel-loading {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font: italic 500 1.3rem var(--font-display);
+    letter-spacing: 0.01em;
+    text-transform: none;
+    color: var(--m-ink-3);
+    pointer-events: none;
+}
+
+.swipe-progress {
+    position: fixed;
+    left: 50%;
+    bottom: 10px;
+    transform: translateX(-50%);
+    display: inline-flex;
+    gap: 6px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--m-losa-fondo);
+    border: 1px solid transparent;
+    box-shadow: inset 0 0 0 1px var(--m-filete), var(--m-sombra-1);
+    z-index: 20;
+}
+
+/* En las vistas secundarias (detalle, buscador) no hay a qué panel deslizar. */
+body.is-aux-panel .swipe-progress {
+    display: none;
+}
+
+.swipe-progress span {
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(120, 100, 75, 0.28);
+    transition: width var(--m-dur-3) var(--m-ease), background var(--m-dur-2) var(--m-ease);
+}
+
+.swipe-progress span.is-active {
+    width: 22px;
+    background: var(--m-nero);
+}
+
+@media (max-width: 900px) {
+    .swipe-stage {
+        height: var(--app-height);
+    }
+}
+
+@media (max-width: 768px) {
+    .swipe-progress {
+        display: none;
+    }
+}
+
+.swipe-progress,
+.swipe-progress span {
+    transition: background-color 380ms ease, border-color 380ms ease;
+}

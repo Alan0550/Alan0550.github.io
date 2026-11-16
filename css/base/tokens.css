@@ -1,0 +1,106 @@
+/* ==========================================================================
+   Tokens de Perfumería (Oct 2026): mármol crema beige, tinta café, filetes
+   dorados y negro para lo activo.
+
+   El mármol es procedural (scripts/marmol-fuente.js), pero se rasteriza al
+   construir (`node scripts/build-marmol.cjs` → imagenes/marmol.webp, 165 KB):
+   dibujado en el teléfono costaba ~4 s de CPU. Hasta que llega, se ve el
+   color de base.
+   ========================================================================== */
+:root {
+    /* ---- Piedra ---- */
+    --m-base: #EAE0CF;               /* mármol crema (fondo de la textura) */
+    --m-losa: #F4EEE3;               /* losa pulida, más clara */
+    --m-crema: #FBF7F0;              /* marfil (capilares, brillos) */
+    --m-sombra-piedra: #D9CCB6;      /* frente en sombra de un zócalo */
+    --m-marble-image: url('../../imagenes/marmol.webp');
+    --m-marble-size: 900px 900px;
+    --m-velo: rgba(244, 238, 227, 0.5);   /* calma el fondo de página */
+
+    /* ---- Tinta ---- */
+    --m-ink: #2B241C;
+    --m-ink-2: #6B5D4C;
+    --m-ink-3: #978873;
+    --m-grabado: 0 1px 0 rgba(255, 255, 255, 0.6);
+
+    /* ---- Dorado: solo filetes y texto sobre negro ---- */
+    --m-gold: #B7924C;
+    --m-gold-deep: #8A6E37;
+    --m-gold-claro: #E6CF9C;
+    --m-filete: rgba(183, 146, 76, 0.62);
+    --m-filete-suave: rgba(183, 146, 76, 0.28);
+    --m-filete-claro: rgba(216, 192, 140, 0.75);
+
+    /* ---- Negro (activo, CTA) ---- */
+    --m-nero: #15120F;
+    --m-nero-fondo: radial-gradient(120% 160% at 30% 0%, #2e2822, var(--m-nero) 60%);
+
+    /* ---- Superficies armadas ---- */
+    /* Losa: mármol aclarado con un lavado de luz, para barras y paneles. */
+    --m-losa-fondo:
+        linear-gradient(180deg, rgba(255, 253, 249, 0.8), rgba(244, 237, 225, 0.72)),
+        var(--m-marble-image) var(--m-losa-pos, 0 0) / var(--m-marble-size),
+        var(--m-base);
+    /* Punto medio (Oct 2026): un filete dorado simple y luz real, suave. Ni
+       relieves de bisel ni sombras de 30 px: un canto de luz de 1 px arriba y
+       sombras cortas y difusas, como piedra apoyada sobre piedra. */
+    --m-moldura: inset 0 0 0 1px var(--m-filete);
+    --m-relieve: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+    --m-hundido: inset 0 0 0 1px var(--m-filete-suave), inset 0 1px 3px rgba(80, 60, 35, 0.08);
+    --m-activo: inset 0 0 0 1px var(--m-filete-claro), 0 2px 6px -3px rgba(0, 0, 0, 0.35);
+
+    /* ---- Sombras: contacto + difusa; la 3 es para lo que flota (hojas, menú) ---- */
+    --m-sombra-1: 0 1px 2px rgba(70, 50, 25, 0.06), 0 4px 10px -6px rgba(70, 50, 25, 0.18);
+    --m-sombra-2: 0 1px 2px rgba(70, 50, 25, 0.06), 0 10px 22px -14px rgba(70, 50, 25, 0.28);
+    --m-sombra-3: 0 2px 4px rgba(50, 35, 15, 0.06), 0 22px 44px -26px rgba(50, 35, 15, 0.42);
+
+    /* ---- Forma y movimiento ---- */
+    --m-r-sm: 10px;
+    --m-r-md: 14px;
+    --m-r-lg: 22px;
+    --m-r-pill: 999px;
+    --m-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+    --m-dur-1: 0.16s;
+    --m-dur-2: 0.28s;
+    --m-dur-3: 0.45s;
+
+    /* ---- Tipografía: Bodoni Moda (display) + Jost (interfaz) ---- */
+    --font-display: 'Bodoni Moda', 'Didot', Georgia, serif;
+    --font-body: 'Jost', 'Futura', system-ui, -apple-system, 'Segoe UI', sans-serif;
+
+    /* ---- Paleta previa: queda remapeada a la nueva ---- */
+    --bg-main: var(--m-base);
+    --bg-secondary: var(--m-losa);
+    --black-strong: var(--m-nero);
+    --black-soft: #2b2620;
+    --gold: var(--m-gold);
+    --gold-light: #D8C08C;
+    --gold-deep: var(--m-gold-deep);
+    --gold-border: rgba(183, 146, 76, 0.45);
+    --gold-tint: rgba(183, 146, 76, 0.10);
+    --text-gray: var(--m-ink-2);
+    --marble-vein: rgba(145, 145, 145, 0.08);
+    --state-error: #8E2B2B;
+    --state-success: #5E6B3A;
+
+    --ink: var(--m-ink);
+    --muted-ink: var(--m-ink-2);
+    --surface: var(--m-base);
+    --surface-strong: var(--m-losa);
+    --accent: var(--m-gold);
+    --accent-dark: var(--m-gold-deep);
+    --divider: var(--gold-border);
+    --header-height: 96px;
+
+    /* Fondo de página: velo crema sobre el mármol. */
+    --m-fondo-pagina:
+        linear-gradient(var(--m-velo), var(--m-velo)),
+        var(--m-marble-image) 0 0 / var(--m-marble-size),
+        var(--m-base);
+}
+
+@media (max-width: 540px) {
+    :root {
+        --header-height: 72px;
+    }
+}

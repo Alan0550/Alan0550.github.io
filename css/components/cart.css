@@ -1,0 +1,456 @@
+/* ==========================================================================
+   Carrito (Oct 2026). Vive en el shell (index.html), sobre todos los paneles.
+   Mármol, como el resto de Perfumería.
+   En el teléfono es una hoja que sube; en escritorio, un panel a la derecha.
+   ========================================================================== */
+
+.cart-panel {
+    --c-fondo: var(--m-losa-fondo);
+    --c-tinta: var(--m-ink);
+    --c-tinta-2: var(--m-ink-2);
+    --c-tinta-3: var(--m-ink-3);
+    --c-filete: var(--m-filete);
+    --c-filete-suave: var(--m-filete-suave);
+    --c-acento: var(--m-gold-deep);
+    --c-nicho: #E9DFCD;
+    --c-nicho-sombra: inset 0 0 0 1px var(--m-filete), inset 0 6px 10px -6px rgba(70, 50, 25, 0.45);
+    --c-principal: var(--m-nero-fondo);
+    --c-principal-tinta: #F3E6C8;
+    --c-principal-filete: var(--m-filete-claro);
+    --c-display: var(--font-display);
+    --c-ui: var(--font-body);
+
+    position: fixed;
+    z-index: 1006;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    color: var(--c-tinta);
+    font-family: var(--c-ui);
+    background: var(--c-fondo);
+    --m-losa-pos: -260px -340px;
+    box-shadow: var(--m-moldura), 0 -24px 60px -20px rgba(30, 20, 8, 0.5);
+    transition: transform var(--m-dur-3) var(--m-ease), visibility 0s linear var(--m-dur-3);
+    visibility: hidden;
+}
+
+.cart-panel *,
+.cart-panel *::before,
+.cart-panel *::after {
+    box-sizing: border-box;
+}
+
+.cart-panel.is-open {
+    visibility: visible;
+    transform: none;
+    transition: transform var(--m-dur-3) var(--m-ease), visibility 0s;
+}
+
+/* Teléfono: hoja inferior. */
+@media (max-width: 720px) {
+    .cart-panel {
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: min(92vh, calc(var(--app-height, 100vh) - 24px));
+        padding: 10px 18px calc(16px + env(safe-area-inset-bottom, 0px));
+        border-radius: var(--m-r-lg) var(--m-r-lg) 0 0;
+        transform: translateY(102%);
+    }
+}
+
+/* Escritorio: panel a la derecha, separado del borde como una losa. */
+@media (min-width: 721px) {
+    .cart-panel {
+        top: 12px;
+        right: 12px;
+        bottom: 12px;
+        width: 440px;
+        padding: 22px 24px 22px;
+        border-radius: var(--m-r-lg);
+        transform: translateX(calc(100% + 24px));
+        box-shadow: var(--m-moldura), var(--m-sombra-3);
+    }
+}
+
+.cart-panel__asa {
+    display: block;
+    width: 44px;
+    height: 4px;
+    margin: 0 auto 10px;
+    border-radius: 2px;
+    background: var(--c-filete-suave);
+}
+
+@media (min-width: 721px) {
+    .cart-panel__asa {
+        display: none;
+    }
+}
+
+.cart-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 1005;
+    border: 0;
+    padding: 0;
+    background: rgba(30, 22, 12, 0.42);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--m-dur-3) var(--m-ease);
+}
+
+.cart-backdrop.is-open {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.cart-panel__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid var(--c-filete-suave);
+}
+
+.cart-panel__header h2 {
+    margin: 0;
+    font: 500 30px/1.05 var(--c-display);
+    color: var(--c-tinta);
+}
+
+.cart-panel__cuenta {
+    margin: 6px 0 0;
+    font: 500 12px var(--c-ui);
+    letter-spacing: 0.08em;
+    color: var(--c-acento);
+}
+
+.cart-panel__close,
+.cart-item__remove {
+    display: grid;
+    place-items: center;
+    flex: none;
+    padding: 0;
+    border: 0;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--c-tinta-2);
+    cursor: pointer;
+}
+
+.cart-panel__close {
+    width: 40px;
+    height: 40px;
+    box-shadow: inset 0 0 0 1px var(--c-filete-suave);
+}
+
+.cart-panel svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.7;
+    stroke-linecap: round;
+}
+
+/* ---------- Productos ---------- */
+
+.cart-panel__items {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    margin: 0 -8px;
+    padding: 6px 8px;
+    overscroll-behavior: contain;
+}
+
+.cart-item {
+    display: grid;
+    grid-template-columns: 76px minmax(0, 1fr) auto;
+    gap: 14px;
+    align-items: start;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--c-filete-suave);
+    animation: cart-entra var(--m-dur-3) var(--m-ease) both;
+}
+
+.cart-item:last-child {
+    border-bottom: 0;
+}
+
+.cart-item.is-saliendo {
+    animation: cart-sale var(--m-dur-2) var(--m-ease) both;
+}
+
+@keyframes cart-entra {
+    from { opacity: 0; transform: translateY(6px); }
+}
+
+@keyframes cart-sale {
+    to { opacity: 0; transform: translateX(24px); }
+}
+
+/* Miniatura: un nichito de mármol con la foto multiplicada. */
+.cart-item__foto {
+    position: relative;
+    width: 76px;
+    height: 88px;
+    overflow: hidden;
+    border-radius: 38px 38px 8px 8px / 32px 32px 8px 8px;
+    background:
+        radial-gradient(80% 55% at 50% 18%, rgba(255, 253, 248, 0.7), transparent 70%),
+        var(--m-marble-image) var(--c-foto-pos, -40px -60px) / 450px 450px,
+        var(--c-nicho);
+    box-shadow: var(--c-nicho-sombra);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding: 8px 6px 6px;
+}
+
+.cart-item__foto img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+}
+
+.cart-item__foto--multi {
+    padding: 10px 2px 6px;
+}
+
+.cart-item__foto--multi img {
+    width: 46%;
+    margin: 0 -8%;
+}
+
+.cart-item__foto--multi img:nth-child(2) {
+    position: relative;
+    z-index: 1;
+    transform: translateY(2px) scale(1.08);
+}
+
+.cart-item__monograma {
+    margin: auto;
+    font: italic 500 26px var(--c-display);
+    color: var(--c-acento);
+}
+
+.cart-item__texto {
+    min-width: 0;
+}
+
+.cart-item__texto h3 {
+    margin: 2px 0 0;
+    font: 500 18px/1.15 var(--c-display);
+    color: var(--c-tinta);
+}
+
+.cart-item__sub {
+    margin: 4px 0 0;
+    font: 400 13.5px/1.35 var(--c-ui);
+    color: var(--c-tinta-2);
+}
+
+.cart-item__details {
+    margin: 8px 0 0;
+    padding: 0;
+    list-style: none;
+    display: grid;
+    gap: 3px;
+    font: 400 12.5px/1.35 var(--c-ui);
+    color: var(--c-tinta-2);
+}
+
+.cart-item__details li {
+    position: relative;
+    padding-left: 12px;
+}
+
+.cart-item__details li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.62em;
+    width: 5px;
+    height: 1px;
+    background: var(--c-filete);
+}
+
+.cart-item__mas {
+    margin-top: 6px;
+    padding: 0;
+    border: 0;
+    background: none;
+    font: 500 12.5px var(--c-ui);
+    color: var(--c-acento);
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.cart-item__lado {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 10px;
+}
+
+.cart-item__price {
+    margin: 2px 0 0;
+    font: 500 15px var(--c-ui);
+    color: var(--c-tinta);
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums;
+}
+
+.cart-item__remove {
+    width: 32px;
+    height: 32px;
+    box-shadow: inset 0 0 0 1px var(--c-filete-suave);
+}
+
+.cart-item__remove svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* ---------- Vacío ---------- */
+
+.cart-panel__vacio {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 20px 12px 40px;
+    text-align: center;
+    color: var(--c-tinta-2);
+}
+
+.cart-panel__vacio[hidden] {
+    display: none;
+}
+
+.cart-panel__vacio p {
+    margin: 0;
+    max-width: 280px;
+    font: 400 14.5px/1.45 var(--c-ui);
+}
+
+.cart-panel__vacio .cart-panel__vacio-titulo {
+    margin-top: 10px;
+    font: 500 22px/1.2 var(--c-display);
+    color: var(--c-tinta);
+}
+
+/* Un nicho vacío, esperando. */
+.cart-panel__nicho {
+    width: 96px;
+    height: 120px;
+    border-radius: 48px 48px 8px 8px / 40px 40px 8px 8px;
+    background:
+        linear-gradient(transparent 80%, rgba(183, 146, 76, 0.7) 80%, rgba(183, 146, 76, 0.7) calc(80% + 1px), rgba(120, 95, 65, 0.25) calc(80% + 1px)),
+        radial-gradient(80% 55% at 50% 18%, rgba(255, 253, 248, 0.7), transparent 70%),
+        var(--m-marble-image) -300px -120px / 450px 450px,
+        var(--c-nicho);
+    box-shadow: var(--c-nicho-sombra);
+}
+
+.cart-panel__ir {
+    margin-top: 14px;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0 20px;
+    border-radius: var(--m-r-pill);
+    box-shadow: inset 0 0 0 1px var(--c-filete);
+    font: 500 15px var(--c-ui);
+    color: var(--c-tinta);
+    text-decoration: none;
+}
+
+/* ---------- Pie ---------- */
+
+.cart-panel__footer {
+    display: grid;
+    gap: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--c-filete-suave);
+}
+
+.cart-panel.is-vacio .cart-panel__footer {
+    display: none;
+}
+
+.cart-panel__total {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.cart-panel__total span {
+    font: 500 12px var(--c-ui);
+    letter-spacing: 0.1em;
+    color: var(--c-acento);
+}
+
+.cart-panel__total strong {
+    font: 500 28px/1 var(--c-display);
+    color: var(--c-tinta);
+    text-align: right;
+}
+
+.cart-panel__actions {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 8px;
+}
+
+.cart-panel__secondary,
+.cart-panel__primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    min-height: 52px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: var(--m-r-pill);
+    font: 500 15px var(--c-ui);
+    cursor: pointer;
+    transition: transform var(--m-dur-1) var(--m-ease), opacity var(--m-dur-2) var(--m-ease);
+}
+
+.cart-panel__secondary {
+    background: transparent;
+    color: var(--c-tinta-2);
+    box-shadow: inset 0 0 0 1px var(--c-filete-suave);
+}
+
+.cart-panel__primary {
+    background: var(--c-principal);
+    color: var(--c-principal-tinta);
+    box-shadow: inset 0 0 0 1px var(--c-principal-filete), 0 14px 22px -14px rgba(0, 0, 0, 0.7);
+}
+
+.cart-panel__primary:disabled {
+    opacity: 0.45;
+    cursor: default;
+}
+
+.cart-panel__secondary:active,
+.cart-panel__primary:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .cart-item,
+    .cart-item.is-saliendo {
+        animation: none;
+    }
+}

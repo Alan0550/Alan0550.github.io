@@ -1,0 +1,63 @@
+/* Contacto: dos losas de mármol, sobre las piezas de perfumeria.css. */
+
+.contacto-lema {
+    max-width: 560px;
+    margin: 18px 0 0;
+    font: 400 17px/1.55 var(--font-body);
+    color: var(--m-ink-2);
+}
+
+.contacto-losas {
+    display: grid;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+@media (min-width: 760px) {
+    .contacto-losas {
+        grid-template-columns: 1fr 1fr;
+        gap: 22px;
+    }
+}
+
+.contacto-losa {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 24px 22px;
+    border-radius: var(--m-r-lg);
+    background: var(--m-losa-fondo);
+    --m-losa-pos: -200px -480px;
+    box-shadow: var(--m-moldura), var(--m-relieve), var(--m-sombra-2);
+}
+
+.contacto-losa--wa {
+    --m-losa-pos: -620px -120px;
+}
+
+.contacto-losa .perf-etiqueta {
+    margin: 0;
+}
+
+.contacto-losa h2 {
+    margin: 0;
+    font: 500 28px/1.1 var(--font-display);
+    color: var(--m-ink);
+}
+
+.contacto-losa p {
+    margin: 0 0 8px;
+    font: 400 15.5px/1.5 var(--font-body);
+    color: var(--m-ink-2);
+}
+
+.contacto-redes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.contacto-redes img {
+    border-radius: 6px;
+}
