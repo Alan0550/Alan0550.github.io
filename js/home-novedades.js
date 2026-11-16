@@ -32,22 +32,34 @@
             a.setAttribute('data-shell-target', href);
         }
         var img = document.createElement('img');
-        img.setAttribute('src', novedad.src);
+        // `loading` va ANTES que `src`: el navegador empieza a bajar la imagen en
+        // cuanto ve el src, y si lazy todavía no está puesto las baja todas.
+        img.setAttribute('loading', indice === 0 ? 'eager' : 'lazy');
+        img.setAttribute('decoding', 'async');
         img.setAttribute('alt', novedad.alt);
         img.setAttribute('width', novedad.ancho);
         img.setAttribute('height', novedad.alto);
-        img.setAttribute('loading', indice === 0 ? 'eager' : 'lazy');
-        img.setAttribute('decoding', 'async');
+        img.setAttribute('src', novedad.src);
         a.appendChild(img);
         return a;
     }
 
+    // Las diapositivas del ERP; si no hay (archivo ausente o vacío), las de
+    // respaldo, que viven en un <template> para que el navegador no las
+    // descargue cuando no hacen falta.
     function renderizar(track) {
         var novedades = window.CATALOGO_NOVEDADES;
-        if (!Array.isArray(novedades) || novedades.length === 0) {
+        if (Array.isArray(novedades) && novedades.length > 0) {
+            track.innerHTML = '';
+            novedades.forEach(function (novedad, indice) {
+                track.appendChild(construirSlide(novedad, indice));
+            });
             return;
         }
-        track.replaceChildren.apply(track, novedades.map(construirSlide));
+        var respaldo = document.getElementById('novedades-respaldo');
+        if (respaldo) {
+            track.innerHTML = respaldo.innerHTML;
+        }
     }
 
     window.HomeNovedades = { construirSlide: construirSlide, renderizar: renderizar };
