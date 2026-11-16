@@ -19132,38 +19132,5 @@
       ]
     },
     "id": "love-in-white-for-summer-creed"
-  },
-  {
-    "id": "perfume-prueba-e2e-casa-prueba",
-    "nombre_interno": "Casa Prueba Perfume Prueba E2E",
-    "marca": "Casa Prueba",
-    "nombre": "Perfume Prueba E2E",
-    "precio_completo": {
-      "ml": 100,
-      "precio": 1500,
-      "en_stock": true
-    },
-    "precios_decants": {
-      "5": 150,
-      "10": 290
-    },
-    "precio_combo": null,
-    "tags": [
-      "unisex",
-      "nicho"
-    ],
-    "etiqueta": null,
-    "en_stock_completos": true,
-    "en_stock_decants": true,
-    "image_miniatura": "imagenes/fotos-catalogo/pruebas/PERFUME PRUEBA E2E.jpg",
-    "image_miniatura_decant": null,
-    "images_gallery": [],
-    "notas": {
-      "generales": [],
-      "salida": [],
-      "corazon": [],
-      "fondo": []
-    },
-    "oferta": false
   }
 ]
