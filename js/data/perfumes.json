@@ -3835,8 +3835,8 @@
       "30": 500
     },
     "precio_combo": {
-      "125": 1330,
       "75": 930,
+      "125": 1330,
       "200": 1730
     },
     "precio_cuadro": null,
@@ -4040,8 +4040,8 @@
     },
     "precio_combo": {
       "100": 1540,
-      "200": 2450,
-      "150": 1090
+      "150": 1090,
+      "200": 2450
     },
     "precio_cuadro": 350,
     "tags": [
@@ -4532,8 +4532,8 @@
       "30": 460
     },
     "precio_combo": {
-      "200": 1100,
-      "100": 640
+      "100": 640,
+      "200": 1100
     },
     "tags": [
       "hombre"
@@ -4642,8 +4642,8 @@
       "30": 340
     },
     "precio_combo": {
-      "200": 1460,
-      "100": 1040
+      "100": 1040,
+      "200": 1460
     },
     "tags": [
       "hombre"
@@ -4849,8 +4849,8 @@
       "30": 2510
     },
     "precio_combo": {
-      "100": 2190,
-      "60": 2580
+      "60": 2580,
+      "100": 2190
     },
     "tags": [
       "hombre",
@@ -5629,8 +5629,8 @@
       "30": 470
     },
     "precio_combo": {
-      "200": 1600,
-      "100": 900
+      "100": 900,
+      "200": 1600
     },
     "tags": [
       "hombre"
@@ -6009,8 +6009,8 @@
       "30": 490
     },
     "precio_combo": {
-      "125": 1190,
-      "75": 850
+      "75": 850,
+      "125": 1190
     },
     "tags": [
       "hombre",
@@ -7945,8 +7945,8 @@
       "30": 380
     },
     "precio_combo": {
-      "200": 1540,
-      "100": 900
+      "100": 900,
+      "200": 1540
     },
     "precio_cuadro": 350,
     "tags": [
@@ -8583,8 +8583,8 @@
       "30": 520
     },
     "precio_combo": {
-      "150": 690,
-      "100": 620
+      "100": 620,
+      "150": 690
     },
     "tags": [
       "hombre rabanne"
@@ -12023,8 +12023,8 @@
       "30": 580
     },
     "precio_combo": {
-      "150": 1200,
-      "100": 1100
+      "100": 1100,
+      "150": 1200
     },
     "tags": [
       "hombre",
@@ -13403,8 +13403,8 @@
       "30": 620
     },
     "precio_combo": {
-      "150": 1070,
-      "100": 840
+      "100": 840,
+      "150": 1070
     },
     "tags": [
       "hombre",
@@ -14040,7 +14040,7 @@
     ],
     "etiqueta": null,
     "en_stock_completos": true,
-    "en_stock_decants": true,
+    "en_stock_decants": false,
     "image_miniatura": "imagenes/fotos-catalogo/arabes/KHAMRAH-LATTAFA-.jpg",
     "image_miniatura_decant": "imagenes/fotos-decants/hombre/KHAMRAH.png",
     "images_gallery": [],
@@ -14676,7 +14676,7 @@
     "nombre": "Yara Candy",
     "precio_completo": {
       "ml": 100,
-      "precio": 545,
+      "precio": 540,
       "en_stock": true
     },
     "precios_decants": {
@@ -18567,8 +18567,8 @@
     ],
     "en_stock_completos": true,
     "precio_combo": {
-      "100": 960,
-      "60": 780
+      "60": 780,
+      "100": 960
     },
     "notas": {
       "generales": [
