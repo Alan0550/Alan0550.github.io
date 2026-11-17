@@ -111,3 +111,15 @@ test('no depende de replaceChildren (no existe en Safari de iPhones viejos)', ()
     HomeNovedades.renderizar(track);
     assert.equal(track.children.length, 1);
 });
+
+test('catalogo.html pide los scripts del carrusel con versión (?v=) para no mezclarlos con una copia vieja en caché', () => {
+    // Con el catalogo.html nuevo y un home-novedades.js viejo guardado (GitHub y el
+    // navegador guardan cada archivo hasta 10 minutos) el carrusel sale vacío.
+    const html = readFileSync(path.join(root, 'catalogo.html'), 'utf8');
+    const srcs = [...html.matchAll(/<script src="([^"]+)"><\/script>/g)].map(m => m[1]);
+    for (const script of ['js/viewmodels/home.viewmodel.js', 'js/home-novedades.js']) {
+        const src = srcs.find(s => s.split('?')[0] === script);
+        assert.ok(src, script + ' no está en catalogo.html');
+        assert.match(src, /\?v=[\w.-]+$/, script);
+    }
+});
