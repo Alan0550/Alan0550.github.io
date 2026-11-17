@@ -14040,7 +14040,7 @@
     ],
     "etiqueta": null,
     "en_stock_completos": true,
-    "en_stock_decants": false,
+    "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/arabes/KHAMRAH-LATTAFA-.jpg",
     "image_miniatura_decant": "imagenes/fotos-decants/hombre/KHAMRAH.png",
     "images_gallery": [],
