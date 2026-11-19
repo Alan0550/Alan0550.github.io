@@ -2,6 +2,38 @@
 window.CATALOGO_NOVEDADES = [
     {
         "tipo": "perfume",
+        "valor": "venom-incarnat-stephane-humbert-lucas-777",
+        "src": "imagenes/novedades/novedad-43.webp",
+        "ancho": 1080,
+        "alto": 1350,
+        "alt": "Novedad — Stéphane Humbert Lucas 777 Venom Incarnat"
+    },
+    {
+        "tipo": "perfume",
+        "valor": "santal-33-le-labo",
+        "src": "imagenes/novedades/novedad-41.webp",
+        "ancho": 1080,
+        "alto": 1350,
+        "alt": "Novedad — Le Labo Santal 33"
+    },
+    {
+        "tipo": "perfume",
+        "valor": "bergamote-22-le-labo",
+        "src": "imagenes/novedades/novedad-42.webp",
+        "ancho": 1080,
+        "alto": 1350,
+        "alt": "Novedad — Le Labo Bergamote 22"
+    },
+    {
+        "tipo": "whatsapp",
+        "valor": "Hola, quiero saber más sobre Paradoxe Intense de Prada, por favor.",
+        "src": "imagenes/novedades/novedad-40.webp",
+        "ancho": 1080,
+        "alto": 1350,
+        "alt": "Novedad — Consultar por WhatsApp"
+    },
+    {
+        "tipo": "perfume",
         "valor": "hacivat-nishane-nishane",
         "src": "imagenes/novedades/novedad-30.jpg",
         "ancho": 1080,
