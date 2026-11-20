@@ -145,11 +145,11 @@ window.CATALOGO_NOVEDADES = [
         "alt": "Novedad — Dior Sauvage Extrait"
     },
     {
-        "tipo": "whatsapp",
-        "valor": "Hola, quiero saber más sobre 212 VIP Black de Carolina Herrera, por favor.",
+        "tipo": "perfume",
+        "valor": "212-vip-black-carolina-herrera",
         "src": "imagenes/novedades/novedad-36.webp",
         "ancho": 1080,
         "alto": 1350,
-        "alt": "Novedad — Consultar por WhatsApp"
+        "alt": "Novedad — Carolina Herrera 212 Vip Black"
     }
 ];

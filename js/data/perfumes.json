@@ -19269,5 +19269,30 @@
       "fondo": []
     },
     "id": "oajan-parfums-de-marly"
+  },
+  {
+    "nombre": "212 Vip Black",
+    "marca": "Carolina Herrera",
+    "nombre_interno": "Carolina Herrera 212 Vip Black",
+    "etiqueta": "novedad",
+    "en_stock_decants": true,
+    "oferta": false,
+    "image_miniatura": "imagenes/fotos-catalogo/ch/212-Vip-Black.jpg",
+    "image_miniatura_decant": null,
+    "image_cuadro": null,
+    "tags": [],
+    "precios_decants": null,
+    "precios_decants_oferta": null,
+    "precio_cuadro": null,
+    "precio_completo": null,
+    "en_stock_completos": false,
+    "precio_combo": null,
+    "notas": {
+      "generales": [],
+      "salida": [],
+      "corazon": [],
+      "fondo": []
+    },
+    "id": "212-vip-black-carolina-herrera"
   }
 ]
