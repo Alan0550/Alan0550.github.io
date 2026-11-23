@@ -19284,8 +19284,12 @@
     "precios_decants": null,
     "precios_decants_oferta": null,
     "precio_cuadro": null,
-    "precio_completo": null,
-    "en_stock_completos": false,
+    "precio_completo": {
+      "ml": null,
+      "precio": 143,
+      "en_stock": true
+    },
+    "en_stock_completos": true,
     "precio_combo": null,
     "notas": {
       "generales": [],
