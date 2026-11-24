@@ -1,14 +1,6 @@
 /* Generado por el ERP (Publicación). No editar a mano. */
 window.CATALOGO_NOVEDADES = [
     {
-        "tipo": "combo",
-        "valor": "SRZ-C3-pzdfeh.125-31yq05.100-ciq224.100",
-        "src": "imagenes/novedades/prueba-combo-claude-22.webp",
-        "ancho": 742,
-        "alto": 320,
-        "alt": "Novedad — Combo de 3 perfumes: Layton, Khamrah y Sauvage Elixir"
-    },
-    {
         "tipo": "perfume",
         "valor": "venom-incarnat-stephane-humbert-lucas-777",
         "src": "imagenes/novedades/novedad-43.webp",
