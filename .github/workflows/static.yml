@@ -26,7 +26,7 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url || steps.deployment_reintento.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -38,6 +38,20 @@ jobs:
         with:
           # Upload entire repository
           path: '.'
+      # GitHub a veces tarda en "ver" el paquete recién subido y el deploy falla con
+      # "No artifacts named github-pages" (pasó el 20-nov-2026). Una espera corta y
+      # un segundo intento lo cubren. Si igual falla, el ERP lanza un deploy nuevo
+      # con un commit vacío; "Re-run" no sirve: deja dos paquetes con el mismo nombre.
+      - name: Esperar a que GitHub registre el paquete
+        run: sleep 10
       - name: Deploy to GitHub Pages
         id: deployment
+        continue-on-error: true
+        uses: actions/deploy-pages@v4
+      - name: Esperar antes del segundo intento
+        if: steps.deployment.outcome == 'failure'
+        run: sleep 30
+      - name: Deploy to GitHub Pages (segundo intento)
+        id: deployment_reintento
+        if: steps.deployment.outcome == 'failure'
         uses: actions/deploy-pages@v4
