@@ -6734,7 +6734,8 @@
     "precio_completo": {
       "ml": 100,
       "precio": 1500,
-      "precio_oferta": 1270
+      "precio_oferta": 1270,
+      "en_stock": true
     },
     "precios_decants": {
       "5": 130,
@@ -6767,7 +6768,7 @@
         "Vainilla"
       ]
     },
-    "oferta": true,
+    "oferta": false,
     "image_cuadro": null,
     "precios_decants_oferta": {
       "5": 110,
