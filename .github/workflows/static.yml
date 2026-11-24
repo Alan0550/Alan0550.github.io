@@ -38,8 +38,6 @@ jobs:
         with:
           # Upload entire repository
           path: '.'
-      - name: Falla a propósito (prueba del reintento del ERP)
-        run: exit 1
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
