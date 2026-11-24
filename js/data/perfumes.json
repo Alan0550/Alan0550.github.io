@@ -6768,7 +6768,7 @@
         "Vainilla"
       ]
     },
-    "oferta": false,
+    "oferta": true,
     "image_cuadro": null,
     "precios_decants_oferta": {
       "5": 110,
