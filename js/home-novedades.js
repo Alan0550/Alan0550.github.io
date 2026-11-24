@@ -16,6 +16,10 @@
         if (novedad.tipo === 'busqueda') {
             return 'search.html#q=' + encodeURIComponent(novedad.valor);
         }
+        if (novedad.tipo === 'combo') {
+            // Combo armado en el ERP: el armador del sitio lo abre con su código.
+            return 'perfumeria.html#sala=combo&combo=' + encodeURIComponent(novedad.valor);
+        }
         return 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent(novedad.valor);
     }
 
@@ -47,22 +51,39 @@
     // Las diapositivas del ERP; si no hay (archivo ausente o vacío), las de
     // respaldo, que viven en un <template> para que el navegador no las
     // descargue cuando no hacen falta.
-    function renderizar(track) {
+    // Fecha local del visitante ('AAAA-MM-DD'): las fechas del ERP son días de Bolivia.
+    function hoyLocal() {
+        var d = new Date();
+        return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
+    }
+
+    // "desde" y "hasta" son opcionales e inclusivos: sin fechas, la novedad se ve siempre.
+    function vigente(novedad, hoy) {
+        return (!novedad.desde || novedad.desde <= hoy) && (!novedad.hasta || novedad.hasta >= hoy);
+    }
+
+    // Devuelve cuántas diapositivas del ERP quedaron, o null si se usó el respaldo.
+    function renderizar(track, hoy) {
         var novedades = window.CATALOGO_NOVEDADES;
         if (Array.isArray(novedades) && novedades.length > 0) {
+            var dia = hoy || hoyLocal();
+            var vigentes = novedades.filter(function (novedad) {
+                return vigente(novedad, dia);
+            });
             track.innerHTML = '';
-            novedades.forEach(function (novedad, indice) {
+            vigentes.forEach(function (novedad, indice) {
                 track.appendChild(construirSlide(novedad, indice));
             });
-            return;
+            return vigentes.length;
         }
         var respaldo = document.getElementById('novedades-respaldo');
         if (respaldo) {
             track.innerHTML = respaldo.innerHTML;
         }
+        return null;
     }
 
-    window.HomeNovedades = { construirSlide: construirSlide, renderizar: renderizar };
+    window.HomeNovedades = { construirSlide: construirSlide, renderizar: renderizar, iniciar: init };
 
     function init() {
         var track = document.getElementById('novedades-track');
@@ -70,7 +91,14 @@
         if (!track) {
             return;
         }
-        renderizar(track);
+        if (renderizar(track) === 0) {
+            // Todas vencieron o todavía no empiezan: el inicio no muestra un hueco.
+            var seccion = track.closest ? track.closest('.inicio-novedades') : null;
+            if (seccion) {
+                seccion.style.display = 'none';
+            }
+            return;
+        }
 
         var slides = Array.prototype.slice.call(track.children);
         if (slides.length === 0) {
