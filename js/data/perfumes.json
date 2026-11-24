@@ -105,7 +105,7 @@
     "en_stock_decants": true,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/nicho/SAND-DANCE.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/SAND-DANCE.webp",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/SAND-DANCE.png",
     "image_cuadro": null,
     "tags": [
       "hombre",
@@ -689,7 +689,7 @@
     "en_stock_decants": true,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/marly/SEDLEY.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/SEDLEY.webp",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/SEDLEY.png",
     "image_cuadro": null,
     "tags": [
       "hombre",
@@ -2003,7 +2003,7 @@
     "en_stock_completos": false,
     "en_stock_decants": false,
     "image_miniatura": null,
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/NOMAD.webp",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/NOMAD.png",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -3594,7 +3594,7 @@
     "en_stock_decants": true,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/lorenzopazzaglia/SUN-GRIA.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/SUN-GRIA.webp",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/SUN-GRIA.png",
     "image_cuadro": null,
     "tags": [
       "hombre",
@@ -5052,7 +5052,7 @@
     "en_stock_completos": false,
     "en_stock_decants": false,
     "image_miniatura": null,
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/EROS EDP.webp",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/EROS EDP.png",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -8416,7 +8416,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/versace/EROS FLAME.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/EROS FLAME.webp",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/EROS FLAME.png",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -10172,7 +10172,7 @@
     "etiqueta": null,
     "en_stock_completos": false,
     "en_stock_decants": false,
-    "image_miniatura": "imagenes/fotos-catalogo/jpg/dasdasdsa.webp",
+    "image_miniatura": "imagenes/fotos-catalogo/jpg/dasdasdsa.png",
     "image_miniatura_decant": "imagenes/fotos-decants/mujer/JEAN PAUL DIVINE.png",
     "images_gallery": [],
     "notas": {
@@ -12718,7 +12718,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/ch/LA BOMBA.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/mujer/LA BOMBA.webp",
+    "image_miniatura_decant": "imagenes/fotos-decants/mujer/LA BOMBA.png",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -12747,7 +12747,7 @@
     "en_stock_decants": false,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/ch/LA BOMBA.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/mujer/LA BOMBA.webp",
+    "image_miniatura_decant": "imagenes/fotos-decants/mujer/LA BOMBA.png",
     "image_cuadro": null,
     "tags": [
       "mujer",
@@ -13005,7 +13005,7 @@
     "en_stock_completos": false,
     "en_stock_decants": true,
     "image_miniatura": null,
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/EROS ENERGY.webp",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/EROS ENERGY.png",
     "images_gallery": [],
     "notas": {
       "generales": [],
