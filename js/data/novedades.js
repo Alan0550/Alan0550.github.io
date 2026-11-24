@@ -151,13 +151,5 @@ window.CATALOGO_NOVEDADES = [
         "ancho": 1080,
         "alto": 1350,
         "alt": "Novedad — Carolina Herrera 212 Vip Black"
-    },
-    {
-        "tipo": "busqueda",
-        "valor": "Dior",
-        "src": "imagenes/novedades/prueba-reintento-claude-23.webp",
-        "ancho": 742,
-        "alto": 320,
-        "alt": "Novedad — Nuevos perfumes Dior"
     }
 ];
