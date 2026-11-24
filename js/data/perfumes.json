@@ -105,7 +105,7 @@
     "en_stock_decants": true,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/nicho/SAND-DANCE.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/SAND-DANCE.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/SAND-DANCE.webp",
     "image_cuadro": null,
     "tags": [
       "hombre",
@@ -162,7 +162,7 @@
     "en_stock_decants": true,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/nicho/MANGO-KISS.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/MANGO-KISS.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/MANGO-KISS.webp",
     "image_cuadro": null,
     "tags": [
       "hombre",
@@ -319,7 +319,7 @@
     "en_stock_decants": true,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/nicho/IL-PADRINO.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/IL-PADRINO.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/IL-PADRINO.webp",
     "image_cuadro": null,
     "tags": [
       "hombre",
@@ -358,7 +358,7 @@
     "en_stock_decants": true,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/nicho/FOLLOWED.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/FOLLOWED.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/FOLLOWED.webp",
     "image_cuadro": null,
     "tags": [
       "hombre",
@@ -689,7 +689,7 @@
     "en_stock_decants": true,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/marly/SEDLEY.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/SEDLEY.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/SEDLEY.webp",
     "image_cuadro": null,
     "tags": [
       "hombre",
@@ -2003,7 +2003,7 @@
     "en_stock_completos": false,
     "en_stock_decants": false,
     "image_miniatura": null,
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/NOMAD.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/NOMAD.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -2328,7 +2328,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/louisv/pacific-chill.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/LV PACIFIC CHILL.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/LV PACIFIC CHILL.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -2617,7 +2617,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/montale/ARABIANS-TONKA.jpeg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/ARABIANS TONKA.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/ARABIANS TONKA.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -3419,7 +3419,7 @@
     "en_stock_decants": true,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/xerjoff/XJ-1861-Renaissance.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/XJ-1861-Renaissa.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/XJ-1861-Renaissa.webp",
     "image_cuadro": null,
     "tags": [
       "hombre",
@@ -3594,7 +3594,7 @@
     "en_stock_decants": true,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/lorenzopazzaglia/SUN-GRIA.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/SUN-GRIA.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/SUN-GRIA.webp",
     "image_cuadro": null,
     "tags": [
       "hombre",
@@ -3746,7 +3746,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/lorenzopazzaglia/SUMMER-HAMMER.jpeg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/SUMMER HAMMER.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/SUMMER HAMMER.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -3781,7 +3781,7 @@
     "etiqueta": "a-pedido",
     "en_stock_decants": true,
     "oferta": false,
-    "image_miniatura": "imagenes/fotos-catalogo/lorenzopazzaglia/SPEACHLESS.webp",
+    "image_miniatura": "imagenes/fotos-catalogo/lorenzopazzaglia/SPEACHLESS-liviana.webp",
     "image_miniatura_decant": "imagenes/fotos-decants/hombre/SPEACHLESS.webp",
     "image_cuadro": null,
     "tags": [
@@ -3857,7 +3857,7 @@
     "en_stock_decants": true,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/lorenzopazzaglia/SUGAR-KISSES.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/mujer/SUGAR-KISSES.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/mujer/SUGAR-KISSES.webp",
     "image_cuadro": null,
     "tags": [
       "mujer",
@@ -5052,7 +5052,7 @@
     "en_stock_completos": false,
     "en_stock_decants": false,
     "image_miniatura": null,
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/EROS EDP.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/EROS EDP.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -7096,7 +7096,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/valentino/BORN IN ROMA CORAL FANTASY.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/BORN IN ROMA CORAL FANTASY.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/BORN IN ROMA CORAL FANTASY.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -7387,7 +7387,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/ysl/Y EDP INTENSE.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/Y EDP INTENSE.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/Y EDP INTENSE.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -8113,7 +8113,7 @@
     "en_stock_decants": true,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/armani/PROFONDO-EDT.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/PROFONDO-EDT.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/PROFONDO-EDT.webp",
     "image_cuadro": null,
     "tags": [
       "hombre",
@@ -8416,7 +8416,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/versace/EROS FLAME.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/EROS FLAME.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/EROS FLAME.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -8505,7 +8505,7 @@
     "en_stock_decants": false,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/azzaro/WANTED-TONIC.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/AZZARO-WANTED-TONIC.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/AZZARO-WANTED-TONIC.webp",
     "image_cuadro": null,
     "tags": [
       "hombre",
@@ -8891,7 +8891,7 @@
     "etiqueta": null,
     "en_stock_completos": true,
     "en_stock_decants": true,
-    "image_miniatura": "imagenes/fotos-catalogo/paco/Untitled-3.png",
+    "image_miniatura": "imagenes/fotos-catalogo/paco/Untitled-3.webp",
     "image_miniatura_decant": "imagenes/fotos-decants/hombre/1 MILLION PARFUM.png",
     "images_gallery": [],
     "notas": {
@@ -9172,7 +9172,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/paco/Untitled-8.png",
-    "image_miniatura_decant": "imagenes/fotos-decants/mujer/FAME.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/mujer/FAME.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -9479,7 +9479,7 @@
     "etiqueta": null,
     "en_stock_completos": true,
     "en_stock_decants": true,
-    "image_miniatura": "imagenes/fotos-catalogo/lancome/LA VIE EST BELLE EDP.png",
+    "image_miniatura": "imagenes/fotos-catalogo/lancome/LA VIE EST BELLE EDP.webp",
     "image_miniatura_decant": "imagenes/fotos-decants/mujer/LA VIE EST BELLE.JPEG",
     "images_gallery": [],
     "notas": {
@@ -10076,7 +10076,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/jpg/GAULTIER DIVINE LE PARFUM.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/mujer/GAULTIER DIVINE LE PARFUM.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/mujer/GAULTIER DIVINE LE PARFUM.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -10124,7 +10124,7 @@
     "en_stock_completos": true,
     "en_stock_decants": false,
     "image_miniatura": "imagenes/fotos-catalogo/jpg/GAULTIER DIVINE LE PARFUM.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/mujer/GAULTIER DIVINE LE PARFUM.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/mujer/GAULTIER DIVINE LE PARFUM.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -10172,7 +10172,7 @@
     "etiqueta": null,
     "en_stock_completos": false,
     "en_stock_decants": false,
-    "image_miniatura": "imagenes/fotos-catalogo/jpg/dasdasdsa.png",
+    "image_miniatura": "imagenes/fotos-catalogo/jpg/dasdasdsa.webp",
     "image_miniatura_decant": "imagenes/fotos-decants/mujer/JEAN PAUL DIVINE.png",
     "images_gallery": [],
     "notas": {
@@ -10498,7 +10498,7 @@
     "en_stock_completos": false,
     "en_stock_decants": false,
     "image_miniatura": null,
-    "image_miniatura_decant": "imagenes/fotos-decants/mujer/CH.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/mujer/CH.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -10934,7 +10934,7 @@
     "en_stock_decants": false,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/tomford/Soleil-Blanc-EDT.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/Soleil-Blanc-EDT.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/Soleil-Blanc-EDT.webp",
     "image_cuadro": null,
     "tags": [
       "hombre",
@@ -11950,7 +11950,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/valentino/DONNA BORN IN ROMA GREEN STRAVAGANZA.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/mujer/DONNA GREEN STRAVAGANZA.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/mujer/DONNA GREEN STRAVAGANZA.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -11993,7 +11993,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/valentino/BORN IN ROMA PURPLE MELANCHOLIA.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/BORN IN ROMA PURPLE MELANCHOLIA.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/BORN IN ROMA PURPLE MELANCHOLIA.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -12116,7 +12116,7 @@
     "en_stock_completos": false,
     "en_stock_decants": false,
     "image_miniatura": null,
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/LE MALE LOVER.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/LE MALE LOVER.webp",
     "images_gallery": [],
     "notas": {
       "salida": [
@@ -12460,7 +12460,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/jpg/Untitled.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/SCANDALL.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/SCANDALL.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -12718,7 +12718,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/ch/LA BOMBA.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/mujer/LA BOMBA.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/mujer/LA BOMBA.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -12747,7 +12747,7 @@
     "en_stock_decants": false,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/ch/LA BOMBA.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/mujer/LA BOMBA.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/mujer/LA BOMBA.webp",
     "image_cuadro": null,
     "tags": [
       "mujer",
@@ -12794,7 +12794,7 @@
     "en_stock_decants": false,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/ch/LA-BOMBA-INTENSE.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/mujer/LA-BOMBA-INTENSE.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/mujer/LA-BOMBA-INTENSE.webp",
     "image_cuadro": null,
     "tags": [
       "mujer",
@@ -13005,7 +13005,7 @@
     "en_stock_completos": false,
     "en_stock_decants": true,
     "image_miniatura": null,
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/EROS ENERGY.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/EROS ENERGY.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -13199,7 +13199,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/d&g/LIGHT-BLUE-CAPRI-IN-LOVE.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/mujer/LIGHT BLUE CAPRI IN LOVE.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/mujer/LIGHT BLUE CAPRI IN LOVE.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -13752,7 +13752,7 @@
     "en_stock_completos": false,
     "en_stock_decants": true,
     "image_miniatura": null,
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/EXPLORER PLATINUM.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/EXPLORER PLATINUM.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -13830,7 +13830,7 @@
     "en_stock_decants": true,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/mntblanc/EXPLORER-EXTREME.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/EXPLORER-EXTREME.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/EXPLORER-EXTREME.webp",
     "image_cuadro": null,
     "tags": [
       "hombre",
@@ -14105,7 +14105,7 @@
     "en_stock_completos": false,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/moncler/MONCLER SUNRISE POUR HOMME.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/MONCLER SUNRISE POUR HOMME.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/MONCLER SUNRISE POUR HOMME.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -14475,7 +14475,7 @@
     "en_stock_completos": false,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/prl/Polo Blue Parfum.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/POLO BLUE.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/POLO BLUE.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -14624,7 +14624,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/arabes/KHAMRAH-LATTAFA-.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/KHAMRAH.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/KHAMRAH.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -15808,7 +15808,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/arabes/FAKHAR ROSE.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/mujer/FAKHAR ROSE.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/mujer/FAKHAR ROSE.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -16054,7 +16054,7 @@
     "en_stock_decants": true,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/arabes/GAME-OF-SPADES-BID.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/GAME-OF-SPADES-BID.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/GAME-OF-SPADES-BID.webp",
     "image_cuadro": null,
     "tags": [
       "hombre",
@@ -16658,7 +16658,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/arabes/HAWAS FIRE.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/HAWAS FIRE.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/HAWAS FIRE.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -16857,7 +16857,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/arabes/HAWAS TROPICAL.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/HAWAS FIRE.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/HAWAS FIRE.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -17521,7 +17521,7 @@
     "en_stock_completos": false,
     "en_stock_decants": true,
     "image_miniatura": null,
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/QAED AL FURSAN UNTAMED.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/QAED AL FURSAN UNTAMED.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -17615,7 +17615,7 @@
     "en_stock_decants": true,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/arabes/DUBAI-NIGHT.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/DUBAI-NIGHT.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/DUBAI-NIGHT.webp",
     "image_cuadro": null,
     "tags": [
       "hombre",
@@ -18092,7 +18092,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/arabes/9PM-NIGHT-OUT.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/9PM NIGHT OUT.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/9PM NIGHT OUT.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -18203,7 +18203,7 @@
     "en_stock_decants": false,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/arabes/ARABIAN-SKY.avif",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/ARABIAN-SKY.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/ARABIAN-SKY.webp",
     "image_cuadro": null,
     "tags": [
       "hombre",
@@ -18391,7 +18391,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/arabes/NOBLE BLUSH.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/mujer/NOBLE BLUSH.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/mujer/NOBLE BLUSH.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -18495,7 +18495,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/arabes/ATLAS.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/ATLAS.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/ATLAS.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
