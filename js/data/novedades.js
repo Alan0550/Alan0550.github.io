@@ -2,19 +2,19 @@
 window.CATALOGO_NOVEDADES = [
     {
         "tipo": "perfume",
-        "valor": "venom-incarnat-stephane-humbert-lucas-777",
-        "src": "imagenes/novedades/novedad-43.webp",
-        "ancho": 1080,
-        "alto": 1350,
-        "alt": "Novedad — Stéphane Humbert Lucas 777 Venom Incarnat"
-    },
-    {
-        "tipo": "perfume",
         "valor": "santal-33-le-labo",
         "src": "imagenes/novedades/novedad-41.webp",
         "ancho": 1080,
         "alto": 1350,
         "alt": "Novedad — Le Labo Santal 33"
+    },
+    {
+        "tipo": "perfume",
+        "valor": "venom-incarnat-stephane-humbert-lucas-777",
+        "src": "imagenes/novedades/novedad-43.webp",
+        "ancho": 1080,
+        "alto": 1350,
+        "alt": "Novedad — Stéphane Humbert Lucas 777 Venom Incarnat"
     },
     {
         "tipo": "perfume",
@@ -34,19 +34,19 @@ window.CATALOGO_NOVEDADES = [
     },
     {
         "tipo": "perfume",
-        "valor": "hacivat-nishane-nishane",
-        "src": "imagenes/novedades/novedad-30.jpg",
-        "ancho": 1080,
-        "alto": 1350,
-        "alt": "Novedad — Nishane Nishane Hacivat"
-    },
-    {
-        "tipo": "perfume",
         "valor": "van-py-rhum-lorenzo-pazzaglia",
         "src": "imagenes/novedades/novedad-34.webp",
         "ancho": 1080,
         "alto": 1350,
         "alt": "Novedad — Lorenzo Pazzaglia Van Py Rhum"
+    },
+    {
+        "tipo": "perfume",
+        "valor": "hacivat-nishane-nishane",
+        "src": "imagenes/novedades/novedad-30.jpg",
+        "ancho": 1080,
+        "alto": 1350,
+        "alt": "Novedad — Nishane Nishane Hacivat"
     },
     {
         "tipo": "perfume",
