@@ -1257,7 +1257,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/ortoparisi/CUOIUM.jpeg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/CUOIUM.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/CUOIUM.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -4042,7 +4042,7 @@
     "etiqueta": "novedad",
     "en_stock_decants": true,
     "oferta": false,
-    "image_miniatura": "imagenes/fotos-catalogo/lorenzopazzaglia/VAN-PY-RHUM.png",
+    "image_miniatura": "imagenes/fotos-catalogo/lorenzopazzaglia/VAN-PY-RHUM.webp",
     "image_miniatura_decant": "imagenes/fotos-decants/hombre/VAN-PY-RHUM.png",
     "image_cuadro": null,
     "tags": [
@@ -5128,7 +5128,7 @@
     "en_stock_decants": true,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/chanel/ALLURE-HOMME-SPORT-SUPPERLEGGERA.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/ALLURE-HOMME-SPORT-SUPPERLEGGERA.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/ALLURE-HOMME-SPORT-SUPPERLEGGERA.webp",
     "image_cuadro": null,
     "tags": [
       "hombre",
@@ -6478,7 +6478,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/jpg/1708093208.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/LE BEAU PARADISE GARDEN.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/LE BEAU PARADISE GARDEN.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -8613,7 +8613,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/azzaro/THE-MOST-WANTED-EDT-INTENSE.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/THE MOST WANTED EDT INTENSE.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/THE MOST WANTED EDT INTENSE.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -9739,7 +9739,7 @@
     "en_stock_decants": true,
     "oferta": false,
     "image_miniatura": "imagenes/fotos-catalogo/dior/1000347318.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/mujer/1000347319.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/mujer/1000347319.webp",
     "image_cuadro": null,
     "tags": [
       "mujer",
@@ -10796,7 +10796,7 @@
     "en_stock_completos": false,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/versace/CRYSTAL NOIR.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/mujer/CRYSTAL NOIR.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/mujer/CRYSTAL NOIR.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -13353,7 +13353,7 @@
     "etiqueta": null,
     "en_stock_completos": true,
     "en_stock_decants": false,
-    "image_miniatura": "imagenes/fotos-catalogo/d&g/DG_K_EDP_PACK_200ML_TIFF_RGB_300_DPI2000x2000.png",
+    "image_miniatura": "imagenes/fotos-catalogo/d&g/DG_K_EDP_PACK_200ML_TIFF_RGB_300_DPI2000x2000.webp",
     "image_miniatura_decant": null,
     "images_gallery": [],
     "notas": {
@@ -15543,7 +15543,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/arabes/AMBER OUD GOLD.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/AMBER OUD GOLD.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/AMBER OUD GOLD.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
