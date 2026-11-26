@@ -48,7 +48,7 @@
     "nombre": "God Of Fire",
     "precio_completo": {
       "ml": 50,
-      "precio": 5260,
+      "precio": 5261,
       "en_stock": true
     },
     "precios_decants": {
@@ -5515,7 +5515,7 @@
     "en_stock_completos": false,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/jpg/ULTRA MALE.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/ULTRA MALE.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/ULTRA MALE.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -5569,7 +5569,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/margiela/BY-THE-FIREPLACE.jpeg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/BY THE FIREPLACE.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/BY THE FIREPLACE.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -6253,7 +6253,7 @@
     "etiqueta": null,
     "en_stock_completos": true,
     "en_stock_decants": false,
-    "image_miniatura": "imagenes/fotos-catalogo/mntblanc/1024x1024_px_montblanc_explore_FRASCO.png",
+    "image_miniatura": "imagenes/fotos-catalogo/mntblanc/1024x1024_px_montblanc_explore_FRASCO.webp",
     "image_miniatura_decant": "imagenes/fotos-decants/hombre/EXPLORER.JPEG",
     "images_gallery": [],
     "notas": {
@@ -7050,7 +7050,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/valentino/DONNA BORN IN ROMA INTENSE.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/mujer/DONNA BORN IN ROMA INTENSE.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/mujer/DONNA BORN IN ROMA INTENSE.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -8352,7 +8352,7 @@
     "etiqueta": null,
     "en_stock_completos": false,
     "en_stock_decants": true,
-    "image_miniatura": "imagenes/fotos-catalogo/versace/VERSACE POUR HOMME.png",
+    "image_miniatura": "imagenes/fotos-catalogo/versace/VERSACE POUR HOMME.webp",
     "image_miniatura_decant": "imagenes/fotos-decants/hombre/VERSACE POUR HOMME.JPEG",
     "images_gallery": [],
     "notas": {
@@ -8940,7 +8940,7 @@
     "en_stock_completos": false,
     "en_stock_decants": false,
     "image_miniatura": null,
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/1MILLION PRIVE.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/1MILLION PRIVE.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -9738,7 +9738,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "oferta": false,
-    "image_miniatura": "imagenes/fotos-catalogo/dior/1000347318.png",
+    "image_miniatura": "imagenes/fotos-catalogo/dior/1000347318.webp",
     "image_miniatura_decant": "imagenes/fotos-decants/mujer/1000347319.png",
     "image_cuadro": null,
     "tags": [
@@ -13155,7 +13155,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/d&g/LIGHT-BLUE-POUR-HOMME-CAPRI-IN-LOVE.jpg",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/LIGHT BLUE POUR HOMME CAPRI IN LOVE.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/LIGHT BLUE POUR HOMME CAPRI IN LOVE.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -15594,7 +15594,7 @@
     "en_stock_completos": true,
     "en_stock_decants": true,
     "image_miniatura": "imagenes/fotos-catalogo/arabes/AQUA-DUBAI.webp",
-    "image_miniatura_decant": "imagenes/fotos-decants/hombre/ACQUA DUBAI.png",
+    "image_miniatura_decant": "imagenes/fotos-decants/hombre/ACQUA DUBAI.webp",
     "images_gallery": [],
     "notas": {
       "generales": [],
@@ -18873,7 +18873,7 @@
     "etiqueta": null,
     "en_stock_completos": true,
     "en_stock_decants": true,
-    "image_miniatura": "imagenes/fotos-catalogo/arabes/YUM YUM.jpg",
+    "image_miniatura": "imagenes/fotos-catalogo/arabes/YUM YUM.webp",
     "image_miniatura_decant": "imagenes/fotos-decants/mujer/YUM YUM.png",
     "images_gallery": [],
     "notas": {

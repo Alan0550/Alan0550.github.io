@@ -2,14 +2,6 @@
 window.CATALOGO_NOVEDADES = [
     {
         "tipo": "perfume",
-        "valor": "santal-33-le-labo",
-        "src": "imagenes/novedades/novedad-41.webp",
-        "ancho": 1080,
-        "alto": 1350,
-        "alt": "Novedad — Le Labo Santal 33"
-    },
-    {
-        "tipo": "perfume",
         "valor": "venom-incarnat-stephane-humbert-lucas-777",
         "src": "imagenes/novedades/novedad-43.webp",
         "ancho": 1080,
@@ -18,11 +10,27 @@ window.CATALOGO_NOVEDADES = [
     },
     {
         "tipo": "perfume",
+        "valor": "santal-33-le-labo",
+        "src": "imagenes/novedades/novedad-41.webp",
+        "ancho": 1080,
+        "alto": 1350,
+        "alt": "Novedad — Le Labo Santal 33"
+    },
+    {
+        "tipo": "perfume",
         "valor": "bergamote-22-le-labo",
         "src": "imagenes/novedades/novedad-42.webp",
         "ancho": 1080,
         "alto": 1350,
         "alt": "Novedad — Le Labo Bergamote 22"
+    },
+    {
+        "tipo": "perfume",
+        "valor": "sweet-xplosion-lorenzo-pazzaglia",
+        "src": "imagenes/novedades/novedad-33.webp",
+        "ancho": 1080,
+        "alto": 1350,
+        "alt": "Novedad — Lorenzo Pazzaglia Sweet Xplosion"
     },
     {
         "tipo": "whatsapp",
@@ -50,14 +58,6 @@ window.CATALOGO_NOVEDADES = [
     },
     {
         "tipo": "perfume",
-        "valor": "sweet-xplosion-lorenzo-pazzaglia",
-        "src": "imagenes/novedades/novedad-33.webp",
-        "ancho": 1080,
-        "alto": 1350,
-        "alt": "Novedad — Lorenzo Pazzaglia Sweet Xplosion"
-    },
-    {
-        "tipo": "perfume",
         "valor": "on-a-date-maison-margiela",
         "src": "imagenes/novedades/novedad-35.webp",
         "ancho": 1080,
@@ -81,12 +81,12 @@ window.CATALOGO_NOVEDADES = [
         "alt": "Novedad — Nuevos perfumes Lorenzo Pazzaglia"
     },
     {
-        "tipo": "perfume",
-        "valor": "park-avenue-south-bond-no-9",
+        "tipo": "busqueda",
+        "valor": "bond",
         "src": "imagenes/novedades/novedad-37.webp",
         "ancho": 1080,
         "alto": 1350,
-        "alt": "Novedad — Bond No. 9 Park Avenue South"
+        "alt": "Novedad — Nuevos perfumes bond"
     },
     {
         "tipo": "perfume",
@@ -103,14 +103,6 @@ window.CATALOGO_NOVEDADES = [
         "ancho": 1080,
         "alto": 1350,
         "alt": "Novedad — Creed Love In White For Summer"
-    },
-    {
-        "tipo": "perfume",
-        "valor": "one-million-black-paco-rabanne",
-        "src": "imagenes/novedades/novedad-31.jpg",
-        "ancho": 1080,
-        "alto": 1350,
-        "alt": "Novedad — Rabanne One Million Black"
     },
     {
         "tipo": "perfume",
